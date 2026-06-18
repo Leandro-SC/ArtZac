@@ -1,7 +1,7 @@
 {
-  "name": "asphalt-365",
+  "name": "Artzac",
   "version": "1.0.0",
-  "description": "Premium static website for Asphalt 365 in St Charles, Illinois.",
+  "description": "Premium static website for Artzac.",
   "scripts": {
     "dev": "gulp",
     "build": "gulp build"
