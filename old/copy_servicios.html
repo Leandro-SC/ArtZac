@@ -1,0 +1,777 @@
+<!--pricipal----->
+
+<!-- SECCIÓN: NUESTRAS SOLUCIONES -->
+<section class="acamar-solutions-section">
+  <!-- la pseudo-capa ::before añadirá la imagen de fondo con opacidad -->
+  <div class="acamar-solutions-container">
+    <!-- Encabezado de la sección -->
+    <div class="acamar-solutions-header">
+      <span class="acamar-badge">NUESTRAS SOLUCIONES</span>
+      <h2 class="acamar-solutions-title">Nuestros servicios profesionales de soldadura</h2>
+      <p class="acamar-solutions-description">
+        Explore nuestra completa gama de servicios certificados de soldadura y fabricación de metal. Desde puertas y cercas personalizadas hasta soldadura móvil y reparaciones estructurales, ofrecemos soluciones duraderas y de alta calidad adaptadas a sus necesidades residenciales o comerciales.
+      </p>
+    </div>
+
+    <!-- Fila de tarjetas -->
+    <div class="acamar-solutions-cards">
+      <!-- Tarjeta 1 -->
+      <div class="acamar-card">
+        <div class="acamar-card-image">
+          <img src="https://art-zacwelding.com/wp-content/uploads/2025/05/soldadura_6.jpg" alt="Custom Doors and Fences">
+        </div>
+        <div class="acamar-card-content">
+          <h3 class="acamar-card-title">Puertas y cercas a medida</h3>
+          <p class="acamar-card-description">
+           Diseñamos y fabricamos puertas, portones y vallas personalizados de alta calidad que se adaptan a su espacio y estilo.
+          </p>
+          <a href="#" class="acamar-card-button">Contáctanos</a>
+        </div>
+      </div>
+      <!-- Tarjeta 2 -->
+      <div class="acamar-card">
+        <div class="acamar-card-image">
+          <img src="https://art-zacwelding.com/wp-content/uploads/2025/05/soldadura_5.jpg" alt="Metal Structure Repairs">
+        </div>
+        <div class="acamar-card-content">
+          <h3 class="acamar-card-title">Reparación de estructuras metálicas</h3>
+          <p class="acamar-card-description">
+       Reparamos y reforzamos estructuras metálicas, garantizando su seguridad y funcionalidad al tiempo que prolongamos su vida útil.
+          </p>
+          <a href="#" class="acamar-card-button">Contáctanos</a>
+        </div>
+      </div>
+      <!-- Tarjeta 3 -->
+      <div class="acamar-card">
+        <div class="acamar-card-image">
+          <img src="https://art-zacwelding.com/wp-content/uploads/2025/05/soldadura_3.jpg" alt="Mobile Welding Service">
+        </div>
+        <div class="acamar-card-content">
+          <h3 class="acamar-card-title">Servicio móvil de soldadura</h3>
+          <p class="acamar-card-description">
+           Llevamos nuestros servicios de soldadura certificados directamente a su ubicación, equipados para realizar reparaciones o instalaciones en sitio.
+          </p>
+          <a href="#" class="acamar-card-button">Contáctanos</a>
+        </div>
+      </div>
+      <!-- Tarjeta 4 -->
+      <div class="acamar-card">
+        <div class="acamar-card-image">
+          <img src="https://art-zacwelding.com/wp-content/uploads/2025/05/soldadura_2.jpg" alt="General Welding Services">
+        </div>
+        <div class="acamar-card-content">
+          <h3 class="acamar-card-title">Servicios generales de soldadura</h3>
+          <p class="acamar-card-description">
+           Ofrecemos servicios profesionales de soldadura para una amplia variedad de necesidades, incluidos trabajos estructurales, maquinaria y proyectos personalizados.
+          </p>
+          <a href="#" class="acamar-card-button">Contáctanos</a>
+        </div>
+      </div>
+      <!-- Tarjeta 5 -->
+      <div class="acamar-card">
+        <div class="acamar-card-image">
+          <img src="https://art-zacwelding.com/wp-content/uploads/2025/05/soldadura_4.jpg" alt="Custom Metal Structures">
+        </div>
+        <div class="acamar-card-content">
+          <h3 class="acamar-card-title">Estructuras metálicas a medida</h3>
+          <p class="acamar-card-description">
+           Creamos estructuras metálicas a medida basadas en sus especificaciones, garantizando forma, función y durabilidad.
+          </p>
+          <a href="#" class="acamar-card-button">Contáctanos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* -----------------------------------
+     ACAMAR SOLUTIONS SECTION
+     with semi-transparent background image
+     ----------------------------------- */
+  .acamar-solutions-section {
+    position: relative;
+    width: 100%;
+    padding: 60px 20px;
+    box-sizing: border-box;
+    /* quita el fondo sólido */
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+  /* pseudo-elemento con imagen tenue de fondo */
+  .acamar-solutions-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url('https://art-zacwelding.com/wp-content/uploads/2025/05/soldadura_4.jpg') center/cover no-repeat;
+    opacity: 0.15; /* ajusta la opacidad según prefieras */
+    z-index: 0;
+  }
+  /* sitúa el contenido encima */
+  .acamar-solutions-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Encabezado */
+  .acamar-solutions-header {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+  }
+  .acamar-badge {
+    display: inline-block;
+    background-color: #0052a1;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+  .acamar-solutions-title {
+    font-size: 2rem;
+    margin: 20px 0 10px;
+    font-weight: 700;
+  }
+  .acamar-solutions-description {
+    font-size: 1rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Tarjetas */
+  .acamar-solutions-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 30px;
+  }
+  .acamar-card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .acamar-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 18px rgba(0,0,0,0.15);
+  }
+  .acamar-card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  .acamar-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .acamar-card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .acamar-card-title {
+    font-size: 1.25rem;
+    margin: 0 0 10px;
+    font-weight: 600;
+    color: #333;
+  }
+  .acamar-card-description {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    flex: 1;
+    text-align: justify;
+  }
+  .acamar-card-button {
+    align-self: flex-start;
+    background-color: #0052a1;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  .acamar-card-button:hover {
+    background-color: #CFAF58;
+    transform: translateY(-3px);
+  }
+
+  /* Responsive */
+  @media (max-width: 992px) {
+    .acamar-solutions-cards {
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    }
+  }
+  @media (max-width: 768px) {
+    .acamar-solutions-cards {
+      grid-template-columns: 1fr;
+    }
+    .acamar-solutions-description {
+      max-width: 90%;
+    }
+  }
+</style>
+
+
+<!--preguntas----->
+
+<section class="rc-faq-section">
+  <!-- Capa overlay para suavizar la imagen de fondo -->
+  <div class="rc-faq-overlay"></div>
+  
+  <div class="rc-faq-container">
+    <!-- Título de la sección -->
+    <h2 class="rc-faq-title">Preguntas Frecuentas</h2>
+    
+    <!-- FAQ Item 1 -->
+    <div class="rc-faq-item">
+      <div class="rc-faq-question">
+        <h3>¿Ofrecen servicios móviles de soldadura en sitio?</h3>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="rc-faq-answer">
+        <p>
+    Sí, ofrecemos servicios móviles de soldadura totalmente equipados para ubicaciones residenciales, comerciales e industriales.
+
+        </p>
+      </div>
+    </div>
+    
+    <!-- FAQ Item 2 -->
+    <div class="rc-faq-item">
+      <div class="rc-faq-question">
+        <h3>¿Están certificados sus soldadores?</h3>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="rc-faq-answer">
+        <p>
+ Absolutamente. Contamos con la certificación AWS, lo que garantiza que todos los trabajos cumplen las normas profesionales y de seguridad.
+
+
+        </p>
+      </div>
+    </div>
+    
+    <!-- FAQ Item 3 -->
+    <div class="rc-faq-item">
+      <div class="rc-faq-question">
+        <h3>¿Puede crear diseños metálicos personalizados?</h3>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="rc-faq-answer">
+        <p>
+         Sí, estamos especializados en la fabricación a medida basada en sus ideas y requisitos del proyecto.
+
+
+        </p>
+      </div>
+    </div>
+    
+    <!-- FAQ Item 4 -->
+    <div class="rc-faq-item">
+      <div class="rc-faq-question">
+        <h3>¿Qué tipos de soldadura realiza?</h3>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="rc-faq-answer">
+        <p>
+      Ofrecemos una gama de servicios de soldadura que incluye MIG, TIG y soldadura con varilla en función del proyecto.
+
+        </p>
+      </div>
+    </div>
+    
+    <!-- FAQ Item 5 -->
+    <div class="rc-faq-item">
+      <div class="rc-faq-question">
+        <h3>¿Cómo puedo solicitar un presupuesto o una consulta?</h3>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="rc-faq-answer">
+        <p>
+          Puede ponerse en contacto con nosotros al teléfono  +1 815 208 3773 (atención en inglés) o al +1 630 405 8771 (atención en español) o a través de nuestro sitio web para programar un presupuesto gratuito.
+
+
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ====================================
+     SECCIÓN FAQ - Diseño Moderno y Dinámico
+     ==================================== */
+  .rc-faq-section {
+    position: relative;
+    width: 100%;
+    padding: 60px 20px;
+    font-family: 'Arial', sans-serif;
+    background: url('https://art-zacwelding.com/wp-content/uploads/2025/05/soldadura_4.jpg') no-repeat center center;
+    background-size: cover;
+    overflow: hidden;
+  }
+  
+  /* Capa overlay para dar opacidad y realzar el contenido */
+  .rc-faq-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 240, 0.5);
+    z-index: 1;
+  }
+  
+  .rc-faq-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Título de la Sección */
+  .rc-faq-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #003a7c;
+    letter-spacing: 1px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+  
+  /* Contenedor de cada FAQ Item */
+  .rc-faq-item {
+    border: 1px solid rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .rc-faq-item:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Encabezado de la pregunta */
+  .rc-faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    cursor: pointer;
+    background-color: #1B365D;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+  }
+  
+  .rc-faq-question:hover {
+    background-color:#CFAF58;
+    padding-left: 25px;
+  }
+  
+  .rc-faq-question h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  /* Icono de expandir/colapsar */
+  .faq-icon {
+    font-size: 1.8rem;
+    transition: transform 0.3s ease;
+    color: #003a7c;
+  }
+  
+  /* Contenedor de la respuesta con animación */
+  .rc-faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease;
+    padding: 0 20px;
+    text-align: justify;
+    background-color: #fff;
+  }
+  
+  .rc-faq-answer p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 20px 0;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .rc-faq-title {
+      font-size: 2rem;
+    }
+  
+    .rc-faq-question h3 {
+      font-size: 1rem;
+    }
+    
+    .rc-faq-answer p {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<script>
+  // Función para expandir/colapsar cada respuesta de forma independiente
+  document.querySelectorAll('.rc-faq-question').forEach(function(question) {
+    question.addEventListener('click', function() {
+      var answer = this.nextElementSibling;
+      var icon = this.querySelector('.faq-icon');
+      
+      // Si ya está abierto, se colapsa; de lo contrario, se expande
+      if(answer.style.maxHeight && answer.style.maxHeight !== "0px") {
+        answer.style.maxHeight = "0px";
+        icon.textContent = "+";
+        icon.style.transform = "rotate(0deg)";
+      } else {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+        icon.textContent = "–";
+        icon.style.transform = "rotate(90deg)";
+      }
+    });
+  });
+</script>
+
+
+<!--formulario----->
+
+
+<style>
+  /* Reset and Base */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    line-height: 1.6;
+  }
+
+  /* BACKGROUND SECTION: Image with dark overlay */
+  .contact-section {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    padding: 60px 20px;
+  }
+  .contact-section::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: 
+      linear-gradient(rgba(15,20,40,0.85), rgba(10,20,40,0.85)),
+      url('https://art-zacwelding.com/wp-content/uploads/2025/05/soldadura_3.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+  }
+
+  /* Main container (responsive & centered) */
+  .contact-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+  }
+
+  /* Image column */
+  .contact-image {
+    flex: 1 1 300px;
+    max-width: 500px;
+    text-align: center;
+  }
+  .contact-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    filter: brightness(1.2);
+  }
+
+  /* Form column */
+  .contact-form {
+    flex: 1 1 300px;
+    max-width: 600px;
+    background: #fff;
+    padding: 40px 50px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  .contact-form h2 {
+    font-size: 2rem;
+    color: #003A78;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+  .contact-form p.subtitle {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  .asterisk {
+    color: red;
+  }
+
+  /* Form fields */
+  .form-group {
+    margin-bottom: 18px;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #444;
+  }
+  .form-control {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .form-control:focus {
+    border-color: #007cba;
+    box-shadow: 0 0 8px rgba(0,124,186,0.3);
+    outline: none;
+  }
+  select.form-control {
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23333' d='M5 7L0 0h10z'/%3E%3C/svg%3E") no-repeat right 14px center;
+    background-size: 10px 7px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+
+  /* Contact methods (radio buttons) */
+  .contact-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 15px;
+  }
+  .contact-methods label {
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #666;
+  }
+  .contact-methods input[type="radio"] {
+    accent-color: #007cba;
+  }
+
+  /* Terms checkbox */
+  .terms-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .terms-container input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #007cba;
+  }
+  .terms-container label {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  .terms-container a {
+    color: #007cba;
+    text-decoration: none;
+  }
+  .terms-container a:hover {
+    text-decoration: underline;
+  }
+
+  /* Submit button */
+  .btn-submit {
+    display: block;
+    width: 100%;
+    background-color: #003A78;
+    color: #fff;
+    padding: 14px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .btn-submit:hover {
+    background-color: #005c8c;
+  }
+
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .contact-wrapper {
+      flex-direction: column;
+      padding: 10px;
+    }
+    .contact-image,
+    .contact-form {
+      max-width: 100%;
+    }
+    .contact-form {
+      padding: 30px 20px;
+    }
+    .title-form{
+      font-weight: bold;
+    }
+  }
+</style>
+
+<section class="contact-section">
+  <div class="contact-wrapper">
+    <!-- Featured image -->
+    <div class="contact-image">
+      <img src="https://valcorp.com.pe/wp-content/uploads/2025/04/call.jpg" alt="Personalized customs service">
+    </div>
+    <!-- Contact form -->
+    <div class="contact-form">
+      <h2  class="title-form">Contáctanos</h2>
+      <p class="subtitle">Déjanos tus datos y en breve nos pondremos en contacto contigo.</p>
+      <form id="contactForm" action="#" method="post" onsubmit="return validateForm();">
+        <!-- First Name -->
+        <div class="form-group">
+          <label for="firstName">Nombre <strong class="asterisk">*</strong></label>
+          <input type="text" id="firstName" name="firstName" class="form-control" placeholder="Ingresa tus nonmbres" required>
+        </div>
+        <!-- Last Name -->
+        <div class="form-group">
+          <label for="lastName">Apellido <strong class="asterisk">*</strong></label>
+          <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Ingresa tus apellidos" required>
+        </div>
+        <!-- Tax ID -->
+        <div class="form-group">
+          <label for="taxId">NIF <strong class="asterisk">*</strong></label>
+          <input type="text" id="taxId" name="taxId" class="form-control" placeholder="205020505050" required>
+        </div>
+        <!-- Mobile Phone -->
+        <div class="form-group">
+          <label for="phone">Teléfono móvil <strong class="asterisk">*</strong></label>
+          <input type="tel" id="phone" name="phone" class="form-control" placeholder="123-456-7890" required>
+        </div>
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="email">Dirección de correo electrónico <strong class="asterisk">*</strong></label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="tucorreo@correo.com" required>
+        </div>
+        <!-- Reason for Contact -->
+        <div class="form-group">
+          <label for="reason">Motivo del contacto <strong class="asterisk">*</strong></label>
+          <select id="reason" name="reason" class="form-control" required>
+            <option value="">- Seleccione una opción -</option>
+            <option value="Custom Doors and Fences">Puertas y cercas a medida</option>
+            <option value="Metal Structure Repairs">Reparación de estructuras metálicas</option>
+            <option value="Mobile Welding">Soldadura móvil</option>
+            <option value="General Welding">Soldadura general</option>
+    
+          </select>
+        </div>
+        <!-- Preferred contact method -->
+        <div class="form-group">
+          <label>Método de contacto preferido</label>
+          <div class="contact-methods">
+            <label>
+              <input type="radio" name="contactMethod" value="phone" checked>
+              Llamada telefónica
+            </label>
+            <label>
+              <input type="radio" name="contactMethod" value="email">
+              Email
+            </label>
+            <label>
+              <input type="radio" name="contactMethod" value="other">
+              Otros
+            </label>
+          </div>
+        </div>
+        <!-- Terms and conditions -->
+        <div class="terms-container">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">He leído y acepto el <a href="#" target="_blank">Condiciones generales</a> y <a href="#" target="_blank">Política de privacidad</a>.</label>
+        </div>
+        <!-- Submit button -->
+        <button type="submit" class="btn-submit">Enviar solicitud</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  function validateForm() {
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+    const reason = document.getElementById('reason');
+    const terms = document.getElementById('terms');
+
+    if (!firstName.value.trim()) {
+      alert('Please enter your first name');
+      firstName.focus();
+      return false;
+    }
+    if (!lastName.value.trim()) {
+      alert('Please enter your last name');
+      lastName.focus();
+      return false;
+    }
+    if (!phone.value.trim()) {
+      alert('Please enter a valid phone number');
+      phone.focus();
+      return false;
+    }
+    if (!email.value.trim()) {
+      alert('Please enter a valid email address');
+      email.focus();
+      return false;
+    }
+    if (!reason.value.trim()) {
+      alert('Please select a reason for contact');
+      reason.focus();
+      return false;
+    }
+    if (!terms.checked) {
+      alert('You must accept the Terms and Conditions');
+      return false;
+    }
+    return true;
+  }
+</script>
+

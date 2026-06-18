@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://art-zacwelding.com/sitemap.xml

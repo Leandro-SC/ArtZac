@@ -1,0 +1,29 @@
+{
+  "name": "asphalt-365",
+  "version": "1.0.0",
+  "description": "Premium static website for Asphalt 365 in St Charles, Illinois.",
+  "scripts": {
+    "dev": "gulp",
+    "build": "gulp build"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "sweetalert2": "^11.10.0"
+  },
+  "devDependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "browser-sync": "^3.0.2",
+    "fluent-ffmpeg": "^2.1.3",
+    "gulp": "^5.0.0",
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-file-include": "^2.3.0",
+    "gulp-fluent-ffmpeg": "^2.0.0",
+    "gulp-sass": "^6.0.0",
+    "gulp-terser": "^2.1.0",
+    "sass": "^1.77.0",
+    "sharp": "^0.33.5",
+    "through2": "^4.0.2"
+  }
+}

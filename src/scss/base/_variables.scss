@@ -1,0 +1,63 @@
+:root {
+  /*
+  Art-Zac Welding Design System
+  Market: USA
+  Style: industrial, premium, durable, technical.
+  Inspiration: carbon steel, gunmetal, oxidized metal, molten copper, welding heat.
+  */
+
+  /* Core neutrals */
+  --color-black: #080808;
+  --color-carbon: #0e0e0e;
+  --color-gunmetal: #171b1f;
+  --color-steel: #2d3338;
+  --color-steel-dark: #11161a;
+  --color-iron: #6f7478;
+  --color-warm-steel: #e7e1d3;
+  --color-light-gray: #f5f1e8;
+  --color-white: #ffffff;
+
+  /* Brand accents - no yellow dominant */
+  --color-copper: #b7652a;
+  --color-copper-dark: #7a3e1d;
+  --color-molten: #c65a1e;
+  --color-ember: #d9782d;
+  --color-rust: #6f3518;
+
+  /* Compatibility aliases for existing SCSS */
+  --color-asphalt: var(--color-carbon);
+  --color-dark-gray: var(--color-gunmetal);
+  --color-gray: var(--color-iron);
+  --color-steel-light: var(--color-warm-steel);
+
+  /*
+  Importante:
+  Muchas clases existentes usan --color-yellow.
+  Lo mantenemos como alias, pero ya NO será amarillo.
+  */
+  --color-yellow: var(--color-copper);
+  --color-yellow-dark: var(--color-copper-dark);
+  --color-weld: var(--color-copper);
+  --color-arc: var(--color-ember);
+  --color-bronze: var(--color-rust);
+
+  /* Typography */
+  --font-primary: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --container: 1180px;
+  --section-padding: clamp(4rem, 8vw, 7rem);
+
+  /* Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+
+  /* Shadows */
+  --shadow-soft: 0 20px 60px rgba(8, 8, 8, 0.16);
+  --shadow-card: 0 16px 40px rgba(8, 8, 8, 0.1);
+
+  /* Motion */
+  --transition-fast: 180ms ease;
+  --transition-base: 260ms ease;
+}

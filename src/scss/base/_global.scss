@@ -1,0 +1,809 @@
+html,
+body {
+  width: 100%;
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  background: var(--color-white);
+  color: var(--color-asphalt);
+  font-family: var(--font-primary);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+svg {
+  max-width: 100%;
+}
+
+img,
+svg {
+  display: block;
+}
+
+main {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--color-yellow-dark);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  accent-color: var(--color-yellow);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-yellow);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(183, 101, 42, 0.18);
+}
+
+::selection {
+  background: var(--color-yellow);
+  color: var(--color-black);
+}
+
+/****************Layout primitives******************/
+.section {
+  padding: var(--section-padding) 0;
+}
+
+.container {
+  width: min(100% - 2rem, var(--container));
+  margin-inline: auto;
+}
+
+.section-header {
+  max-width: 760px;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.section-header.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-header h2 {
+  margin-top: 0.75rem;
+}
+
+.section-header p {
+  margin-top: 1rem;
+}
+
+.bg-dark {
+  color: var(--color-white);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(183, 101, 42, 0.14), transparent 28rem),
+    linear-gradient(135deg, var(--color-black) 0%, var(--color-steel-dark) 100%);
+}
+
+.bg-dark p {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.bg-dark h1,
+.bg-dark h2,
+.bg-dark h3,
+.bg-dark h4,
+.bg-dark h5,
+.bg-dark h6 {
+  color: var(--color-white);
+}
+
+.bg-light {
+  background: var(--color-light-gray);
+}
+
+.accent,
+.eyebrow,
+.section-label,
+.kicker {
+  color: var(--color-yellow);
+}
+
+/****************Accessibility******************/
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  color: var(--color-black);
+  background: var(--color-yellow);
+  border-radius: var(--radius-sm);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(183, 101, 42, 0.45);
+  outline-offset: 3px;
+}
+
+/****************Reveal animation base******************/
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(32px);
+  will-change: opacity, transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}
+
+/****************Temporary legacy protection******************/
+/*
+  Protección mínima contra estilos heredados de los copy_*.
+  No usar esta sección como sistema principal de diseño.
+  La solución real es NO copiar estilos inline desde los archivos copy_*.
+*/
+
+.almacen-slider-section,
+.acamar-solutions-section,
+.acamar-faq-section,
+.acamar-contact-section,
+.about-section,
+.about-artzac-section,
+.services-section,
+.contact-section {
+  background-color: var(--color-light-gray);
+  color: var(--color-asphalt);
+}
+
+.almacen-slider-section h1,
+.almacen-slider-section h2,
+.almacen-slider-section h3,
+.acamar-solutions-section h1,
+.acamar-solutions-section h2,
+.acamar-solutions-section h3,
+.acamar-faq-section h1,
+.acamar-faq-section h2,
+.acamar-faq-section h3,
+.acamar-contact-section h1,
+.acamar-contact-section h2,
+.acamar-contact-section h3,
+.about-section h1,
+.about-section h2,
+.about-section h3,
+.about-artzac-section h1,
+.about-artzac-section h2,
+.about-artzac-section h3,
+.services-section h1,
+.services-section h2,
+.services-section h3,
+.contact-section h1,
+.contact-section h2,
+.contact-section h3 {
+  color: var(--color-asphalt);
+}
+
+.almacen-btn,
+.acamar-card-button,
+.acamar-submit-button,
+.contact-submit,
+.form-submit,
+.wp-block-button__link {
+  background: var(--color-yellow);
+  color: var(--color-black);
+  border-color: var(--color-yellow);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/****************Floating Language Switcher******************/
+.language-switcher {
+  position: fixed;
+  top: 1.15rem;
+  right: 1.15rem;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  max-width: calc(100vw - 2rem);
+  min-height: 46px;
+  padding: 0.48rem 0.55rem 0.48rem 0.85rem;
+  border: 1px solid rgba(183, 101, 42, 0.38);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(183, 101, 42, 0.18), transparent 9rem),
+    linear-gradient(135deg, rgba(8, 8, 8, 0.94) 0%, rgba(23, 27, 31, 0.94) 100%);
+  color: var(--color-white);
+  box-shadow:
+    0 18px 44px rgba(8, 8, 8, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.language-switcher::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background: var(--color-copper);
+  box-shadow:
+    0 0 0 4px rgba(183, 101, 42, 0.16),
+    0 0 18px rgba(183, 101, 42, 0.52);
+}
+
+.language-switcher__label {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.language-switcher__widget {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+}
+
+.language-switcher select,
+.language-switcher .goog-te-combo {
+  width: auto;
+  max-width: 148px;
+  min-height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0 2rem 0 0.8rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(231, 225, 211, 0.96));
+  color: var(--color-black);
+  font-size: 0.78rem;
+  font-weight: 850;
+  cursor: pointer;
+  outline: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.language-switcher select:focus,
+.language-switcher .goog-te-combo:focus {
+  box-shadow:
+    0 0 0 4px rgba(183, 101, 42, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.language-switcher .goog-logo-link,
+.language-switcher .goog-te-gadget span {
+  display: none !important;
+}
+
+.language-switcher .goog-te-gadget {
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.goog-te-banner-frame,
+.skiptranslate iframe {
+  display: none !important;
+}
+
+@media (max-width: 720px) {
+  .language-switcher {
+    top: 0.85rem;
+    right: 0.85rem;
+    min-height: 42px;
+    padding: 0.42rem 0.45rem 0.42rem 0.68rem;
+    gap: 0.45rem;
+  }
+
+  .language-switcher__label {
+    display: none;
+  }
+
+  .language-switcher::before {
+    width: 0.55rem;
+    height: 0.55rem;
+  }
+
+  .language-switcher select,
+  .language-switcher .goog-te-combo {
+    max-width: 132px;
+    min-height: 32px;
+    font-size: 0.74rem;
+  }
+}
+
+/****************Premium Floating Language Switcher******************/
+/****************Premium Floating Language Switcher******************/
+.language-switcher {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: auto auto minmax(132px, auto);
+  align-items: center;
+  gap: 0.72rem;
+  min-height: 58px;
+  max-width: calc(100vw - 2rem);
+  padding: 0.5rem 0.55rem 0.5rem 0.7rem;
+  border: 1px solid rgba(183, 101, 42, 0.38);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(183, 101, 42, 0.2), transparent 9rem),
+    linear-gradient(135deg, rgba(8, 8, 8, 0.94) 0%, rgba(23, 27, 31, 0.95) 100%);
+  color: var(--color-white);
+  box-shadow:
+    0 20px 54px rgba(8, 8, 8, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  isolation: isolate;
+}
+
+.language-switcher::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  z-index: -1;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  pointer-events: none;
+}
+
+.language-switcher__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background:
+    linear-gradient(135deg, var(--color-copper) 0%, var(--color-ember) 100%);
+  color: var(--color-white);
+  box-shadow:
+    0 10px 24px rgba(183, 101, 42, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.language-switcher__icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.language-switcher__content {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 76px;
+}
+
+.language-switcher__label {
+  color: var(--color-white);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.language-switcher__hint {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+/* Google injected wrapper */
+.language-switcher__widget {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 132px;
+  min-height: 44px;
+}
+
+/*
+  Google Translate injecta .goog-te-gadget y select.goog-te-combo.
+  Lo forzamos a verse como un control premium, más grande y usable.
+*/
+.language-switcher .goog-te-gadget {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 44px !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+.language-switcher select,
+.language-switcher .goog-te-combo {
+  width: 100% !important;
+  min-width: 132px !important;
+  max-width: 176px !important;
+  height: 44px !important;
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 0 2.35rem 0 0.95rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 999px !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(231, 225, 211, 0.98)) !important;
+  color: var(--color-black) !important;
+  font-family: var(--font-primary) !important;
+  font-size: 0.86rem !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  outline: none !important;
+  appearance: auto !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 10px 24px rgba(8, 8, 8, 0.16) !important;
+}
+
+.language-switcher select:hover,
+.language-switcher .goog-te-combo:hover {
+  border-color: rgba(183, 101, 42, 0.46) !important;
+}
+
+.language-switcher select:focus,
+.language-switcher .goog-te-combo:focus {
+  border-color: rgba(183, 101, 42, 0.78) !important;
+  box-shadow:
+    0 0 0 4px rgba(183, 101, 42, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
+}
+
+/* Ocultar branding textual de Google sin romper el select */
+.language-switcher .goog-logo-link,
+.language-switcher .goog-te-gadget span {
+  display: none !important;
+}
+
+.language-switcher iframe,
+.goog-te-banner-frame,
+.skiptranslate iframe {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .language-switcher {
+    top: 0.9rem;
+    left: 0.9rem;
+    right: auto;
+    grid-template-columns: auto minmax(126px, auto);
+    gap: 0.55rem;
+    min-height: 54px;
+    padding: 0.45rem 0.5rem;
+    border-radius: 999px;
+  }
+
+  .language-switcher__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .language-switcher__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .language-switcher__content {
+    display: none;
+  }
+
+  .language-switcher__widget {
+    min-width: 126px;
+    min-height: 42px;
+  }
+
+  .language-switcher .goog-te-gadget {
+    min-height: 42px !important;
+  }
+
+  .language-switcher select,
+  .language-switcher .goog-te-combo {
+    min-width: 126px !important;
+    max-width: 146px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    font-size: 0.8rem !important;
+    padding-left: 0.85rem !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .language-switcher {
+    top: 0.75rem;
+    left: 0.75rem;
+    max-width: calc(100vw - 1.5rem);
+  }
+
+  .language-switcher__icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .language-switcher__widget {
+    min-width: 118px;
+  }
+
+  .language-switcher select,
+  .language-switcher .goog-te-combo {
+    min-width: 118px !important;
+    max-width: 132px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    font-size: 0.76rem !important;
+  }
+}
+
+/****************Premium Custom Language Switcher******************/
+.language-switcher {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 12000;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 56px;
+  padding: 0.55rem 0.65rem 0.55rem 0.65rem;
+  border: 1px solid rgba(183, 101, 42, 0.34);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(183, 101, 42, 0.22), transparent 8rem),
+    linear-gradient(135deg, rgba(8, 8, 8, 0.94) 0%, rgba(23, 27, 31, 0.96) 100%);
+  color: var(--color-white);
+  box-shadow:
+    0 18px 46px rgba(8, 8, 8, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.language-switcher::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  pointer-events: none;
+}
+
+.language-switcher__google {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.language-switcher__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background:
+    linear-gradient(135deg, var(--color-copper) 0%, var(--color-ember) 100%);
+  color: var(--color-white);
+  box-shadow:
+    0 10px 24px rgba(183, 101, 42, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.language-switcher__icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.language-switcher__content {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 126px;
+}
+
+.language-switcher__label {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.64rem;
+  font-weight: 950;
+  letter-spacing: 0.16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.language-switcher__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.3rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.language-switcher__button {
+  min-width: 48px;
+  min-height: 32px;
+  padding: 0 0.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.language-switcher__button:hover,
+.language-switcher__button:focus-visible {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.language-switcher__button.is-active {
+  background:
+    linear-gradient(135deg, var(--color-copper) 0%, var(--color-ember) 100%);
+  color: var(--color-white);
+  box-shadow: 0 8px 18px rgba(183, 101, 42, 0.28);
+}
+
+/* Ocultar basura visual de Google Translate */
+.language-switcher .goog-te-gadget,
+.language-switcher .goog-te-combo,
+.language-switcher .goog-logo-link,
+.language-switcher .goog-te-gadget span {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.goog-te-banner-frame,
+.skiptranslate iframe {
+  display: none !important;
+}
+
+/****************Mobile Language Switcher******************/
+@media (max-width: 760px) {
+  .language-switcher {
+    top: 0.85rem;
+    left: 0.85rem;
+    right: auto;
+    min-height: 50px;
+    gap: 0.55rem;
+    padding: 0.45rem;
+  }
+
+  .language-switcher__icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .language-switcher__icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .language-switcher__content {
+    min-width: 108px;
+  }
+
+  .language-switcher__label {
+    display: none;
+  }
+
+  .language-switcher__button {
+    min-width: 44px;
+    min-height: 34px;
+    padding: 0 0.65rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .language-switcher {
+    top: 0.7rem;
+    left: 0.7rem;
+  }
+
+  .language-switcher__icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .language-switcher__content {
+    min-width: 100px;
+  }
+
+  .language-switcher__button {
+    min-width: 40px;
+    min-height: 32px;
+  }
+}

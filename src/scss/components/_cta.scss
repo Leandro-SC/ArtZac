@@ -1,0 +1,103 @@
+.final-cta {
+  position: relative;
+  overflow: hidden;
+  color: var(--color-white);
+  background:
+    radial-gradient(circle at 85% 40%, rgba(242, 169, 0, 0.18), transparent 24rem),
+    linear-gradient(135deg, var(--color-black) 0%, var(--color-gunmetal) 100%);
+}
+
+.final-cta::before {
+  content: "";
+  position: absolute;
+  inset: auto -10% -40% auto;
+  width: 28rem;
+  height: 28rem;
+  background: radial-gradient(circle, rgba(242, 169, 0, 0.24), transparent 68%);
+  pointer-events: none;
+}
+
+.final-cta::after {
+  content: "";
+  position: absolute;
+  left: -8rem;
+  top: -10rem;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(198, 90, 30, 0.18), transparent 68%);
+  pointer-events: none;
+}
+
+.final-cta__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.final-cta .eyebrow {
+  color: var(--color-yellow);
+}
+
+.final-cta h2 {
+  max-width: 760px;
+  margin-top: 0.85rem;
+  color: var(--color-white);
+}
+
+.final-cta p {
+  max-width: 620px;
+  margin-top: 1rem;
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.final-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: flex-end;
+}
+
+.final-cta__actions .btn-primary {
+  background: var(--color-yellow);
+  color: var(--color-black);
+}
+
+.final-cta__actions .btn-primary:hover,
+.final-cta__actions .btn-primary:focus-visible {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+.final-cta__actions .btn-outline,
+.final-cta__actions .btn-outline-dark {
+  border-color: rgba(255, 255, 255, 0.28);
+  color: var(--color-white);
+}
+
+.final-cta__actions .btn-outline:hover,
+.final-cta__actions .btn-outline:focus-visible,
+.final-cta__actions .btn-outline-dark:hover,
+.final-cta__actions .btn-outline-dark:focus-visible {
+  border-color: var(--color-yellow);
+  background: rgba(242, 169, 0, 0.14);
+  color: var(--color-white);
+}
+
+@media (max-width: 760px) {
+  .final-cta__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .final-cta__actions {
+    justify-content: flex-start;
+  }
+
+  .final-cta__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
