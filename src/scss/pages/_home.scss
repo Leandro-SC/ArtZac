@@ -470,9 +470,9 @@
     font-size: 0.74rem;
   }
 
-  .home-weld-hero__scene {
-    width: min(100%, 380px);
-  }
+ .home-weld-hero__scene {
+  width: min(100%, 410px);
+}
 
   .home-weld-hero__glow {
     width: 130px;
@@ -935,51 +935,6 @@
 }
 
 @media (max-width: 860px) {
-  .hero-carousel--welding {
-    min-height: auto;
-
-    &::before {
-      background-size: 38px 38px;
-      mask-image: linear-gradient(180deg, black, transparent 82%);
-    }
-
-    .hero-slide {
-      min-height: auto;
-      align-items: end;
-    }
-
-    .hero-slide__image {
-      min-height: 760px;
-      object-position: center;
-    }
-
-    .hero-slide__overlay {
-      background:
-        radial-gradient(circle at 72% 16%, rgba(183, 101, 42, 0.24), transparent 20rem),
-        linear-gradient(180deg, rgba(8, 8, 8, 0.3) 0%, rgba(8, 8, 8, 0.94) 70%, rgba(8, 8, 8, 1) 100%);
-    }
-
-    .hero-slide__content {
-      padding-top: 9rem;
-      padding-bottom: 7rem;
-    }
-
-    .hero-slide h1,
-    .hero-slide h2 {
-      font-size: clamp(2.8rem, 14vw, 5rem);
-      letter-spacing: -0.065em;
-    }
-
-    .hero-slide__actions {
-      display: grid;
-    }
-
-    .hero-carousel__controls {
-      left: 1rem;
-      right: auto;
-      bottom: 1rem;
-    }
-  }
 
   .welding-intro__grid,
   .home-proof__grid,
@@ -1042,36 +997,6 @@
 }
 
 @media (max-width: 520px) {
-  .hero-carousel--welding {
-    .hero-slide__image {
-      min-height: 720px;
-    }
-
-    .hero-slide__content {
-      padding-top: 8.25rem;
-      padding-bottom: 6.75rem;
-    }
-
-    .hero-slide__eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-    }
-
-    .hero-slide__trust {
-      gap: 0.45rem;
-    }
-
-    .hero-slide__trust span {
-      min-height: 34px;
-      padding: 0.45rem 0.7rem;
-      font-size: 0.74rem;
-    }
-
-    .hero-carousel__controls {
-      transform: scale(0.92);
-      transform-origin: left bottom;
-    }
-  }
 
   .welding-intro__actions {
     display: grid;
@@ -1085,11 +1010,6 @@
 
 @media (prefers-reduced-motion: reduce) {
 
-  .hero-carousel--welding .hero-slide,
-  .home-service-card__media img {
-    transition: none;
-  }
-
   .home-service-card:hover .home-service-card__media img,
   .home-service-card:focus-within .home-service-card__media img {
     transform: none;
@@ -1098,16 +1018,21 @@
 
 /****************Hero layers click safety******************/
 .home-weld-hero__bg,
-.home-weld-hero__stage,
-.home-weld-hero__scene,
 .home-weld-hero__art,
 .home-weld-hero__sparks,
 .home-weld-hero__smoke,
 .home-weld-hero__heat,
 .home-weld-hero__metal-sweep,
 .home-weld-hero__glow,
-.home-weld-hero__vignette {
+.home-weld-hero__vignette,
+.home-weld-hero__scene::before,
+.home-weld-hero__scene::after {
   pointer-events: none !important;
+}
+
+.home-weld-hero__stage,
+.home-weld-hero__scene {
+  pointer-events: auto;
 }
 
 .home-weld-hero__content,
@@ -1115,4 +1040,170 @@
 .home-weld-hero__actions,
 .home-weld-hero__actions * {
   pointer-events: auto !important;
+}
+
+
+/****************Home mobile premium fixes******************/
+/****************Home mobile premium fixes******************/
+@media (max-width: 768px) {
+  .home-weld-hero {
+    min-height: auto;
+    overflow: hidden;
+  }
+
+  .home-weld-hero__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    padding-top: 6.25rem;
+    padding-bottom: 2.35rem;
+  }
+
+  .home-weld-hero__content {
+    order: 1;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.35rem;
+    background:
+      radial-gradient(circle at 88% 12%, rgba(183, 101, 42, 0.12), transparent 12rem),
+      rgba(7, 9, 13, 0.52);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .home-weld-hero__stage {
+    order: 2;
+    width: 100%;
+    min-height: auto;
+    margin-top: 0;
+    perspective: 900px;
+  }
+
+  .home-weld-hero__scene {
+    width: min(100%, 440px);
+    margin-inline: auto;
+    aspect-ratio: 1 / 1;
+    border-radius: 1.35rem;
+    transform: translateZ(0);
+  }
+
+  .home-weld-hero__art {
+    inset: 1% 0 1% 0;
+    width: 100%;
+    height: 100%;
+    transform: translate3d(0, 0, 18px) scale(1.08);
+  }
+
+  .home-weld-hero h1 {
+    font-size: clamp(2.35rem, 12vw, 3.75rem);
+    line-height: 0.96;
+    letter-spacing: -0.058em;
+  }
+
+  .home-weld-hero__subtitle {
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  .home-weld-hero__actions {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .home-weld-hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .home-weld-hero__trust {
+    gap: 0.45rem;
+  }
+
+  .home-weld-hero__trust span {
+    flex: 1 1 auto;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .home-weld-hero__sparks {
+    opacity: 1;
+  }
+
+  .home-weld-hero__smoke {
+    opacity: 0.82;
+  }
+
+  .home-weld-hero__heat {
+    width: 135px;
+    height: 135px;
+    opacity: 0.22;
+  }
+
+  .home-weld-hero__glow {
+    width: 130px;
+    height: 130px;
+  }
+
+  .home-weld-hero__metal-sweep {
+    display: none;
+  }
+}
+
+/****************Mobile card touch effects******************/
+.home-service-card,
+.proof-card,
+.process-step {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+}
+
+.home-service-card::before,
+.proof-card::before,
+.process-step::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%),
+      rgba(183, 101, 42, 0.15),
+      transparent 13rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+
+.home-service-card:hover::before,
+.proof-card:hover::before,
+.process-step:hover::before,
+.home-service-card.is-touching::before,
+.proof-card.is-touching::before,
+.process-step.is-touching::before {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .home-service-card.is-touching,
+  .proof-card.is-touching,
+  .process-step.is-touching {
+    transform: scale(0.985) !important;
+  }
+
+  .home-service-card__media img,
+  .home-projects__image img,
+  .welding-intro__image img {
+    transition:
+      transform 700ms ease,
+      filter 700ms ease;
+  }
+
+  .home-service-card.is-visible .home-service-card__media img,
+  .home-projects__gallery.is-visible img,
+  .welding-intro__media.is-visible img {
+    transform: scale(1.025);
+  }
 }

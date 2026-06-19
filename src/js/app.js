@@ -221,14 +221,21 @@ function handlePointerLeave() {
 
 function updateParallax(delta) {
   const ease = Math.min(1, delta * 6.5);
+  const mobile = isMobile();
+
+  if (mobile) {
+    pointerTargetX = Math.sin(elapsed * 0.55) * 0.22;
+    pointerTargetY = Math.cos(elapsed * 0.48) * 0.16;
+    pointerInside = false;
+  }
 
   pointerCurrentX += (pointerTargetX - pointerCurrentX) * ease;
   pointerCurrentY += (pointerTargetY - pointerCurrentY) * ease;
 
-  const rotateY = pointerCurrentX * 5.5;
-  const rotateX = pointerCurrentY * -4.5;
-  const moveX = pointerCurrentX * 10;
-  const moveY = pointerCurrentY * 8;
+  const rotateY = mobile ? pointerCurrentX * 2.4 : pointerCurrentX * 5.5;
+  const rotateX = mobile ? pointerCurrentY * -1.8 : pointerCurrentY * -4.5;
+  const moveX = mobile ? pointerCurrentX * 5 : pointerCurrentX * 10;
+  const moveY = mobile ? pointerCurrentY * 4 : pointerCurrentY * 8;
 
   scene.style.transform = `
     rotateX(${rotateX}deg)
@@ -237,34 +244,35 @@ function updateParallax(delta) {
   `;
 
   scene.style.boxShadow = pointerInside
-  ? `0 34px 100px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.05)`
-  : `0 26px 80px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.04)`;
+    ? `0 34px 100px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.05)`
+    : `0 26px 80px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.04)`;
 
   const sweep = hero.querySelector(".home-weld-hero__metal-sweep");
-const heat = hero.querySelector(".home-weld-hero__heat");
-const smokeCanvas = hero.querySelector("[data-weld-smoke]");
+  const heat = hero.querySelector(".home-weld-hero__heat");
+  const smokeCanvas = hero.querySelector("[data-weld-smoke]");
 
-if (sweep) {
-  sweep.style.transform = `
-    translateX(${pointerCurrentX * 10 - 35}%)
-    translateY(${pointerCurrentY * 8}px)
-    skewX(-18deg)
-  `;
+  if (sweep) {
+    sweep.style.transform = `
+      translateX(${pointerCurrentX * 10 - 35}%)
+      translateY(${pointerCurrentY * 8}px)
+      skewX(-18deg)
+    `;
+  }
+
+  if (heat) {
+    heat.style.transform = `
+      translate(calc(-50% + ${pointerCurrentX * 8}px), calc(-50% + ${pointerCurrentY * 6}px))
+      scale(${1 + Math.abs(pointerCurrentX) * 0.025})
+    `;
+  }
+
+  if (smokeCanvas) {
+    smokeCanvas.style.transform = `
+      translate3d(${pointerCurrentX * 7}px, ${pointerCurrentY * 5}px, 0)
+    `;
+  }
 }
 
-if (heat) {
-  heat.style.transform = `
-    translate(calc(-50% + ${pointerCurrentX * 8}px), calc(-50% + ${pointerCurrentY * 6}px))
-    scale(${1 + Math.abs(pointerCurrentX) * 0.025})
-  `;
-}
-
-if (smokeCanvas) {
-  smokeCanvas.style.transform = `
-    translate3d(${pointerCurrentX * 7}px, ${pointerCurrentY * 5}px, 0)
-  `;
-}
-}
 
   function createSpark() {
     const origin = getOrigin();
@@ -488,23 +496,26 @@ function animateArt() {
     return;
   }
 
-  const bodyMoveX = Math.sin(elapsed * 1.15) * 1.8;
-  const bodyMoveY = Math.sin(elapsed * 1.75) * 1.2;
-  const bodyRotate = Math.sin(elapsed * 1.25) * 0.32;
+  const mobile = isMobile();
 
-  const parallaxX = pointerCurrentX * 16;
-  const parallaxY = pointerCurrentY * 10;
-  const parallaxRotateY = pointerCurrentX * 2.4;
-  const parallaxRotateX = pointerCurrentY * -1.6;
+  const bodyMoveX = Math.sin(elapsed * 1.15) * (mobile ? 1.1 : 1.8);
+  const bodyMoveY = Math.sin(elapsed * 1.75) * (mobile ? 0.8 : 1.2);
+  const bodyRotate = Math.sin(elapsed * 1.25) * (mobile ? 0.18 : 0.32);
+
+  const parallaxX = pointerCurrentX * (mobile ? 7 : 16);
+  const parallaxY = pointerCurrentY * (mobile ? 5 : 10);
+  const parallaxRotateY = pointerCurrentX * (mobile ? 1.2 : 2.4);
+  const parallaxRotateX = pointerCurrentY * (mobile ? -0.8 : -1.6);
 
   art.style.transform = `
     translate3d(${bodyMoveX + parallaxX}px, ${bodyMoveY + parallaxY}px, 24px)
     rotateZ(${bodyRotate}deg)
     rotateY(${parallaxRotateY}deg)
     rotateX(${parallaxRotateX}deg)
-    scale(1.035)
+    scale(${mobile ? 1.08 : 1.035})
   `;
 }
+
 
 
   function render(timestamp) {
@@ -1059,23 +1070,40 @@ if (isVisible) {
 /* =========================================================
    Premium Card Light Follow
 ========================================================= */
+/* =========================================================
+   Premium Card Light Follow
+========================================================= */
 (function initPremiumCardLightFollow() {
   const cards = document.querySelectorAll(
-    ".service-card, .value-card, .project-card, .capability-card, .process-card, .contact-card, .info-card"
+    ".home-service-card, .proof-card, .process-step, .premium-card, .service-card, .value-card, .project-card, .capability-card, .contact-card, .info-card"
   );
 
   if (!cards.length) {
     return;
   }
 
-  cards.forEach((card) => {
-    card.addEventListener("pointermove", (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width) * 100;
-      const y = ((event.clientY - rect.top) / rect.height) * 100;
+  const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;
 
-      card.style.setProperty("--card-x", `${x}%`);
-      card.style.setProperty("--card-y", `${y}%`);
+  cards.forEach((card) => {
+    if (supportsFinePointer) {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+        card.style.setProperty("--card-x", `${x}%`);
+        card.style.setProperty("--card-y", `${y}%`);
+      });
+    }
+
+    card.addEventListener("touchstart", () => {
+      card.classList.add("is-touching");
+    }, { passive: true });
+
+    card.addEventListener("touchend", () => {
+      window.setTimeout(() => {
+        card.classList.remove("is-touching");
+      }, 180);
     });
   });
 })();
