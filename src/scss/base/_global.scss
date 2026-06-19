@@ -547,3 +547,8 @@ body.nav-open {
     padding-bottom: 0;
   }
 }
+
+.language-switcher,
+.language-switcher * {
+  translate: no;
+}

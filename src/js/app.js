@@ -430,12 +430,67 @@ window.googleTranslateElementInit = function googleTranslateElementInit() {
     return;
   }
 
-  function setCookie(name, value) {
-    document.cookie = `${name}=${value}; path=/`;
+  const DEFAULT_LANGUAGE = "es";
+  const BASE_LANGUAGE = "es";
 
-    if (window.location.hostname && window.location.hostname.includes(".")) {
-      document.cookie = `${name}=${value}; path=/; domain=${window.location.hostname}`;
+  function getRootDomain(hostname) {
+    const parts = hostname.split(".").filter(Boolean);
+
+    if (parts.length <= 2) {
+      return hostname;
     }
+
+    return `.${parts.slice(-2).join(".")}`;
+  }
+
+  function setTranslateCookie(language) {
+    const value = `/${BASE_LANGUAGE}/${language}`;
+    const hostname = window.location.hostname;
+    const rootDomain = getRootDomain(hostname);
+
+    document.cookie = `googtrans=${value}; path=/`;
+
+    if (hostname && hostname !== "localhost") {
+      document.cookie = `googtrans=${value}; path=/; domain=${hostname}`;
+      document.cookie = `googtrans=${value}; path=/; domain=.${hostname}`;
+      document.cookie = `googtrans=${value}; path=/; domain=${rootDomain}`;
+    }
+  }
+
+  function deleteTranslateCookie() {
+    const hostname = window.location.hostname;
+    const rootDomain = getRootDomain(hostname);
+
+    const expires = "Thu, 01 Jan 1970 00:00:00 GMT";
+
+    const cookieVariants = [
+      "googtrans=; path=/",
+      `googtrans=; path=/; domain=${hostname}`,
+      `googtrans=; path=/; domain=.${hostname}`,
+      `googtrans=; path=/; domain=${rootDomain}`
+    ];
+
+    cookieVariants.forEach((cookie) => {
+      document.cookie = `${cookie}; expires=${expires}`;
+      document.cookie = `${cookie}; max-age=0`;
+    });
+
+    try {
+      window.localStorage.removeItem("googtrans");
+      window.sessionStorage.removeItem("googtrans");
+    } catch (error) {
+      // Storage may be unavailable in some browsers.
+    }
+  }
+
+  function getCurrentLanguage() {
+    const match = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/]+\/([^;]+)/);
+
+    if (match && match[1]) {
+      return match[1];
+    }
+
+    return DEFAULT_LANGUAGE;
   }
 
   function setActiveLanguage(language) {
@@ -447,18 +502,24 @@ window.googleTranslateElementInit = function googleTranslateElementInit() {
     });
   }
 
-  function getCurrentLanguage() {
-    const match = document.cookie.match(/googtrans=\/es\/([^;]+)/);
+  function reloadCleanPage() {
+    const url = new URL(window.location.href);
 
-    if (match && match[1]) {
-      return match[1];
-    }
+    url.searchParams.delete("googtrans");
+    url.hash = "";
 
-    return "es";
+    window.location.replace(url.toString());
   }
 
   function changeLanguage(language) {
     if (!language) {
+      return;
+    }
+
+    if (language === DEFAULT_LANGUAGE) {
+      deleteTranslateCookie();
+      setActiveLanguage(DEFAULT_LANGUAGE);
+      reloadCleanPage();
       return;
     }
 
@@ -467,15 +528,7 @@ window.googleTranslateElementInit = function googleTranslateElementInit() {
       return;
     }
 
-    if (language === "es") {
-      setCookie("googtrans", "");
-      setCookie("googtrans", "/es/es");
-      setActiveLanguage("es");
-      window.location.reload();
-      return;
-    }
-
-    setCookie("googtrans", `/es/${language}`);
+    setTranslateCookie(language);
     setActiveLanguage(language);
     window.location.reload();
   }
