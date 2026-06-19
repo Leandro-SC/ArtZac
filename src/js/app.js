@@ -1,781 +1,513 @@
+"use strict";
+
+/*
+  Art-Zac Welding
+  Main JavaScript
+  Architecture: single app.js file compiled by Gulp
+*/
+
+/* =========================================================
+   Mobile Navigation
+========================================================= */
 const navToggle = document.querySelector("[data-nav-toggle]");
 const nav = document.querySelector("[data-nav]");
+const navLinks = document.querySelectorAll("[data-nav-link]");
 
 if (navToggle && nav) {
   navToggle.addEventListener("click", () => {
     const isOpen = nav.classList.toggle("is-open");
 
     navToggle.setAttribute("aria-expanded", String(isOpen));
-    navToggle.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+    navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    document.body.classList.toggle("nav-open", isOpen);
+  });
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Abrir menú");
+      document.body.classList.remove("nav-open");
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    nav.classList.remove("is-open");
+    navToggle.setAttribute("aria-expanded", "false");
+    navToggle.setAttribute("aria-label", "Abrir menú");
+    document.body.classList.remove("nav-open");
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const heroCarousel = document.querySelector("[data-hero-carousel]");
+/* =========================================================
+   Active Navigation Link
+========================================================= */
+(function setActiveNavigationLink() {
+  const currentPath = window.location.pathname.split("/").pop() || "index.html";
 
-  if (heroCarousel && window.gsap) {
-    const slides = Array.from(heroCarousel.querySelectorAll("[data-slide]"));
-    const prevButton = heroCarousel.querySelector("[data-carousel-prev]");
-    const nextButton = heroCarousel.querySelector("[data-carousel-next]");
-    const currentCounter = heroCarousel.querySelector("[data-carousel-current]");
-    const totalCounter = heroCarousel.querySelector("[data-carousel-total]");
+  navLinks.forEach((link) => {
+    const href = link.getAttribute("href");
 
-    let currentIndex = 0;
-    let autoplayId = null;
-    let isAnimating = false;
-    let touchStartX = 0;
-    const autoplayDelay = 6500;
+    if (!href) {
+      return;
+    }
 
-    const updateCounter = () => {
-      if (currentCounter) {
-        currentCounter.textContent = String(currentIndex + 1).padStart(2, "0");
+    const normalizedHref = href.split("/").pop();
+
+    const isHome =
+      currentPath === "" &&
+      (normalizedHref === "index.html" || normalizedHref === "");
+
+    const isActive = normalizedHref === currentPath || isHome;
+
+    link.classList.toggle("is-active", isActive);
+
+    if (isActive) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+})();
+
+/* =========================================================
+   Header Scroll State
+========================================================= */
+(function initHeaderScrollState() {
+  const header = document.querySelector("[data-header]");
+
+  if (!header) {
+    return;
+  }
+
+  const updateHeader = () => {
+    header.classList.toggle("is-scrolled", window.scrollY > 18);
+  };
+
+  updateHeader();
+
+  window.addEventListener("scroll", updateHeader, { passive: true });
+})();
+
+/* =========================================================
+   Hero Carousel
+   Temporary fallback until Three.js hero is implemented
+========================================================= */
+(function initHeroCarousel() {
+  const carousel = document.querySelector("[data-hero-carousel]");
+
+  if (!carousel) {
+    return;
+  }
+
+  const slides = Array.from(carousel.querySelectorAll("[data-slide]"));
+  const prevButton = carousel.querySelector("[data-carousel-prev]");
+  const nextButton = carousel.querySelector("[data-carousel-next]");
+  const currentCounter = carousel.querySelector("[data-carousel-current]");
+  const totalCounter = carousel.querySelector("[data-carousel-total]");
+
+  if (!slides.length) {
+    return;
+  }
+
+  let activeIndex = slides.findIndex((slide) => slide.classList.contains("is-active"));
+
+  if (activeIndex < 0) {
+    activeIndex = 0;
+    slides[0].classList.add("is-active");
+  }
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const autoPlayDelay = 7500;
+  let autoPlayTimer = null;
+
+  const formatNumber = (number) => String(number).padStart(2, "0");
+
+  const updateCounter = () => {
+    if (currentCounter) {
+      currentCounter.textContent = formatNumber(activeIndex + 1);
+    }
+
+    if (totalCounter) {
+      totalCounter.textContent = formatNumber(slides.length);
+    }
+  };
+
+  const animateSlideContent = (slide) => {
+    const items = slide.querySelectorAll("[data-slide-item]");
+
+    if (!items.length || !window.gsap || prefersReducedMotion) {
+      return;
+    }
+
+    window.gsap.fromTo(
+      items,
+      {
+        y: 24,
+        autoAlpha: 0
+      },
+      {
+        y: 0,
+        autoAlpha: 1,
+        duration: 0.75,
+        stagger: 0.08,
+        ease: "power3.out"
       }
+    );
+  };
 
-      if (totalCounter) {
-        totalCounter.textContent = String(slides.length).padStart(2, "0");
-      }
-    };
+  const showSlide = (newIndex) => {
+    if (newIndex === activeIndex) {
+      return;
+    }
 
-    const setInitialState = () => {
-      slides.forEach((slide, index) => {
-        const slideItems = slide.querySelectorAll("[data-slide-item]");
-        const slideImage = slide.querySelector(".hero-slide__image");
+    slides[activeIndex].classList.remove("is-active");
 
-        slide.classList.toggle("is-active", index === 0);
+    activeIndex = (newIndex + slides.length) % slides.length;
 
-        gsap.set(slide, {
-          autoAlpha: index === 0 ? 1 : 0
-        });
+    slides[activeIndex].classList.add("is-active");
+    updateCounter();
+    animateSlideContent(slides[activeIndex]);
+  };
 
-        gsap.set(slideItems, {
-          autoAlpha: index === 0 ? 1 : 0,
-          y: index === 0 ? 0 : 24
-        });
+  const nextSlide = () => {
+    showSlide(activeIndex + 1);
+  };
 
-        if (slideImage) {
-          gsap.set(slideImage, {
-            scale: index === 0 ? 1 : 1.08
-          });
-        }
-      });
+  const prevSlide = () => {
+    showSlide(activeIndex - 1);
+  };
 
-      updateCounter();
-    };
+  const stopAutoPlay = () => {
+    if (autoPlayTimer) {
+      window.clearInterval(autoPlayTimer);
+      autoPlayTimer = null;
+    }
+  };
 
-    const syncHeroVideos = (activeIndex = currentIndex) => {
-      slides.forEach((slide, index) => {
-        const video = slide.querySelector(".hero-slide__video");
+  const startAutoPlay = () => {
+    if (prefersReducedMotion || slides.length <= 1) {
+      return;
+    }
 
-        if (!video) {
-          return;
-        }
+    stopAutoPlay();
 
-        video.muted = true;
-        video.loop = true;
-        video.playsInline = true;
+    autoPlayTimer = window.setInterval(nextSlide, autoPlayDelay);
+  };
 
-        if (index === activeIndex) {
-          const playPromise = video.play();
+  if (nextButton) {
+    nextButton.addEventListener("click", () => {
+      nextSlide();
+      startAutoPlay();
+    });
+  }
 
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {});
-          }
-        } else {
-          video.pause();
-          video.currentTime = 0;
-        }
-      });
-    };
+  if (prevButton) {
+    prevButton.addEventListener("click", () => {
+      prevSlide();
+      startAutoPlay();
+    });
+  }
 
-    const goToSlide = (nextIndex) => {
-      if (isAnimating || nextIndex === currentIndex) {
+  carousel.addEventListener("mouseenter", stopAutoPlay);
+  carousel.addEventListener("mouseleave", startAutoPlay);
+  carousel.addEventListener("focusin", stopAutoPlay);
+  carousel.addEventListener("focusout", startAutoPlay);
+
+  let touchStartX = 0;
+
+  carousel.addEventListener(
+    "touchstart",
+    (event) => {
+      touchStartX = event.touches[0].clientX;
+    },
+    { passive: true }
+  );
+
+  carousel.addEventListener(
+    "touchend",
+    (event) => {
+      const touchEndX = event.changedTouches[0].clientX;
+      const diff = touchStartX - touchEndX;
+
+      if (Math.abs(diff) < 48) {
         return;
       }
 
-      isAnimating = true;
-
-      const currentSlide = slides[currentIndex];
-      const nextSlide = slides[nextIndex];
-
-      const currentItems = currentSlide.querySelectorAll("[data-slide-item]");
-      const nextItems = nextSlide.querySelectorAll("[data-slide-item]");
-
-      const currentImage = currentSlide.querySelector(".hero-slide__image");
-      const nextImage = nextSlide.querySelector(".hero-slide__image");
-
-      nextSlide.classList.add("is-active");
-
-      gsap.set(nextSlide, { autoAlpha: 1 });
-      gsap.set(nextItems, { autoAlpha: 0, y: 24 });
-
-      if (nextImage) {
-        gsap.set(nextImage, { scale: 1.08 });
-      }
-
-      syncHeroVideos(nextIndex);
-
-      const tl = gsap.timeline({
-        defaults: {
-          ease: "power3.out"
-        },
-        onComplete: () => {
-          currentSlide.classList.remove("is-active");
-          gsap.set(currentSlide, { autoAlpha: 0 });
-
-          currentIndex = nextIndex;
-          updateCounter();
-          syncHeroVideos(currentIndex);
-          isAnimating = false;
-        }
-      });
-
-      tl.to(
-        currentItems,
-        {
-          autoAlpha: 0,
-          y: -16,
-          duration: 0.35,
-          stagger: 0.04
-        },
-        0
-      )
-        .fromTo(
-          currentSlide,
-          {
-            autoAlpha: 1
-          },
-          {
-            autoAlpha: 0,
-            duration: 0.95
-          },
-          0
-        )
-        .fromTo(
-          nextSlide,
-          {
-            autoAlpha: 0
-          },
-          {
-            autoAlpha: 1,
-            duration: 0.95
-          },
-          0
-        )
-        .to(
-          currentImage,
-          {
-            scale: 1.02,
-            duration: 1.2,
-            ease: "power2.out"
-          },
-          0
-        )
-        .to(
-          nextImage,
-          {
-            scale: 1,
-            duration: 1.6,
-            ease: "power2.out"
-          },
-          0
-        )
-        .to(
-          nextItems,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.75,
-            stagger: 0.08
-          },
-          0.22
-        );
-    };
-
-    const nextSlide = () => {
-      goToSlide((currentIndex + 1) % slides.length);
-    };
-
-    const prevSlide = () => {
-      goToSlide((currentIndex - 1 + slides.length) % slides.length);
-    };
-
-    const stopAutoplay = () => {
-      if (autoplayId) {
-        clearInterval(autoplayId);
-        autoplayId = null;
-      }
-    };
-
-    const startAutoplay = () => {
-      stopAutoplay();
-      autoplayId = setInterval(() => {
+      if (diff > 0) {
         nextSlide();
-      }, autoplayDelay);
-    };
-
-    if (nextButton) {
-      nextButton.addEventListener("click", () => {
-        nextSlide();
-        startAutoplay();
-      });
-    }
-
-    if (prevButton) {
-      prevButton.addEventListener("click", () => {
+      } else {
         prevSlide();
-        startAutoplay();
-      });
-    }
+      }
 
-    heroCarousel.addEventListener("mouseenter", stopAutoplay);
-    heroCarousel.addEventListener("mouseleave", startAutoplay);
-    heroCarousel.addEventListener("focusin", stopAutoplay);
-    heroCarousel.addEventListener("focusout", startAutoplay);
+      startAutoPlay();
+    },
+    { passive: true }
+  );
 
-    heroCarousel.addEventListener(
-      "touchstart",
-      (event) => {
-        touchStartX = event.changedTouches[0].clientX;
-      },
-      { passive: true }
-    );
+  updateCounter();
+  animateSlideContent(slides[activeIndex]);
+  startAutoPlay();
+})();
 
-    heroCarousel.addEventListener(
-      "touchend",
-      (event) => {
-        const touchEndX = event.changedTouches[0].clientX;
-        const diffX = touchStartX - touchEndX;
-
-        if (Math.abs(diffX) < 40) {
-          return;
-        }
-
-        if (diffX > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
-
-        startAutoplay();
-      },
-      { passive: true }
-    );
-
-    setInitialState();
-    syncHeroVideos();
-    startAutoplay();
-  }
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
+/* =========================================================
+   Reveal Animations
+========================================================= */
+(function initRevealAnimations() {
   const revealItems = document.querySelectorAll("[data-reveal]");
 
-  if (window.gsap && window.ScrollTrigger && revealItems.length) {
-    gsap.registerPlugin(ScrollTrigger);
+  if (!revealItems.length) {
+    return;
+  }
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion) {
+    revealItems.forEach((item) => {
+      item.classList.add("is-visible");
+    });
+
+    return;
+  }
+
+  if (window.gsap && window.ScrollTrigger) {
+    window.gsap.registerPlugin(window.ScrollTrigger);
 
     revealItems.forEach((item) => {
-      gsap.fromTo(
+      window.gsap.fromTo(
         item,
         {
-          autoAlpha: 0,
-          y: 28
+          y: 34,
+          autoAlpha: 0
         },
         {
-          autoAlpha: 1,
           y: 0,
-          duration: 0.75,
+          autoAlpha: 1,
+          duration: 0.85,
           ease: "power3.out",
           scrollTrigger: {
             trigger: item,
-            start: "top 86%",
+            start: "top 84%",
             once: true
           }
         }
       );
     });
-  }
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const tiltCards = document.querySelectorAll("[data-tilt-card]");
-
-  if (!prefersReducedMotion && tiltCards.length) {
-    tiltCards.forEach((card) => {
-      card.addEventListener("pointermove", (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-
-        const rotateY = ((x / rect.width) - 0.5) * 6;
-        const rotateX = ((0.5 - y / rect.height)) * 6;
-
-        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
-      });
-
-      card.addEventListener("pointerleave", () => {
-        card.style.transform = "";
-      });
-    });
+    return;
   }
 
-  const testimonialCarousel = document.querySelector("[data-testimonial-carousel]");
+  const observer = new IntersectionObserver(
+    (entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
 
-  if (testimonialCarousel) {
-    const track = testimonialCarousel.querySelector("[data-testimonial-track]");
-    const slides = Array.from(testimonialCarousel.querySelectorAll("[data-testimonial-slide]"));
-    const prevButton = document.querySelector("[data-testimonial-prev]");
-    const nextButton = document.querySelector("[data-testimonial-next]");
-    const dotsContainer = testimonialCarousel.querySelector("[data-testimonial-dots]");
-
-    let currentIndex = 0;
-    let autoplayId = null;
-    const autoplayDelay = 5200;
-
-    if (!track || !slides.length) {
-      return;
+        entry.target.classList.add("is-visible");
+        currentObserver.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -8% 0px"
     }
+  );
 
-    const getVisibleSlides = () => {
-      if (window.matchMedia("(min-width: 960px)").matches) {
-        return 3;
-      }
+  revealItems.forEach((item) => {
+    observer.observe(item);
+  });
+})();
 
-      if (window.matchMedia("(min-width: 700px)").matches) {
-        return 2;
-      }
+/* =========================================================
+   Premium Tilt Cards
+========================================================= */
+(function initTiltCards() {
+  const cards = document.querySelectorAll("[data-tilt-card]");
 
-      return 1;
-    };
+  if (!cards.length) {
+    return;
+  }
 
-    const getMaxIndex = () => {
-      return Math.max(slides.length - getVisibleSlides(), 0);
-    };
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const supportsFinePointer = window.matchMedia("(pointer: fine)").matches;
 
-    const createDots = () => {
-      if (!dotsContainer) {
+  if (prefersReducedMotion || !supportsFinePointer) {
+    return;
+  }
+
+  cards.forEach((card) => {
+    const maxTilt = 5;
+
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      const rotateY = ((x / rect.width) - 0.5) * maxTilt * 2;
+      const rotateX = (((y / rect.height) - 0.5) * maxTilt * -2);
+
+      card.style.transform = `perspective(900px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px)`;
+    });
+
+    card.addEventListener("pointerleave", () => {
+      card.style.transform = "";
+    });
+
+    card.addEventListener("blur", () => {
+      card.style.transform = "";
+    });
+  });
+})();
+
+/* =========================================================
+   Smooth Anchor Scroll
+========================================================= */
+(function initSmoothAnchors() {
+  const anchorLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
+
+  if (!anchorLinks.length) {
+    return;
+  }
+
+  anchorLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const targetId = link.getAttribute("href");
+
+      if (!targetId) {
         return;
       }
 
-      dotsContainer.innerHTML = "";
+      const target = document.querySelector(targetId);
 
-      for (let index = 0; index <= getMaxIndex(); index += 1) {
-        const dot = document.createElement("button");
-        dot.className = "testimonials__dot";
-        dot.type = "button";
-        dot.setAttribute("aria-label", `Go to testimonial ${index + 1}`);
-
-        dot.addEventListener("click", () => {
-          goToSlide(index);
-          restartAutoplay();
-        });
-
-        dotsContainer.appendChild(dot);
-      }
-    };
-
-    const updateDots = () => {
-      if (!dotsContainer) {
+      if (!target) {
         return;
       }
 
-      const dots = dotsContainer.querySelectorAll(".testimonials__dot");
+      event.preventDefault();
 
-      dots.forEach((dot, index) => {
-        dot.classList.toggle("is-active", index === currentIndex);
+      const header = document.querySelector("[data-header]");
+      const headerOffset = header ? header.offsetHeight + 20 : 20;
+      const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth"
       });
-    };
-
-    const updateCarousel = () => {
-      currentIndex = Math.min(currentIndex, getMaxIndex());
-
-      const firstSlide = slides[0];
-      const slideWidth = firstSlide.getBoundingClientRect().width;
-      const styles = window.getComputedStyle(track);
-      const gap = parseFloat(styles.columnGap || styles.gap || 0);
-      const offset = currentIndex * (slideWidth + gap);
-
-      if (window.gsap && !prefersReducedMotion) {
-        gsap.to(track, {
-          x: -offset,
-          duration: 0.7,
-          ease: "power3.out"
-        });
-      } else {
-        track.style.transform = `translateX(${-offset}px)`;
-      }
-
-      updateDots();
-    };
-
-    const goToSlide = (index) => {
-      const maxIndex = getMaxIndex();
-      currentIndex = Math.max(0, Math.min(index, maxIndex));
-      updateCarousel();
-    };
-
-    const nextSlide = () => {
-      const maxIndex = getMaxIndex();
-      currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
-      updateCarousel();
-    };
-
-    const prevSlide = () => {
-      const maxIndex = getMaxIndex();
-      currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
-      updateCarousel();
-    };
-
-    const stopAutoplay = () => {
-      if (autoplayId) {
-        clearInterval(autoplayId);
-        autoplayId = null;
-      }
-    };
-
-    const startAutoplay = () => {
-      stopAutoplay();
-
-      if (!prefersReducedMotion) {
-        autoplayId = setInterval(nextSlide, autoplayDelay);
-      }
-    };
-
-    const restartAutoplay = () => {
-      stopAutoplay();
-      startAutoplay();
-    };
-
-    if (nextButton) {
-      nextButton.addEventListener("click", () => {
-        nextSlide();
-        restartAutoplay();
-      });
-    }
-
-    if (prevButton) {
-      prevButton.addEventListener("click", () => {
-        prevSlide();
-        restartAutoplay();
-      });
-    }
-
-    testimonialCarousel.addEventListener("mouseenter", stopAutoplay);
-    testimonialCarousel.addEventListener("mouseleave", startAutoplay);
-    testimonialCarousel.addEventListener("focusin", stopAutoplay);
-    testimonialCarousel.addEventListener("focusout", startAutoplay);
-
-    window.addEventListener("resize", () => {
-      createDots();
-      updateCarousel();
     });
+  });
+})();
 
-    createDots();
-    updateCarousel();
-    startAutoplay();
-  }
-});
+/* =========================================================
+   Google Translate
+========================================================= */
+window.googleTranslateElementInit = function googleTranslateElementInit() {
+  const translateContainer = document.getElementById("google_translate_element");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const projectShowcase = document.querySelector("[data-project-showcase]");
-
-  if (!projectShowcase) {
+  if (!translateContainer || !window.google || !window.google.translate) {
     return;
   }
 
-  const track = projectShowcase.querySelector("[data-project-track]");
-  const slides = Array.from(projectShowcase.querySelectorAll("[data-project-slide]"));
-  const thumbs = Array.from(projectShowcase.querySelectorAll("[data-project-thumb]"));
-  const prevButton = projectShowcase.querySelector("[data-project-prev]");
-  const nextButton = projectShowcase.querySelector("[data-project-next]");
-  const currentCounter = projectShowcase.querySelector("[data-project-current]");
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  new window.google.translate.TranslateElement(
+    {
+      pageLanguage: "es",
+      includedLanguages: "es,en",
+      layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    },
+    "google_translate_element"
+  );
+};
 
-  let currentIndex = 0;
+(function initLanguageSwitcher() {
+  const languageButtons = document.querySelectorAll("[data-language-option]");
 
-  const formatNumber = (number) => String(number).padStart(2, "0");
+  if (!languageButtons.length) {
+    return;
+  }
 
-  const updateThumbs = () => {
-    thumbs.forEach((thumb, index) => {
-      thumb.classList.toggle("is-active", index === currentIndex);
+  function setCookie(name, value) {
+    document.cookie = `${name}=${value}; path=/`;
+
+    if (window.location.hostname && window.location.hostname.includes(".")) {
+      document.cookie = `${name}=${value}; path=/; domain=${window.location.hostname}`;
+    }
+  }
+
+  function setActiveLanguage(language) {
+    languageButtons.forEach((button) => {
+      const isActive = button.dataset.languageOption === language;
+
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", String(isActive));
     });
+  }
 
-    const activeThumb = thumbs[currentIndex];
+  function getCurrentLanguage() {
+    const match = document.cookie.match(/googtrans=\/es\/([^;]+)/);
 
-    if (activeThumb) {
-      activeThumb.scrollIntoView({
-        behavior: prefersReducedMotion ? "auto" : "smooth",
-        block: "nearest",
-        inline: "nearest"
-      });
-    }
-  };
-
-  const updateSlides = () => {
-    slides.forEach((slide, index) => {
-      slide.classList.toggle("is-active", index === currentIndex);
-    });
-
-    const offset = currentIndex * 100;
-
-    if (window.gsap && !prefersReducedMotion) {
-      gsap.to(track, {
-        xPercent: -offset,
-        duration: 0.65,
-        ease: "power3.out"
-      });
-    } else {
-      track.style.transform = `translateX(-${offset}%)`;
+    if (match && match[1]) {
+      return match[1];
     }
 
-    if (currentCounter) {
-      currentCounter.textContent = formatNumber(currentIndex + 1);
-    }
+    return "es";
+  }
 
-    updateThumbs();
-  };
-
-  const goToSlide = (index) => {
-    if (!slides.length) {
+  function changeLanguage(language) {
+    if (!language) {
       return;
     }
 
-    currentIndex = (index + slides.length) % slides.length;
-    updateSlides();
-  };
+    if (language === getCurrentLanguage()) {
+      setActiveLanguage(language);
+      return;
+    }
 
-  if (prevButton) {
-    prevButton.addEventListener("click", () => {
-      goToSlide(currentIndex - 1);
-    });
+    if (language === "es") {
+      setCookie("googtrans", "");
+      setCookie("googtrans", "/es/es");
+      setActiveLanguage("es");
+      window.location.reload();
+      return;
+    }
+
+    setCookie("googtrans", `/es/${language}`);
+    setActiveLanguage(language);
+    window.location.reload();
   }
 
-  if (nextButton) {
-    nextButton.addEventListener("click", () => {
-      goToSlide(currentIndex + 1);
-    });
-  }
-
-  thumbs.forEach((thumb) => {
-    thumb.addEventListener("click", () => {
-      const index = Number(thumb.dataset.projectThumb);
-      goToSlide(index);
-    });
-  });
-
-  projectShowcase.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") {
-      goToSlide(currentIndex - 1);
-    }
-
-    if (event.key === "ArrowRight") {
-      goToSlide(currentIndex + 1);
-    }
-  });
-
-  let touchStartX = 0;
-
-  projectShowcase.addEventListener(
-    "touchstart",
-    (event) => {
-      touchStartX = event.changedTouches[0].clientX;
-    },
-    { passive: true }
-  );
-
-  projectShowcase.addEventListener(
-    "touchend",
-    (event) => {
-      const touchEndX = event.changedTouches[0].clientX;
-      const difference = touchStartX - touchEndX;
-
-      if (Math.abs(difference) > 50) {
-        goToSlide(difference > 0 ? currentIndex + 1 : currentIndex - 1);
-      }
-    },
-    { passive: true }
-  );
-
-  updateSlides();
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  const videoShowcase = document.querySelector("[data-video-showcase]");
-
-  if (!videoShowcase) {
-    return;
-  }
-
-  const player = videoShowcase.querySelector("[data-video-feature]");
-  const sourceWebm = videoShowcase.querySelector("[data-video-feature-webm]");
-  const sourceMp4 = videoShowcase.querySelector("[data-video-feature-mp4]");
-  const playButton = videoShowcase.querySelector("[data-video-feature-toggle]");
-  const fallback = videoShowcase.querySelector("[data-video-feature-fallback]");
-
-  const title = videoShowcase.querySelector("[data-video-feature-title]");
-  const text = videoShowcase.querySelector("[data-video-feature-text]");
-  const badge = videoShowcase.querySelector("[data-video-feature-badge]");
-  const items = Array.from(videoShowcase.querySelectorAll("[data-video-item]"));
-
-  if (!player || !playButton) {
-    return;
-  }
-
-  const playText = playButton.querySelector(".video-feature__play-text");
-
-  const showFallback = () => {
-    if (fallback) {
-      fallback.hidden = false;
-    }
-  };
-
-  const hideFallback = () => {
-    if (fallback) {
-      fallback.hidden = true;
-    }
-  };
-
-  const updatePlayButton = () => {
-    const isPlaying = !player.paused && !player.ended;
-
-    playButton.classList.toggle("is-playing", isPlaying);
-    playButton.setAttribute(
-      "aria-label",
-      isPlaying ? "Pause featured asphalt work video" : "Play featured asphalt work video"
-    );
-
-    if (playText) {
-      playText.textContent = isPlaying ? "Pause Video" : "Play Video";
-    }
-  };
-
-  const playVideo = async () => {
-    hideFallback();
-
-    try {
-      player.muted = false;
-      await player.play();
-    } catch (error) {
-      try {
-        player.muted = true;
-        await player.play();
-      } catch (secondError) {
-        player.setAttribute("controls", "controls");
-        showFallback();
-      }
-    }
-
-    updatePlayButton();
-  };
-
-  const pauseVideo = () => {
-    player.pause();
-    updatePlayButton();
-  };
-
-  playButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    event.stopPropagation();
-
-    if (player.paused || player.ended) {
-      playVideo();
-    } else {
-      pauseVideo();
-    }
-  });
-
-  player.addEventListener("click", () => {
-    if (player.paused || player.ended) {
-      playVideo();
-    } else {
-      pauseVideo();
-    }
-  });
-
-  player.addEventListener("play", updatePlayButton);
-  player.addEventListener("pause", updatePlayButton);
-  player.addEventListener("ended", updatePlayButton);
-
-  player.addEventListener("loadeddata", () => {
-    hideFallback();
-  });
-
-  player.addEventListener("error", () => {
-    showFallback();
-    updatePlayButton();
-  });
-
-  items.forEach((item) => {
-    item.addEventListener("click", () => {
-      const webm = item.dataset.videoWebm || "";
-      const mp4 = item.dataset.videoMp4 || "";
-      const poster = item.dataset.videoPoster || "";
-      const nextTitle = item.dataset.videoTitle || "";
-      const nextText = item.dataset.videoText || "";
-      const nextBadge = item.dataset.videoBadge || "Project Video";
-
-      player.pause();
-      hideFallback();
-
-      if (sourceWebm) {
-        sourceWebm.src = webm;
-      }
-
-      if (sourceMp4) {
-        sourceMp4.src = mp4;
-      }
-
-      if (poster) {
-        player.poster = poster;
-      }
-
-      if (title) {
-        title.textContent = nextTitle;
-      }
-
-      if (text) {
-        text.textContent = nextText;
-      }
-
-      if (badge) {
-        badge.textContent = nextBadge;
-      }
-
-      items.forEach((button) => {
-        const isActive = button === item;
-        button.classList.toggle("is-active", isActive);
-        button.setAttribute("aria-pressed", isActive ? "true" : "false");
-      });
-
-      player.load();
-      updatePlayButton();
+  languageButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      changeLanguage(button.dataset.languageOption);
     });
   });
 
-  updatePlayButton();
-});
+  setActiveLanguage(getCurrentLanguage());
+})();
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector("#estimateForm");
+/* =========================================================
+   Contact Form
+========================================================= */
+(function initArtZacContactForm() {
+  const form = document.querySelector("#artZacContactForm");
 
   if (!form) {
     return;
   }
 
-  const endpoint = form.dataset.leadsEndpoint;
-  const powDifficulty = 4;
+  const endpoint = form.dataset.endpoint || "";
 
   const fields = {
     website: form.querySelector("#website"),
-    formTs: form.querySelector("#formTs"),
     name: form.querySelector("#name"),
     phone: form.querySelector("#phone"),
     email: form.querySelector("#email"),
     service: form.querySelector("#service"),
-    propertyType: form.querySelector("#propertyType"),
+    projectType: form.querySelector("#projectType"),
     location: form.querySelector("#location"),
     message: form.querySelector("#message"),
     consent: form.querySelector("#consent")
@@ -783,9 +515,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const submitButton = form.querySelector(".contact-form__submit");
 
-  if (fields.formTs) {
-    fields.formTs.value = String(Date.now());
-  }
+  const showAlert = (options) => {
+    if (window.Swal) {
+      window.Swal.fire(options);
+      return;
+    }
+
+    alert(options.text || options.title || "Mensaje del formulario");
+  };
+
+  const setSubmitting = (isSubmitting) => {
+    if (!submitButton) {
+      return;
+    }
+
+    submitButton.disabled = isSubmitting;
+    submitButton.textContent = isSubmitting
+      ? "Enviando solicitud..."
+      : "Enviar solicitud";
+  };
 
   const setError = (fieldName, message) => {
     const field = fields[fieldName];
@@ -811,33 +559,13 @@ document.addEventListener("DOMContentLoaded", () => {
     error.textContent = "";
   };
 
-  const showAlert = (options) => {
-    if (window.Swal) {
-      Swal.fire(options);
-      return;
-    }
-
-    alert(options.text || options.title || "Form message");
-  };
-
-  const setSubmitting = (isSubmitting) => {
-    if (!submitButton) {
-      return;
-    }
-
-    submitButton.disabled = isSubmitting;
-    submitButton.textContent = isSubmitting
-      ? "Verifying & Sending..."
-      : "Submit Free Estimate Request";
-  };
-
   const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   const isValidPhone = (phone) => {
     const digits = phone.replace(/\D/g, "");
-    return digits.length >= 10;
+    return digits.length >= 7;
   };
 
   const validateForm = () => {
@@ -848,105 +576,70 @@ document.addEventListener("DOMContentLoaded", () => {
       "phone",
       "email",
       "service",
-      "propertyType",
+      "projectType",
       "location",
       "message",
       "consent"
     ].forEach(clearError);
 
     if (fields.website && fields.website.value.trim()) {
+      return false;
+    }
+
+    if (fields.name && !fields.name.value.trim()) {
+      setError("name", "Ingrese su nombre completo.");
       isValid = false;
     }
 
-    if (!fields.name.value.trim()) {
-      setError("name", "Please enter your full name.");
+    if (fields.phone && !fields.phone.value.trim()) {
+      setError("phone", "Ingrese su número de teléfono.");
+      isValid = false;
+    } else if (fields.phone && !isValidPhone(fields.phone.value.trim())) {
+      setError("phone", "Ingrese un número de teléfono válido.");
       isValid = false;
     }
 
-    if (!fields.phone.value.trim()) {
-      setError("phone", "Please enter your phone number.");
+    if (fields.email && !fields.email.value.trim()) {
+      setError("email", "Ingrese su correo electrónico.");
       isValid = false;
-    } else if (!isValidPhone(fields.phone.value.trim())) {
-      setError("phone", "Please enter a valid phone number.");
-      isValid = false;
-    }
-
-    if (!fields.email.value.trim()) {
-      setError("email", "Please enter your email address.");
-      isValid = false;
-    } else if (!isValidEmail(fields.email.value.trim())) {
-      setError("email", "Please enter a valid email address.");
+    } else if (fields.email && !isValidEmail(fields.email.value.trim())) {
+      setError("email", "Ingrese un correo electrónico válido.");
       isValid = false;
     }
 
-    if (!fields.service.value) {
-      setError("service", "Please select a service.");
+    if (fields.service && !fields.service.value) {
+      setError("service", "Seleccione el servicio requerido.");
       isValid = false;
     }
 
-    if (!fields.propertyType.value) {
-      setError("propertyType", "Please select a property type.");
+    if (fields.projectType && !fields.projectType.value) {
+      setError("projectType", "Seleccione el tipo de proyecto.");
       isValid = false;
     }
 
-    if (!fields.location.value.trim()) {
-      setError("location", "Please enter the project location.");
+    if (fields.location && !fields.location.value.trim()) {
+      setError("location", "Ingrese la ubicación del proyecto.");
       isValid = false;
     }
 
-    if (!fields.message.value.trim()) {
-      setError("message", "Please tell us about your project.");
+    if (fields.message && !fields.message.value.trim()) {
+      setError("message", "Cuéntenos brevemente qué necesita resolver.");
       isValid = false;
-    } else if (fields.message.value.trim().length < 12) {
-      setError("message", "Please add a few more details about your project.");
+    } else if (fields.message && fields.message.value.trim().length < 12) {
+      setError("message", "Agregue algunos detalles más sobre el proyecto.");
       isValid = false;
     }
 
-    if (!fields.consent.checked) {
-      setError("consent", "Please confirm that we may contact you about your estimate.");
+    if (fields.consent && !fields.consent.checked) {
+      setError("consent", "Confirme que podemos contactarlo sobre esta solicitud.");
       isValid = false;
     }
 
     return isValid;
   };
 
-  const sha256Hex = async (text) => {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(text);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-
-    return hashArray
-      .map((byte) => byte.toString(16).padStart(2, "0"))
-      .join("");
-  };
-
-  const generateProofOfWork = async (email) => {
-    const powTs = Date.now();
-    const prefix = "0".repeat(powDifficulty);
-    let nonce = 0;
-    let hash = "";
-
-    while (true) {
-      const nonceValue = String(nonce);
-      const base = `${email}|${powTs}|${nonceValue}`;
-      hash = await sha256Hex(base);
-
-      if (hash.startsWith(prefix)) {
-        return {
-          pow_ts: powTs,
-          pow_nonce: nonceValue,
-          pow_hash: hash,
-          pow_difficulty: powDifficulty
-        };
-      }
-
-      nonce += 1;
-    }
-  };
-
   Object.entries(fields).forEach(([fieldName, field]) => {
-    if (!field || fieldName === "website" || fieldName === "formTs") {
+    if (!field || fieldName === "website") {
       return;
     }
 
@@ -965,56 +658,55 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!validateForm()) {
       showAlert({
         icon: "error",
-        title: "Please check the form",
-        text: "Some required fields need your attention before submitting.",
-        confirmButtonText: "Review Form",
-        confirmButtonColor: "#f5c400"
+        title: "Revise el formulario",
+        text: "Algunos campos obligatorios necesitan su atención antes de enviar.",
+        confirmButtonText: "Revisar",
+        confirmButtonColor: "#b7652a"
       });
 
       return;
     }
 
+    const payload = {
+      name: fields.name ? fields.name.value.trim() : "",
+      phone: fields.phone ? fields.phone.value.trim() : "",
+      email: fields.email ? fields.email.value.trim().toLowerCase() : "",
+      service: fields.service ? fields.service.value : "",
+      projectType: fields.projectType ? fields.projectType.value : "",
+      location: fields.location ? fields.location.value.trim() : "",
+      message: fields.message ? fields.message.value.trim() : "",
+      consent: fields.consent && fields.consent.checked ? "true" : "false",
+      pageUrl: window.location.href,
+      userAgent: navigator.userAgent,
+      submittedAt: new Date().toISOString()
+    };
+
     if (!endpoint) {
+      const subject = encodeURIComponent(`Solicitud de cotización - ${payload.service}`);
+      const body = encodeURIComponent(
+        `Nombre: ${payload.name}\n` +
+        `Teléfono: ${payload.phone}\n` +
+        `Email: ${payload.email}\n` +
+        `Servicio: ${payload.service}\n` +
+        `Tipo de proyecto: ${payload.projectType}\n` +
+        `Ubicación: ${payload.location}\n\n` +
+        `Detalles:\n${payload.message}`
+      );
+
       showAlert({
-        icon: "error",
-        title: "Form endpoint missing",
-        text: "The Google Sheets endpoint has not been configured.",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#f5c400"
+        icon: "info",
+        title: "Formulario sin endpoint",
+        text: "El formulario todavía no tiene un endpoint configurado. Se abrirá su correo para enviar la solicitud.",
+        confirmButtonText: "Continuar",
+        confirmButtonColor: "#b7652a"
       });
 
+      window.location.href = `mailto:info@art-zacwelding.com?subject=${subject}&body=${body}`;
       return;
     }
 
     try {
       setSubmitting(true);
-
-      const email = fields.email.value.trim().toLowerCase();
-      const pow = await generateProofOfWork(email);
-
-      const payload = {
-        website: fields.website ? fields.website.value.trim() : "",
-        form_ts: fields.formTs ? Number(fields.formTs.value) : Date.now(),
-
-        name: fields.name.value.trim(),
-        phone: fields.phone.value.trim(),
-        email,
-        service: fields.service.value,
-        propertyType: fields.propertyType.value,
-        location: fields.location.value.trim(),
-        message: fields.message.value.trim(),
-        consent: fields.consent.checked ? "true" : "false",
-
-        ua: navigator.userAgent,
-        tz: Intl.DateTimeFormat().resolvedOptions().timeZone || "",
-        page_id: "contact",
-        page_url: window.location.href,
-
-        pow_ts: pow.pow_ts,
-        pow_nonce: pow.pow_nonce,
-        pow_hash: pow.pow_hash,
-        pow_difficulty: pow.pow_difficulty
-      };
 
       await fetch(endpoint, {
         method: "POST",
@@ -1027,535 +719,197 @@ document.addEventListener("DOMContentLoaded", () => {
 
       showAlert({
         icon: "success",
-        title: "Estimate Request Sent",
+        title: "Solicitud enviada",
         html: `
-          <p style="margin:0 0 10px;">Thank you, <strong>${payload.name}</strong>.</p>
-          <p style="margin:0;">Your request has been submitted to Asphalt 365.</p>
+          <p style="margin:0 0 10px;">Gracias, <strong>${payload.name}</strong>.</p>
+          <p style="margin:0;">Su solicitud fue enviada correctamente a Art-Zac Welding.</p>
         `,
-        confirmButtonText: "Great",
-        confirmButtonColor: "#f5c400"
+        confirmButtonText: "Perfecto",
+        confirmButtonColor: "#b7652a"
       });
 
       form.reset();
-
-      if (fields.formTs) {
-        fields.formTs.value = String(Date.now());
-      }
-
     } catch (error) {
-      console.error("Lead submission error:", error);
+      console.error("Art-Zac contact form error:", error);
 
       showAlert({
         icon: "error",
-        title: "Submission Error",
-        text: "Your request could not be submitted. Please call Asphalt 365 at 630-440-7586.",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#f5c400"
+        title: "Error al enviar",
+        text: "No se pudo enviar la solicitud. Por favor llame directamente a Art-Zac Welding.",
+        confirmButtonText: "Entendido",
+        confirmButtonColor: "#b7652a"
       });
-
     } finally {
       setSubmitting(false);
     }
   });
-});
+})();
 
+/* =========================================================
+   Legacy Estimate Form Safety
+   Kept only to avoid errors if an old page still includes #estimateForm
+========================================================= */
+(function initLegacyEstimateFormSafety() {
+  const legacyForm = document.querySelector("#estimateForm");
 
-document.addEventListener("DOMContentLoaded", () => {
-  const navLinks = document.querySelectorAll(".site-nav__link");
-
-  if (!navLinks.length) {
+  if (!legacyForm) {
     return;
   }
 
-  const currentPath = window.location.pathname;
-  const currentPage = currentPath.split("/").pop() || "index.html";
-
-  navLinks.forEach((link) => {
-    const linkHref = link.getAttribute("href");
-
-    if (!linkHref) {
-      return;
-    }
-
-    const linkPage = linkHref.split("/").pop();
-
-    const isHome =
-      currentPage === "" ||
-      currentPage === "index.html" ||
-      currentPath === "/";
-
-    const isActive =
-      linkPage === currentPage ||
-      (isHome && linkPage === "index.html");
-
-    link.classList.toggle("is-active", isActive);
-
-    if (isActive) {
-      link.setAttribute("aria-current", "page");
-    } else {
-      link.removeAttribute("aria-current");
-    }
-  });
-});
-
-
-
-// Google Translate initializer for bilingual ES/EN support.
-// Uses the official Google Translate widget and keeps Spanish as the base language.
-window.googleTranslateElementInit = function googleTranslateElementInit() {
-  const translateContainer = document.getElementById("google_translate_element");
-
-  if (!translateContainer || !window.google || !window.google.translate) {
-    return;
-  }
-
-  new window.google.translate.TranslateElement(
-    {
-      pageLanguage: "es",
-      includedLanguages: "es,en",
-      layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    },
-    "google_translate_element"
-  );
-};
-
-(function () {
-  const form = document.getElementById("artZacContactForm");
-
-  if (!form || form.dataset.enhanced === "true") {
-    return;
-  }
-
-  form.dataset.enhanced = "true";
-
-  const startedAtInput = document.getElementById("formStartedAt");
-  const submitButton = form.querySelector("[data-submit-button]");
-  const honeypot = form.querySelector('[name="company_website"]');
-
-  if (startedAtInput) {
-    startedAtInput.value = String(Date.now());
-  }
-
-  const fields = {
-    name: form.querySelector("#contactName"),
-    phone: form.querySelector("#contactPhone"),
-    email: form.querySelector("#contactEmail"),
-    service: form.querySelector("#contactService"),
-    message: form.querySelector("#contactMessage")
-  };
-
-  function showAlert(type, title, text) {
-    if (window.Swal) {
-      window.Swal.fire({
-        icon: type,
-        title,
-        text,
-        confirmButtonText: "Entendido",
-        confirmButtonColor: "#b7652a"
-      });
-      return;
-    }
-
-    alert(`${title}\n\n${text}`);
-  }
-
-  function setFieldState(field, message) {
-    const wrapper = field.closest(".form-field");
-    const error = form.querySelector(`[data-error-for="${field.id}"]`);
-
-    if (!wrapper) {
-      return;
-    }
-
-    wrapper.classList.remove("is-valid", "is-invalid");
-
-    if (message) {
-      wrapper.classList.add("is-invalid");
-
-      if (error) {
-        error.textContent = message;
-      }
-
-      return;
-    }
-
-    wrapper.classList.add("is-valid");
-
-    if (error) {
-      error.textContent = "";
-    }
-  }
-
-  function normalizePhone(value) {
-    return value.replace(/[^\d+]/g, "");
-  }
-
-  function validateEmail(value) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(value);
-  }
-
-  function validatePhone(value) {
-    const normalized = normalizePhone(value);
-    return normalized.length >= 10 && normalized.length <= 15;
-  }
-
-  function validateForm() {
-    let isValid = true;
-
-    const name = fields.name.value.trim();
-    const phone = fields.phone.value.trim();
-    const email = fields.email.value.trim();
-    const service = fields.service.value.trim();
-    const message = fields.message.value.trim();
-
-    if (name.length < 2) {
-      setFieldState(fields.name, "Ingrese su nombre completo.");
-      isValid = false;
-    } else {
-      setFieldState(fields.name, "");
-    }
-
-    if (!validatePhone(phone)) {
-      setFieldState(fields.phone, "Ingrese un teléfono válido de al menos 10 dígitos.");
-      isValid = false;
-    } else {
-      setFieldState(fields.phone, "");
-    }
-
-    if (!validateEmail(email)) {
-      setFieldState(fields.email, "Ingrese un email válido.");
-      isValid = false;
-    } else {
-      setFieldState(fields.email, "");
-    }
-
-    if (!service) {
-      setFieldState(fields.service, "Seleccione el servicio requerido.");
-      isValid = false;
-    } else {
-      setFieldState(fields.service, "");
-    }
-
-    if (message.length < 12) {
-      setFieldState(fields.message, "Describa brevemente su proyecto.");
-      isValid = false;
-    } else {
-      setFieldState(fields.message, "");
-    }
-
-    return isValid;
-  }
-
-  function isLikelySpam() {
-    const startedAt = Number(startedAtInput ? startedAtInput.value : 0);
-    const elapsed = Date.now() - startedAt;
-
-    if (honeypot && honeypot.value.trim() !== "") {
-      return true;
-    }
-
-    if (startedAt && elapsed < 4000) {
-      return true;
-    }
-
-    return false;
-  }
-
-  function getPayload() {
-    const formData = new FormData(form);
-    const payload = {};
-
-    formData.forEach((value, key) => {
-      payload[key] = String(value).trim();
-    });
-
-    payload.submitted_at = new Date().toISOString();
-    payload.user_agent = navigator.userAgent;
-    payload.page_url = window.location.href;
-
-    return payload;
-  }
-
-  async function submitToEndpoint(payload) {
-    const endpoint = form.dataset.endpoint;
-
-    if (!endpoint) {
-      throw new Error("missing_endpoint");
-    }
-
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      throw new Error("request_failed");
-    }
-
-    return response;
-  }
-
-  Object.values(fields).forEach((field) => {
-    field.addEventListener("blur", validateForm);
-    field.addEventListener("input", () => {
-      const wrapper = field.closest(".form-field");
-      const error = form.querySelector(`[data-error-for="${field.id}"]`);
-
-      if (wrapper) {
-        wrapper.classList.remove("is-invalid");
-      }
-
-      if (error) {
-        error.textContent = "";
-      }
-    });
-  });
-
-  form.addEventListener("submit", async function (event) {
+  legacyForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    if (isLikelySpam()) {
-      showAlert(
-        "error",
-        "Solicitud no enviada",
-        "No pudimos validar el envío. Intente nuevamente en unos segundos."
-      );
-      return;
-    }
-
-    if (!validateForm()) {
-      showAlert(
-        "warning",
-        "Revise el formulario",
-        "Hay campos requeridos que deben corregirse antes de enviar."
-      );
-      return;
-    }
-
-    const payload = getPayload();
-
-    form.classList.add("is-submitting");
-
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = "Enviando...";
-    }
-
-    try {
-      await submitToEndpoint(payload);
-
-      showAlert(
-        "success",
-        "Solicitud enviada",
-        "Gracias por contactar a Art-Zac Welding. Revisaremos su proyecto y nos pondremos en contacto."
-      );
-
-      form.reset();
-
-      if (startedAtInput) {
-        startedAtInput.value = String(Date.now());
-      }
-
-      form.querySelectorAll(".form-field").forEach((field) => {
-        field.classList.remove("is-valid", "is-invalid");
-      });
-    } catch (error) {
-      if (error.message === "missing_endpoint") {
-        showAlert(
-          "info",
-          "Formulario listo",
-          "Falta configurar el endpoint de envío en data-endpoint. El diseño y las validaciones ya están activos."
-        );
-      } else {
-        showAlert(
-          "error",
-          "No se pudo enviar",
-          "Hubo un problema al enviar su solicitud. Intente nuevamente o contacte por WhatsApp."
-        );
-      }
-    } finally {
-      form.classList.remove("is-submitting");
-
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = "Enviar solicitud";
-      }
-    }
+    alert("Este formulario fue reemplazado. Use el formulario principal de contacto.");
   });
 })();
 
-(function () {
-  const links = document.querySelectorAll("[data-nav-link]");
+/* =========================================================
+   Footer Current Year
+========================================================= */
+(function initCurrentYear() {
+  const yearElements = document.querySelectorAll("[data-current-year]");
 
-  if (!links.length) {
+  if (!yearElements.length) {
     return;
   }
 
-  const currentPath = window.location.pathname.split("/").pop() || "index.html";
+  const currentYear = new Date().getFullYear();
 
-  links.forEach((link) => {
-    const linkPath = link.getAttribute("href");
-
-    if (linkPath === currentPath) {
-      link.setAttribute("aria-current", "page");
-      link.classList.add("is-active");
-    } else {
-      link.removeAttribute("aria-current");
-      link.classList.remove("is-active");
-    }
+  yearElements.forEach((element) => {
+    element.textContent = String(currentYear);
   });
 })();
 
-(function () {
-  const button = document.querySelector("[data-scroll-progress]");
-  const value = document.querySelector("[data-scroll-progress-value]");
-  const circle = document.querySelector("[data-scroll-progress-circle]");
+/* =========================================================
+   Scroll Progress / Back To Top
+========================================================= */
+(function initScrollProgress() {
+  const progressButton = document.querySelector("[data-scroll-top]");
+  const progressCircle = document.querySelector("[data-scroll-progress]");
 
-  if (!button || !value || !circle) {
+  if (!progressButton) {
     return;
   }
 
-  const radius = 28;
-  const circumference = 2 * Math.PI * radius;
+  const setupCircle = () => {
+    if (!progressCircle) {
+      return null;
+    }
 
-  circle.style.strokeDasharray = String(circumference);
-  circle.style.strokeDashoffset = String(circumference);
+    const radius = Number(progressCircle.getAttribute("r")) || 24;
+    const circumference = 2 * Math.PI * radius;
 
-  function updateScrollProgress() {
+    progressCircle.style.strokeDasharray = `${circumference}`;
+    progressCircle.style.strokeDashoffset = `${circumference}`;
+
+    return circumference;
+  };
+
+  const circumference = setupCircle();
+
+  const updateProgress = () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
 
-    const progress = scrollableHeight > 0
-      ? Math.min(100, Math.max(0, (scrollTop / scrollableHeight) * 100))
-      : 0;
+    progressButton.classList.toggle("is-visible", scrollTop > 360);
 
-    const offset = circumference - (progress / 100) * circumference;
+    if (progressCircle && circumference) {
+      const offset = circumference - progress * circumference;
+      progressCircle.style.strokeDashoffset = `${offset}`;
+    }
+  };
 
-    circle.style.strokeDashoffset = String(offset);
-    value.textContent = `${Math.round(progress)}%`;
-  }
-
-  button.addEventListener("click", function () {
+  progressButton.addEventListener("click", () => {
     window.scrollTo({
       top: 0,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+      behavior: "smooth"
     });
   });
 
-  window.addEventListener("scroll", updateScrollProgress, { passive: true });
-  window.addEventListener("resize", updateScrollProgress);
+  updateProgress();
 
-  updateScrollProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
 })();
 
-(function () {
-  const widget = document.querySelector("[data-whatsapp-widget]");
-  const toggle = document.querySelector("[data-whatsapp-toggle]");
-  const panel = document.querySelector("[data-whatsapp-panel]");
+/* =========================================================
+   Video Cards Safety
+========================================================= */
+(function initVideoCards() {
+  const videoCards = document.querySelectorAll("[data-video-card]");
 
-  if (!widget || !toggle || !panel) {
+  if (!videoCards.length) {
     return;
   }
 
-  function closeWidget() {
-    widget.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
+  videoCards.forEach((card) => {
+    const video = card.querySelector("video");
+    const playButton = card.querySelector("[data-video-play]");
+
+    if (!video || !playButton) {
+      return;
+    }
+
+    playButton.addEventListener("click", () => {
+      if (video.paused) {
+        video.play();
+        card.classList.add("is-playing");
+        playButton.setAttribute("aria-label", "Pausar video de Art-Zac Welding");
+      } else {
+        video.pause();
+        card.classList.remove("is-playing");
+        playButton.setAttribute("aria-label", "Reproducir video de Art-Zac Welding");
+      }
+    });
+  });
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const whatsappWidget = document.querySelector("[data-whatsapp-widget]");
+
+  if (!whatsappWidget) {
+    return;
   }
 
-  function openWidget() {
-    widget.classList.add("is-open");
-    toggle.setAttribute("aria-expanded", "true");
+  const toggleButton = whatsappWidget.querySelector("[data-whatsapp-toggle]");
+  const panel = whatsappWidget.querySelector("[data-whatsapp-panel]");
+
+  if (!toggleButton || !panel) {
+    return;
   }
 
-  toggle.addEventListener("click", function () {
-    const isOpen = widget.classList.contains("is-open");
+  const closeWidget = () => {
+    whatsappWidget.classList.remove("is-open");
+    toggleButton.setAttribute("aria-expanded", "false");
+    panel.setAttribute("aria-hidden", "true");
+  };
 
-    if (isOpen) {
+  const openWidget = () => {
+    whatsappWidget.classList.add("is-open");
+    toggleButton.setAttribute("aria-expanded", "true");
+    panel.setAttribute("aria-hidden", "false");
+  };
+
+  toggleButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+
+    if (whatsappWidget.classList.contains("is-open")) {
       closeWidget();
     } else {
       openWidget();
     }
   });
 
-  document.addEventListener("click", function (event) {
-    if (!widget.contains(event.target)) {
+  document.addEventListener("click", (event) => {
+    if (!whatsappWidget.contains(event.target)) {
       closeWidget();
     }
   });
 
-  document.addEventListener("keydown", function (event) {
+  document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeWidget();
-      toggle.focus();
     }
   });
-})();
-
-
-(function () {
-  const languageButtons = document.querySelectorAll("[data-language-option]");
-
-  if (!languageButtons.length) {
-    return;
-  }
-
-  function setCookie(name, value) {
-    document.cookie = `${name}=${value}; path=/`;
-    document.cookie = `${name}=${value}; path=/; domain=${window.location.hostname}`;
-  }
-
-  function clearTranslateCookie() {
-    setCookie("googtrans", "");
-    setCookie("googtrans", "/es/es");
-  }
-
-  function setActiveLanguage(language) {
-    languageButtons.forEach((button) => {
-      const isActive = button.dataset.languageOption === language;
-
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-pressed", String(isActive));
-    });
-  }
-
-  function getCurrentLanguage() {
-    const match = document.cookie.match(/googtrans=\/es\/([^;]+)/);
-
-    if (match && match[1]) {
-      return match[1];
-    }
-
-    return "es";
-  }
-
-  function changeLanguage(language) {
-    if (language === "es") {
-      clearTranslateCookie();
-      setActiveLanguage("es");
-      window.location.reload();
-      return;
-    }
-
-    setCookie("googtrans", `/es/${language}`);
-    setActiveLanguage(language);
-    window.location.reload();
-  }
-
-  languageButtons.forEach((button) => {
-    button.addEventListener("click", function () {
-      const language = button.dataset.languageOption;
-
-      if (!language) {
-        return;
-      }
-
-      changeLanguage(language);
-    });
-  });
-
-  setActiveLanguage(getCurrentLanguage());
-})();
+});

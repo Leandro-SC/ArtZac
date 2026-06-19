@@ -1,40 +1,44 @@
 :root {
   /*
   Art-Zac Welding Design System
-  Market: USA
-  Style: industrial, premium, durable, technical.
-  Inspiration: carbon steel, gunmetal, oxidized metal, molten copper, welding heat.
+  Style: industrial premium, technical, precise, durable.
   */
 
   /* Core neutrals */
-  --color-black: #080808;
-  --color-carbon: #0e0e0e;
-  --color-gunmetal: #171b1f;
-  --color-steel: #2d3338;
-  --color-steel-dark: #11161a;
-  --color-iron: #6f7478;
-  --color-warm-steel: #e7e1d3;
+  --color-black: #070707;
+  --color-carbon: #0b0d0f;
+  --color-gunmetal: #151a1f;
+  --color-steel: #2b333a;
+  --color-steel-dark: #101418;
+  --color-iron: #697178;
+  --color-warm-steel: #e8e1d4;
   --color-light-gray: #f5f1e8;
   --color-white: #ffffff;
 
-  /* Brand accents - no yellow dominant */
+  /* Industrial accents */
   --color-copper: #b7652a;
   --color-copper-dark: #7a3e1d;
   --color-molten: #c65a1e;
   --color-ember: #d9782d;
   --color-rust: #6f3518;
 
+  /* Supporting surfaces */
+  --surface-dark: #0b0d0f;
+  --surface-dark-2: #11161b;
+  --surface-light: #f5f1e8;
+  --surface-card: rgba(255, 255, 255, 0.08);
+  --surface-card-dark: rgba(8, 8, 8, 0.72);
+
+  /* Borders */
+  --border-dark: rgba(255, 255, 255, 0.12);
+  --border-light: rgba(8, 8, 8, 0.1);
+  --border-copper: rgba(183, 101, 42, 0.36);
+
   /* Compatibility aliases for existing SCSS */
   --color-asphalt: var(--color-carbon);
   --color-dark-gray: var(--color-gunmetal);
   --color-gray: var(--color-iron);
   --color-steel-light: var(--color-warm-steel);
-
-  /*
-  Importante:
-  Muchas clases existentes usan --color-yellow.
-  Lo mantenemos como alias, pero ya NO será amarillo.
-  */
   --color-yellow: var(--color-copper);
   --color-yellow-dark: var(--color-copper-dark);
   --color-weld: var(--color-copper);
@@ -46,18 +50,24 @@
 
   /* Layout */
   --container: 1180px;
-  --section-padding: clamp(4rem, 8vw, 7rem);
+  --container-wide: 1360px;
+  --section-padding: clamp(4.5rem, 8vw, 7.5rem);
 
   /* Radius */
+  --radius-xs: 0.35rem;
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
 
   /* Shadows */
   --shadow-soft: 0 20px 60px rgba(8, 8, 8, 0.16);
-  --shadow-card: 0 16px 40px rgba(8, 8, 8, 0.1);
+  --shadow-card: 0 18px 46px rgba(8, 8, 8, 0.12);
+  --shadow-premium: 0 24px 80px rgba(8, 8, 8, 0.34);
+  --shadow-copper: 0 18px 42px rgba(183, 101, 42, 0.24);
 
   /* Motion */
   --transition-fast: 180ms ease;
   --transition-base: 260ms ease;
+  --transition-slow: 420ms ease;
 }

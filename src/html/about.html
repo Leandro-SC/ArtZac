@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>About | Art-Zac Welding</title>
-  <meta name="description" content="Conozca la historia de Art-Zac Welding, especialistas en soldadura certificada AWS, carpintería metálica, fabricación a medida y servicio móvil de soldadura.">
-  <meta name="keywords" content="Art-Zac Welding, soldadura certificada AWS, carpintería metálica, fabricación metálica, soldadura móvil, estructuras metálicas">
+  <title>Nosotros | Art-Zac Welding</title>
+  <meta name="description" content="Conozca Art-Zac Welding, empresa especializada en soldadura profesional, fabricación metálica, reparación, instalación y soluciones metálicas a medida.">
+  <meta name="keywords" content="Art-Zac Welding, soldadura profesional, fabricación metálica, soldadura móvil, reparación metálica, estructuras metálicas">
 
-  <meta property="og:title" content="About | Art-Zac Welding">
-  <meta property="og:description" content="Soldadura certificada, fabricación metálica a medida y soluciones duraderas para hogares, empresas e industria.">
+  <meta property="og:title" content="Nosotros | Art-Zac Welding">
+  <meta property="og:description" content="Soluciones de soldadura y fabricación metálica con enfoque técnico, precisión y atención al detalle.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://art-zacwelding.com/about.html">
-  <meta property="og:image" content="https://art-zacwelding.com/images/soldadura_1.webp">
+  <meta property="og:image" content="https://art-zacwelding.com/images/soldadura_5.webp">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="About | Art-Zac Welding">
-  <meta name="twitter:description" content="Conozca nuestra historia, enfoque y compromiso con la soldadura profesional.">
-  <meta name="twitter:image" content="https://art-zacwelding.com/images/soldadura_1.webp">
+  <meta name="twitter:title" content="Nosotros | Art-Zac Welding">
+  <meta name="twitter:description" content="Soldadura profesional, fabricación metálica y soluciones a medida.">
+  <meta name="twitter:image" content="https://art-zacwelding.com/images/soldadura_5.webp">
 
   <link rel="canonical" href="https://art-zacwelding.com/about.html">
   <link rel="alternate" hreflang="es" href="https://art-zacwelding.com/about.html">
@@ -34,13 +34,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <link
-  rel="preload"
-  as="image"
-  href="images/soldadura_1.webp"
-  imagesrcset="images/soldadura_1.webp"
-  type="image/webp"
->
   <link rel="stylesheet" href="css/app.css">
 </head>
 
@@ -48,19 +41,37 @@
   @@include('./partials/header.html')
 
   <div class="language-switcher" aria-label="Selector de idioma">
-    <span class="language-switcher__label">Idioma</span>
-    <div id="google_translate_element" class="language-switcher__widget"></div>
+    <div class="language-switcher__google" id="google_translate_element" aria-hidden="true"></div>
+
+    <span class="language-switcher__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3.02a15.8 15.8 0 0 0-1.26-5.03A8.04 8.04 0 0 1 18.9 11ZM12 4.04c.72 1.04 1.5 3.28 1.78 6.96h-3.56C10.5 7.32 11.28 5.08 12 4.04ZM4.25 13h3.87c.1 1.85.42 3.58.91 5A8.04 8.04 0 0 1 4.25 13Zm3.87-2H4.25a8.04 8.04 0 0 1 4.78-5c-.49 1.42-.81 3.15-.91 5ZM12 19.96c-.72-1.04-1.5-3.28-1.78-6.96h3.56c-.28 3.68-1.06 5.92-1.78 6.96Zm2.62-1.93A15.8 15.8 0 0 0 15.88 13h3.02a8.04 8.04 0 0 1-4.28 5.03Z" />
+      </svg>
+    </span>
+
+    <div class="language-switcher__content">
+      <span class="language-switcher__label">Idioma</span>
+
+      <div class="language-switcher__actions" role="group" aria-label="Cambiar idioma">
+        <button class="language-switcher__button is-active" type="button" data-language-option="es" aria-pressed="true">
+          ES
+        </button>
+
+        <button class="language-switcher__button" type="button" data-language-option="en" aria-pressed="false">
+          EN
+        </button>
+      </div>
+    </div>
   </div>
 
   <main id="main">
-    <section class="about-hero about-hero--welding" aria-labelledby="about-hero-title">
-      <div class="about-hero__background" aria-hidden="true">
+    <section class="about-hero" aria-labelledby="about-hero-title">
+      <div class="about-hero__media" aria-hidden="true">
         <picture>
-          <source srcset="images/soldadura_1.avif" type="image/avif">
-          <source srcset="images/soldadura_1.webp" type="image/webp">
+          <source srcset="images/soldadura_5.avif" type="image/avif">
+          <source srcset="images/soldadura_5.webp" type="image/webp">
           <img
-            class="about-hero__image"
-            src="images/soldadura_1.jpg"
+            src="images/soldadura_5.jpg"
             alt=""
             width="1600"
             height="1000"
@@ -72,122 +83,66 @@
 
       <div class="about-hero__overlay" aria-hidden="true"></div>
 
-      <div class="container about-hero__container">
-        <div class="about-hero__content">
-          <span class="eyebrow">About Art-Zac Welding</span>
+      <div class="container about-hero__content">
+        <div class="about-hero__inner" data-reveal>
+          <span class="eyebrow">Sobre Art-Zac Welding</span>
 
           <h1 id="about-hero-title">
-            Su visión, nuestra artesanía.
+            Trabajo metálico guiado por precisión, resistencia y buen acabado.
           </h1>
 
           <p>
-            Damos vida a proyectos de soldadura personalizados con habilidad,
-            pasión y compromiso con la excelencia.
+            Somos un equipo enfocado en soluciones de soldadura, fabricación metálica, reparación e instalación para proyectos que requieren atención al detalle y ejecución profesional.
           </p>
 
           <div class="about-hero__actions">
-            <a class="btn btn-primary btn-mobile-full" href="services.html">
-              Ver servicios
-            </a>
-
-            <a class="btn btn-outline btn-mobile-full" href="contact.html">
+            <a class="btn btn-primary btn-lg btn-mobile-full" href="contact.html">
               Solicitar cotización
             </a>
-          </div>
 
-          <div class="about-hero__proof" aria-label="Puntos de confianza de Art-Zac Welding">
-            <span>Certificación AWS</span>
-            <span>Fabricación a medida</span>
-            <span>Servicio móvil</span>
+            <a class="btn btn-outline btn-lg btn-mobile-full" href="services.html">
+              Ver servicios
+            </a>
           </div>
-        </div>
-
-        <div class="about-hero__floating-card" aria-label="Calidad certificada AWS">
-          <strong>AWS</strong>
-          <span>Soldadura certificada y confiable</span>
         </div>
       </div>
     </section>
 
     <section class="section about-story" aria-labelledby="about-story-title">
       <div class="container about-story__grid">
-        <div class="about-story__media" data-reveal>
-          <picture>
-            <source srcset="images/soldadura_5.avif" type="image/avif">
-            <source srcset="images/soldadura_5.webp" type="image/webp">
-            <img
-              class="about-story__image"
-              src="images/soldadura_5.jpg"
-              alt="Trabajo profesional de soldadura y fabricación metálica"
-              width="760"
-              height="620"
-              loading="lazy"
-              decoding="async"
-            >
-          </picture>
-        </div>
-
-        <div class="about-story__content" data-reveal>
-          <span class="eyebrow">Nuestra historia</span>
+        <div class="about-story__content section-header" data-reveal>
+          <span class="eyebrow">Nuestra forma de trabajar</span>
 
           <h2 id="about-story-title">
-            Tu mejor aliado en soldadura y fabricación metálica.
-          </h2>
-
-          <p class="text-lead">
-            En <strong>ART-ZAC WELDING</strong> nos enorgullecemos de ofrecer
-            soluciones de soldadura profesionales respaldadas por años de experiencia
-            y certificación <strong>AWS</strong>.
-          </p>
-
-          <p>
-            Nuestro equipo está comprometido con la calidad, la seguridad y la
-            precisión en cada proyecto que emprendemos, ya sea fabricación de trabajos
-            metálicos personalizados, servicios de soldadura móviles o restauración
-            de componentes estructurales.
-          </p>
-
-          <p>
-            Con una mentalidad centrada en el cliente, combinamos artesanía e
-            innovación para hacer realidad su visión. Desde instalaciones residenciales
-            hasta reparaciones comerciales, somos su socio de confianza en fabricación
-            de metal y soldadura de excelencia.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section about-vision" aria-labelledby="about-vision-title">
-      <div class="container about-vision__grid">
-        <div class="about-vision__content" data-reveal>
-          <span class="eyebrow">Precisión y confianza</span>
-
-          <h2 id="about-vision-title">
-            Más que soldadura: soluciones metálicas completas.
+            Cada proyecto empieza con una necesidad concreta y termina con una solución metálica funcional.
           </h2>
 
           <p>
-            Proporcionamos soluciones metálicas completas, desde el diseño hasta la
-            instalación, para hogares, empresas e industria. Cada proyecto se trabaja
-            con enfoque técnico, criterio funcional y atención estética.
+            En Art-Zac Welding entendemos que una pieza metálica no solo debe verse bien. Debe responder al uso, resistir las condiciones del entorno y encajar correctamente en el espacio donde será instalada.
+          </p>
+
+          <p>
+            Por eso trabajamos con un enfoque práctico: escuchar el requerimiento, revisar las condiciones del proyecto, definir una solución adecuada y ejecutar con orden, limpieza y precisión.
           </p>
         </div>
 
-        <div class="about-vision__stats" aria-label="Fortalezas de Art-Zac Welding">
-          <article class="about-stat" data-reveal>
-            <strong>01</strong>
-            <span>Diseño personalizado</span>
-          </article>
+        <div class="about-story__panel premium-card premium-card--dark" data-reveal>
+          <span class="about-story__panel-label">Enfoque técnico</span>
 
-          <article class="about-stat about-stat--dark" data-reveal>
-            <strong>02</strong>
-            <span>Soldadura certificada</span>
-          </article>
+          <h3>
+            Soldadura, fabricación y reparación con criterio de uso real.
+          </h3>
 
-          <article class="about-stat about-stat--accent" data-reveal>
-            <strong>03</strong>
-            <span>Instalación profesional</span>
-          </article>
+          <p>
+            Nuestro trabajo se orienta a crear soluciones metálicas útiles, resistentes y adaptadas a cada necesidad: accesos, protecciones, estructuras, reparaciones, modificaciones y trabajos en campo.
+          </p>
+
+          <ul>
+            <li>Evaluación del requerimiento.</li>
+            <li>Revisión de medidas y condiciones.</li>
+            <li>Fabricación o reparación según el caso.</li>
+            <li>Instalación o entrega lista para uso.</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -195,140 +150,190 @@
     <section class="section about-values bg-light" aria-labelledby="about-values-title">
       <div class="container">
         <div class="section-header center" data-reveal>
-          <span class="eyebrow">Nuestro enfoque</span>
+          <span class="eyebrow">Lo que cuidamos</span>
 
           <h2 id="about-values-title">
-            La diferencia está en los detalles que no se ven, pero sostienen todo.
+            Una solución metálica debe ser clara, resistente y bien ejecutada.
           </h2>
 
           <p>
-            Nuestro trabajo se basa en comunicación clara, fabricación precisa,
-            materiales adecuados y terminaciones pensadas para durar.
+            Nuestro valor está en cuidar el proceso completo: desde la conversación inicial hasta el resultado final.
           </p>
         </div>
 
         <div class="about-values__grid">
-          <article class="value-card value-card--dark" data-reveal>
-            <span class="value-card__number">01</span>
-            <h3>Calidad certificada</h3>
+          <article class="about-value-card premium-card" data-reveal data-tilt-card>
+            <div class="premium-card__icon" aria-hidden="true">01</div>
+            <h3>Precisión</h3>
             <p>
-              Aplicamos criterios técnicos de soldadura profesional para entregar
-              uniones resistentes, seguras y confiables.
+              Revisamos medidas, detalles y condiciones antes de fabricar, reparar o instalar.
             </p>
           </article>
 
-          <article class="value-card" data-reveal>
-            <span class="value-card__number">02</span>
-            <h3>Artesanía personalizada</h3>
+          <article class="about-value-card premium-card" data-reveal data-tilt-card>
+            <div class="premium-card__icon" aria-hidden="true">02</div>
+            <h3>Resistencia</h3>
             <p>
-              Cada puerta, cerco, portón o estructura se adapta al espacio,
-              necesidad y estilo del cliente.
+              Buscamos soluciones metálicas preparadas para el uso diario y las exigencias del proyecto.
             </p>
           </article>
 
-          <article class="value-card value-card--yellow" data-reveal>
-            <span class="value-card__number">03</span>
-            <h3>Servicio móvil fiable</h3>
+          <article class="about-value-card premium-card" data-reveal data-tilt-card>
+            <div class="premium-card__icon" aria-hidden="true">03</div>
+            <h3>Comunicación</h3>
             <p>
-              Llevamos nuestro equipo hasta su ubicación para reparaciones,
-              modificaciones e instalaciones en sitio.
+              Mantenemos una conversación clara para entender qué necesita resolver cada cliente.
             </p>
           </article>
 
-          <article class="value-card" data-reveal>
-            <span class="value-card__number">04</span>
-            <h3>Compromiso real</h3>
+          <article class="about-value-card premium-card" data-reveal data-tilt-card>
+            <div class="premium-card__icon" aria-hidden="true">04</div>
+            <h3>Acabado</h3>
             <p>
-              Escuchamos, orientamos y ejecutamos cada proyecto con responsabilidad,
-              orden y visión de largo plazo.
+              Cuidamos la funcionalidad, presentación y entrega final de cada trabajo metálico.
             </p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section about-process" aria-labelledby="about-process-title">
-      <div class="container about-process__grid">
-        <div class="about-process__content" data-reveal>
-          <span class="eyebrow">Cómo trabajamos</span>
+    <section class="section about-capabilities" aria-labelledby="about-capabilities-title">
+      <div class="container about-capabilities__grid">
+        <div class="about-capabilities__media" data-reveal>
+          <picture class="about-capabilities__image about-capabilities__image--main">
+            <source srcset="images/soldadura_3.avif" type="image/avif">
+            <source srcset="images/soldadura_3.webp" type="image/webp">
+            <img
+              src="images/soldadura_3.jpg"
+              alt="Detalle de fabricación metálica y soldadura profesional"
+              width="760"
+              height="720"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
 
-          <h2 id="about-process-title">
-            Un proceso claro para convertir una idea en metal instalado.
+          <picture class="about-capabilities__image about-capabilities__image--floating">
+            <source srcset="images/soldadura_2.avif" type="image/avif">
+            <source srcset="images/soldadura_2.webp" type="image/webp">
+            <img
+              src="images/soldadura_2.jpg"
+              alt="Trabajo de soldadura y acabado metálico"
+              width="420"
+              height="360"
+              loading="lazy"
+              decoding="async"
+            >
+          </picture>
+        </div>
+
+        <div class="about-capabilities__content section-header" data-reveal>
+          <span class="eyebrow">Capacidades</span>
+
+          <h2 id="about-capabilities-title">
+            Servicios metálicos para fabricación, reparación e instalación.
           </h2>
 
           <p>
-            Nuestro proceso está diseñado para evitar improvisaciones, cuidar el
-            presupuesto y garantizar que el resultado final responda al uso real del
-            proyecto.
+            Apoyamos proyectos que necesitan crear, adaptar o corregir elementos metálicos. Nuestro enfoque se adapta tanto a piezas nuevas como a trabajos existentes que requieren reparación o modificación.
           </p>
 
-          <a class="btn btn-dark" href="contact.html">Solicitar evaluación</a>
+          <div class="about-capabilities__list">
+            <article>
+              <h3>Fabricación metálica</h3>
+              <p>Puertas, portones, cercos, soportes, barandas y soluciones a medida.</p>
+            </article>
+
+            <article>
+              <h3>Reparación y refuerzo</h3>
+              <p>Corrección de piezas metálicas, ajustes, modificaciones y refuerzos funcionales.</p>
+            </article>
+
+            <article>
+              <h3>Trabajo en campo</h3>
+              <p>Servicio móvil de soldadura para necesidades que requieren atención en sitio.</p>
+            </article>
+          </div>
+
+          <a class="btn btn-dark btn-lg btn-mobile-full" href="services.html">
+            Ver servicios
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about-process bg-dark" aria-labelledby="about-process-title">
+      <div class="container">
+        <div class="section-header center" data-reveal>
+          <span class="eyebrow">Proceso</span>
+
+          <h2 id="about-process-title">
+            Un proceso directo para avanzar con claridad.
+          </h2>
+
+          <p>
+            Simplificamos la comunicación y organizamos cada etapa para que el cliente sepa qué esperar.
+          </p>
         </div>
 
-        <div class="about-process__steps">
-          <article class="process-step" data-reveal>
+        <div class="about-process__timeline">
+          <article class="about-process__step" data-reveal>
             <span>01</span>
-            <div>
-              <h3>Escuchamos su necesidad</h3>
-              <p>
-                Revisamos el objetivo, medidas, ubicación, nivel de seguridad,
-                estilo deseado y condiciones del espacio.
-              </p>
-            </div>
+            <h3>Conversación inicial</h3>
+            <p>
+              Escuchamos qué necesita fabricar, reparar, modificar o instalar.
+            </p>
           </article>
 
-          <article class="process-step" data-reveal>
+          <article class="about-process__step" data-reveal>
             <span>02</span>
-            <div>
-              <h3>Definimos la solución</h3>
-              <p>
-                Proponemos materiales, tipo de estructura, alcance del trabajo,
-                acabados y detalles técnicos.
-              </p>
-            </div>
+            <h3>Revisión del proyecto</h3>
+            <p>
+              Validamos medidas, ubicación, materiales, acceso y condiciones del trabajo.
+            </p>
           </article>
 
-          <article class="process-step" data-reveal>
+          <article class="about-process__step" data-reveal>
             <span>03</span>
-            <div>
-              <h3>Fabricamos con precisión</h3>
-              <p>
-                Soldamos, reforzamos y damos forma al proyecto cuidando resistencia,
-                alineación y acabado.
-              </p>
-            </div>
+            <h3>Propuesta de solución</h3>
+            <p>
+              Definimos el enfoque adecuado según la necesidad y el uso final.
+            </p>
           </article>
 
-          <article class="process-step" data-reveal>
+          <article class="about-process__step" data-reveal>
             <span>04</span>
-            <div>
-              <h3>Instalamos o atendemos en sitio</h3>
-              <p>
-                Ejecutamos la instalación, reparación o modificación con un proceso
-                ordenado, seguro y profesional.
-              </p>
-            </div>
+            <h3>Ejecución y entrega</h3>
+            <p>
+              Fabricamos, reparamos o instalamos cuidando orden, seguridad y acabado.
+            </p>
           </article>
         </div>
       </div>
     </section>
 
     <section class="section about-cta" aria-labelledby="about-cta-title">
-      <div class="container about-cta__inner" data-reveal>
+      <div class="container about-cta__box" data-reveal>
         <div>
           <span class="eyebrow">Hablemos de su proyecto</span>
+
           <h2 id="about-cta-title">
-            ¿Necesita una solución metálica resistente y a medida?
+            ¿Tiene una idea, reparación o estructura metálica por resolver?
           </h2>
+
           <p>
-            Cuéntenos qué desea fabricar, reparar o instalar. Le ayudaremos a
-            convertir su idea en una solución funcional, segura y duradera.
+            Comparta los detalles principales y le orientaremos sobre la mejor forma de avanzar.
           </p>
         </div>
 
         <div class="about-cta__actions">
-          <a class="btn btn-primary btn-lg" href="contact.html">Solicitar cotización</a>
-          <a class="btn btn-outline btn-lg" href="services.html">Ver servicios</a>
+          <a class="btn btn-primary btn-lg" href="contact.html">
+            Solicitar cotización
+          </a>
+
+          <a class="btn btn-outline btn-lg" href="tel:+12247623594">
+            Llamar 224-762-3594
+          </a>
         </div>
       </div>
     </section>
@@ -336,33 +341,9 @@
 
   @@include('./partials/footer.html')
 
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "AboutPage",
-      "name": "About Art-Zac Welding",
-      "url": "https://art-zacwelding.com/about.html",
-      "description": "Historia, enfoque y servicios de Art-Zac Welding, especialistas en soldadura certificada, fabricación metálica y servicio móvil de soldadura.",
-      "mainEntity": {
-        "@type": "LocalBusiness",
-        "name": "Art-Zac Welding",
-        "url": "https://art-zacwelding.com/",
-        "image": "https://art-zacwelding.com/images/logo.png",
-        "description": "Soldadura certificada, carpintería metálica a medida, puertas, portones, cercos, estructuras metálicas y servicio móvil de soldadura.",
-        "serviceType": [
-          "Soldadura certificada AWS",
-          "Fabricación metálica a medida",
-          "Servicio móvil de soldadura",
-          "Puertas y cercos metálicos",
-          "Estructuras metálicas"
-        ]
-      }
-    }
-  </script>
-
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
   <script src="js/app.min.js" defer></script>
+  <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 </body>
 </html>

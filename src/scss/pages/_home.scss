@@ -6,6 +6,19 @@
   background: var(--color-black);
   color: var(--color-white);
 
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: linear-gradient(90deg, black 0%, black 52%, transparent 100%);
+    pointer-events: none;
+  }
+
   .hero-slide {
     position: absolute;
     inset: 0;
@@ -21,10 +34,10 @@
 
     &.is-active {
       position: relative;
+      z-index: 2;
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
-      z-index: 2;
     }
 
     &__media,
@@ -45,27 +58,28 @@
       min-height: 100svh;
       object-fit: cover;
       object-position: center;
-      transform: scale(1.04);
-      filter: saturate(0.9) contrast(1.12) brightness(0.78);
+      transform: scale(1.05);
+      filter: saturate(0.88) contrast(1.14) brightness(0.72);
     }
 
     &__overlay {
       z-index: 1;
       background:
-        radial-gradient(circle at 74% 28%, rgba(183, 101, 42, 0.28), transparent 28rem),
-        linear-gradient(90deg, rgba(8, 8, 8, 0.96) 0%, rgba(8, 8, 8, 0.82) 44%, rgba(8, 8, 8, 0.38) 100%),
-        linear-gradient(180deg, rgba(8, 8, 8, 0.22) 0%, rgba(8, 8, 8, 0.92) 100%);
+        radial-gradient(circle at 74% 30%, rgba(183, 101, 42, 0.32), transparent 28rem),
+        radial-gradient(circle at 20% 82%, rgba(217, 120, 45, 0.14), transparent 22rem),
+        linear-gradient(90deg, rgba(8, 8, 8, 0.98) 0%, rgba(8, 8, 8, 0.86) 46%, rgba(8, 8, 8, 0.36) 100%),
+        linear-gradient(180deg, rgba(8, 8, 8, 0.18) 0%, rgba(8, 8, 8, 0.95) 100%);
     }
 
     &__content {
       position: relative;
-      z-index: 3;
+      z-index: 4;
       padding-top: clamp(7.5rem, 12vw, 10.5rem);
       padding-bottom: clamp(6rem, 9vw, 8rem);
     }
 
     &__inner {
-      max-width: 790px;
+      max-width: 860px;
     }
 
     &__eyebrow {
@@ -73,29 +87,31 @@
       align-items: center;
       gap: 0.65rem;
       margin-bottom: 1.15rem;
-      color: var(--color-copper);
-      font-size: 0.8rem;
+      color: var(--color-ember);
+      font-size: 0.78rem;
       font-weight: 950;
       letter-spacing: 0.18em;
       line-height: 1.4;
       text-transform: uppercase;
+    }
 
-      &::before {
-        content: "";
-        width: 42px;
-        height: 2px;
-        background: currentColor;
-      }
+    &__eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      box-shadow: 0 0 18px rgba(217, 120, 45, 0.42);
     }
 
     h1,
     h2 {
-      max-width: 850px;
+      max-width: 890px;
       margin: 0;
       color: var(--color-white);
-      font-size: clamp(3rem, 7.6vw, 7rem);
+      font-size: clamp(3rem, 7.4vw, 7rem);
       font-weight: 950;
-      letter-spacing: -0.075em;
+      letter-spacing: -0.078em;
       line-height: 0.9;
       text-wrap: balance;
       text-shadow: 0 18px 54px rgba(0, 0, 0, 0.48);
@@ -122,20 +138,21 @@
       flex-wrap: wrap;
       gap: 0.65rem;
       margin-top: 1.75rem;
+    }
 
-      span {
-        display: inline-flex;
-        align-items: center;
-        min-height: 38px;
-        padding: 0.55rem 0.9rem;
-        border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.075);
-        color: rgba(255, 255, 255, 0.86);
-        font-size: 0.8rem;
-        font-weight: 800;
-        backdrop-filter: blur(14px);
-      }
+    &__trust span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0.55rem 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.075);
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 0.8rem;
+      font-weight: 850;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
   }
 
@@ -143,7 +160,7 @@
     position: absolute;
     right: clamp(1rem, 5vw, 4rem);
     bottom: clamp(1.25rem, 5vw, 3.25rem);
-    z-index: 4;
+    z-index: 5;
     display: inline-flex;
     align-items: center;
     gap: 0.7rem;
@@ -153,6 +170,7 @@
     background: rgba(8, 8, 8, 0.64);
     box-shadow: 0 16px 42px rgba(0, 0, 0, 0.32);
     backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   .hero-carousel__arrow {
@@ -171,64 +189,30 @@
       background-color 180ms ease,
       color 180ms ease,
       transform 180ms ease;
+  }
 
-    &:hover,
-    &:focus-visible {
-      background: var(--color-copper);
-      color: var(--color-white);
-      transform: translateY(-2px);
-    }
+  .hero-carousel__arrow:hover,
+  .hero-carousel__arrow:focus-visible {
+    background: var(--color-copper);
+    color: var(--color-white);
+    transform: translateY(-2px);
+  }
 
-    &:focus-visible {
-      outline: 3px solid rgba(183, 101, 42, 0.42);
-      outline-offset: 3px;
-    }
+  .hero-carousel__arrow:focus-visible {
+    outline: 3px solid rgba(183, 101, 42, 0.42);
+    outline-offset: 3px;
   }
 
   .hero-carousel__counter {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.35rem;
     min-width: 66px;
-    justify-content: center;
     color: var(--color-white);
     font-size: 0.84rem;
     font-weight: 900;
     letter-spacing: 0.12em;
-  }
-}
-
-/****************Hero Buttons******************/
-.hero-btn {
-  min-height: 54px;
-  padding-inline: 1.35rem;
-  border-radius: 999px;
-  font-weight: 950;
-  letter-spacing: -0.01em;
-}
-
-.hero-btn--primary {
-  background: var(--color-copper);
-  color: var(--color-white);
-
-  &:hover,
-  &:focus-visible {
-    background: var(--color-white);
-    color: var(--color-black);
-  }
-}
-
-.hero-btn--secondary {
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--color-white);
-  backdrop-filter: blur(14px);
-
-  &:hover,
-  &:focus-visible {
-    border-color: rgba(183, 101, 42, 0.78);
-    background: rgba(183, 101, 42, 0.18);
-    color: var(--color-white);
   }
 }
 
@@ -258,28 +242,23 @@
     z-index: 1;
     display: grid;
     grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-    gap: clamp(2rem, 6vw, 5.5rem);
+    gap: clamp(2.5rem, 7vw, 5.5rem);
     align-items: center;
   }
 
   &__content {
-    max-width: 640px;
+    max-width: 660px;
+  }
 
-    h2 {
-      color: var(--color-black);
-    }
+  &__content p {
+    margin-top: 1rem;
+  }
 
-    p {
-      color: rgba(8, 8, 8, 0.72);
-    }
-
-    p + p {
-      margin-top: 1rem;
-    }
-
-    .btn {
-      margin-top: 1.6rem;
-    }
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.8rem;
   }
 
   &__media {
@@ -288,707 +267,546 @@
   }
 
   &__image {
+    position: absolute;
     display: block;
     overflow: hidden;
-    border-radius: 32px;
-    background: var(--color-black);
-    box-shadow: 0 26px 78px rgba(8, 8, 8, 0.18);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-premium);
+  }
 
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: saturate(0.94) contrast(1.08);
-      transition: transform 600ms ease;
-    }
+  &__image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.92) contrast(1.08);
+  }
 
-    &:hover img {
-      transform: scale(1.04);
-    }
+  &__image--large {
+    inset: 0 8% 8% 0;
+  }
 
-    &--large {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: min(82%, 620px);
-      height: 520px;
-    }
-
-    &--small {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: min(48%, 360px);
-      height: 300px;
-      border: 8px solid var(--color-light-gray);
-    }
+  &__image--small {
+    right: 0;
+    bottom: 0;
+    width: min(48%, 320px);
+    height: 300px;
+    border: 8px solid var(--color-light-gray);
   }
 
   &__badge {
     position: absolute;
-    left: 38%;
+    left: -1rem;
     bottom: 5.5rem;
     display: grid;
-    place-items: center;
-    width: 142px;
-    height: 142px;
-    border-radius: 50%;
+    gap: 0.3rem;
+    max-width: 230px;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid rgba(183, 101, 42, 0.3);
+    border-radius: var(--radius-lg);
     background:
-      linear-gradient(135deg, var(--color-copper) 0%, var(--color-ember) 100%);
+      radial-gradient(circle at 80% 20%, rgba(183, 101, 42, 0.22), transparent 8rem),
+      linear-gradient(135deg, var(--color-black) 0%, var(--color-gunmetal) 100%);
     color: var(--color-white);
-    text-align: center;
-    box-shadow: 0 20px 44px rgba(183, 101, 42, 0.28);
+    box-shadow: var(--shadow-premium);
+  }
 
-    strong {
-      display: block;
-      font-size: 2rem;
-      font-weight: 950;
-      letter-spacing: -0.06em;
-      line-height: 1;
-    }
+  &__badge strong {
+    color: var(--color-ember);
+    font-size: 1.6rem;
+    font-weight: 950;
+    line-height: 1;
+  }
 
-    span {
-      display: block;
-      max-width: 90px;
-      margin-inline: auto;
-      margin-top: 0.25rem;
-      font-size: 0.72rem;
-      font-weight: 900;
-      line-height: 1.2;
-      text-transform: uppercase;
-    }
+  &__badge span {
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.86rem;
+    font-weight: 750;
+    line-height: 1.35;
   }
 }
 
-/****************Services Preview******************/
+/****************Home Services******************/
 .home-services {
   position: relative;
   overflow: hidden;
   background:
-    linear-gradient(180deg, var(--color-black) 0%, var(--color-gunmetal) 100%);
-  color: var(--color-white);
-
-  .section-header h2 {
-    color: var(--color-white);
-  }
-
-  .section-header p {
-    color: rgba(255, 255, 255, 0.72);
-  }
+    linear-gradient(180deg, #f7f2e8 0%, #ebe3d4 100%);
 }
 
-.welding-services__grid {
+.home-services::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(8, 8, 8, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8, 8, 8, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, black, transparent 82%);
+  pointer-events: none;
+}
+
+.home-services .container {
+  position: relative;
+  z-index: 1;
+}
+
+.home-services__grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 1.25rem;
-  margin-top: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.35rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
-.welding-service-card {
-  position: relative;
-  grid-column: span 2;
-  overflow: hidden;
-  min-height: 430px;
-  border-radius: 28px;
-  background: var(--color-black);
-  color: var(--color-white);
-  box-shadow: 0 20px 60px rgba(8, 8, 8, 0.2);
-  isolation: isolate;
-
-  &:nth-child(4),
-  &:nth-child(5) {
-    grid-column: span 3;
-  }
-
-  picture {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.56;
-    filter: saturate(0.92) contrast(1.08);
-    transform: scale(1.02);
-    transition:
-      transform 650ms ease,
-      opacity 650ms ease;
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background:
-      linear-gradient(180deg, rgba(8, 8, 8, 0.14) 0%, rgba(8, 8, 8, 0.86) 100%),
-      linear-gradient(90deg, rgba(8, 8, 8, 0.82), transparent);
-  }
-
-  &:hover img {
-    opacity: 0.74;
-    transform: scale(1.08);
-  }
-
-  &__content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    min-height: inherit;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: clamp(1.35rem, 3vw, 2rem);
-
-    span {
-      display: inline-flex;
-      width: max-content;
-      margin-bottom: auto;
-      padding: 0.45rem 0.7rem;
-      border-radius: 999px;
-      background: rgba(183, 101, 42, 0.92);
-      color: var(--color-white);
-      font-size: 0.78rem;
-      font-weight: 950;
-      letter-spacing: 0.1em;
-    }
-
-    h3 {
-      max-width: 420px;
-      margin: 8rem 0 0;
-      color: var(--color-white);
-      font-size: clamp(1.45rem, 3vw, 2.1rem);
-      font-weight: 950;
-      letter-spacing: -0.045em;
-      line-height: 1;
-    }
-
-    p {
-      max-width: 470px;
-      margin: 0.8rem 0 0;
-      color: rgba(255, 255, 255, 0.76);
-      line-height: 1.65;
-    }
-
-    a {
-      display: inline-flex;
-      align-items: center;
-      width: max-content;
-      margin-top: 1.15rem;
-      color: var(--color-copper);
-      font-size: 0.9rem;
-      font-weight: 950;
-      text-decoration: none;
-
-      &::after {
-        content: "→";
-        margin-left: 0.5rem;
-        transition: transform 180ms ease;
-      }
-
-      &:hover,
-      &:focus-visible {
-        color: var(--color-white);
-      }
-
-      &:hover::after,
-      &:focus-visible::after {
-        transform: translateX(4px);
-      }
-    }
-  }
-
-  &--featured {
-    outline: 3px solid rgba(183, 101, 42, 0.72);
-    outline-offset: -3px;
-  }
+.home-service-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
-/****************Why Choose******************/
-.why-choose {
+.home-service-card__media {
   position: relative;
+  display: block;
+  aspect-ratio: 1.22;
   overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--color-steel-dark);
+}
+
+.home-service-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    radial-gradient(circle at 20% 20%, rgba(183, 101, 42, 0.16), transparent 28rem),
-    linear-gradient(135deg, var(--color-black) 0%, var(--color-steel-dark) 100%);
-  color: var(--color-white);
-
-  .eyebrow {
-    color: var(--color-copper);
-  }
-
-  h2 {
-    color: var(--color-white);
-  }
-
-  p {
-    color: rgba(255, 255, 255, 0.74);
-  }
-
-  &__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
-    gap: clamp(2rem, 6vw, 5rem);
-    align-items: center;
-  }
-
-  &__content {
-    max-width: 590px;
-
-    .btn {
-      margin-top: 1.65rem;
-    }
-  }
-
-  &__cards {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-
-    .benefit-card:first-child {
-      grid-column: 1 / -1;
-    }
-  }
+    linear-gradient(180deg, transparent 20%, rgba(8, 8, 8, 0.46) 100%),
+    radial-gradient(circle at 85% 20%, rgba(183, 101, 42, 0.24), transparent 12rem);
+  pointer-events: none;
 }
 
-.benefit-card {
-  min-height: 240px;
+.home-service-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform var(--transition-slow),
+    filter var(--transition-slow);
+}
+
+.home-service-card:hover .home-service-card__media img,
+.home-service-card:focus-within .home-service-card__media img {
+  transform: scale(1.055);
+  filter: saturate(1.04) contrast(1.06);
+}
+
+.home-service-card__content {
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.home-service-card__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  color: var(--color-white);
+  background:
+    linear-gradient(135deg, var(--color-copper) 0%, var(--color-ember) 100%);
+  box-shadow: 0 12px 28px rgba(183, 101, 42, 0.26);
+  font-size: 0.82rem;
+  font-weight: 950;
+}
+
+.home-service-card h3 {
+  margin: 0;
+  color: var(--color-black);
+}
+
+.home-service-card p {
+  margin-top: 0.85rem;
+}
+
+.home-services__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2rem, 4vw, 3.25rem);
+}
+
+/****************Proof******************/
+.home-proof {
+  position: relative;
+  overflow: hidden;
+  color: var(--color-white);
+  background:
+    radial-gradient(circle at 84% 22%, rgba(183, 101, 42, 0.2), transparent 26rem),
+    linear-gradient(135deg, var(--color-black) 0%, var(--color-gunmetal) 100%);
+}
+
+.home-proof::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at 60% 50%, black, transparent 76%);
+  pointer-events: none;
+}
+
+.home-proof__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1.15fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.home-proof__content {
+  max-width: 620px;
+}
+
+.home-proof__content h2 {
+  color: var(--color-white);
+}
+
+.home-proof__content p {
+  color: rgba(255, 255, 255, 0.74);
+  margin-top: 1rem;
+}
+
+.home-proof__content .btn {
+  margin-top: 1.75rem;
+}
+
+.home-proof__cards {
+  display: grid;
+  gap: 1rem;
+}
+
+.proof-card {
   padding: clamp(1.35rem, 3vw, 2rem);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.065);
-  backdrop-filter: blur(18px);
+}
 
-  &__icon {
-    display: inline-flex;
-    margin-bottom: 1.4rem;
-    color: var(--color-copper);
-    font-size: 0.84rem;
-    font-weight: 950;
-    letter-spacing: 0.18em;
-  }
+.proof-card:nth-child(2) {
+  transform: translateX(2rem);
+}
 
-  h3 {
-    margin: 0;
-    color: var(--color-white);
-    font-size: clamp(1.25rem, 2vw, 1.65rem);
-    font-weight: 950;
-    letter-spacing: -0.035em;
-  }
+.proof-card:nth-child(3) {
+  transform: translateX(4rem);
+}
 
-  p {
-    margin: 0.75rem 0 0;
-    color: rgba(255, 255, 255, 0.72);
-    line-height: 1.65;
-  }
+.proof-card h3 {
+  color: var(--color-white);
+}
 
-  &--highlight {
-    min-height: 220px;
-    background:
-      linear-gradient(135deg, rgba(183, 101, 42, 0.22), rgba(255, 255, 255, 0.07));
-  }
-
-  &--yellow {
-    background:
-      linear-gradient(135deg, var(--color-copper) 0%, var(--color-ember) 100%);
-
-    .benefit-card__icon,
-    h3,
-    p {
-      color: var(--color-white);
-    }
-  }
+.proof-card p {
+  margin-top: 0.75rem;
 }
 
 /****************Process******************/
-.welding-process {
+.home-process {
+  position: relative;
+  overflow: hidden;
   background:
-    linear-gradient(180deg, #e9e3d7 0%, var(--color-light-gray) 100%);
+    linear-gradient(180deg, #f7f2e8 0%, #eee6d8 100%);
 }
 
-.process-steps {
-  counter-reset: process;
+.home-process__steps {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
-  padding: 0;
-  margin: clamp(2rem, 5vw, 4rem) 0 0;
-  list-style: none;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.home-process__steps::before {
+  content: "";
+  position: absolute;
+  top: 2.15rem;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background:
+    linear-gradient(90deg, transparent, rgba(183, 101, 42, 0.52), transparent);
+  pointer-events: none;
 }
 
 .process-step {
   position: relative;
-  min-height: 280px;
-  padding: clamp(1.35rem, 3vw, 2rem);
+  z-index: 1;
+  padding: clamp(1.25rem, 2.4vw, 1.7rem);
   border: 1px solid rgba(8, 8, 8, 0.08);
-  border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.76) 0%, rgba(231, 225, 211, 0.84) 100%);
-  box-shadow: 0 18px 50px rgba(8, 8, 8, 0.08);
-
-  span {
-    display: inline-flex;
-    margin-bottom: 2rem;
-    color: var(--color-copper);
-    font-size: 0.95rem;
-    font-weight: 950;
-    letter-spacing: 0.14em;
-  }
-
-  h3 {
-    margin: 0;
-    color: var(--color-black);
-    font-size: clamp(1.2rem, 2vw, 1.55rem);
-    font-weight: 950;
-    letter-spacing: -0.035em;
-    line-height: 1.05;
-  }
-
-  p {
-    margin: 0.85rem 0 0;
-    color: rgba(8, 8, 8, 0.7);
-    line-height: 1.65;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 2rem;
-    right: 2rem;
-    top: 4.75rem;
-    height: 1px;
-    background: rgba(8, 8, 8, 0.12);
-  }
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-card);
 }
 
-/****************Home CTA******************/
-.home-cta {
+.process-step span {
+  display: inline-grid;
+  place-items: center;
+  width: 4.25rem;
+  height: 4.25rem;
+  margin-bottom: 1.15rem;
+  border: 1px solid rgba(183, 101, 42, 0.26);
+  border-radius: 50%;
+  color: var(--color-white);
+  background:
+    radial-gradient(circle at 75% 15%, rgba(255, 255, 255, 0.22), transparent 1.5rem),
+    linear-gradient(135deg, var(--color-black) 0%, var(--color-gunmetal) 100%);
+  box-shadow: 0 16px 36px rgba(8, 8, 8, 0.18);
+  font-size: 0.95rem;
+  font-weight: 950;
+}
+
+.process-step h3 {
+  margin: 0;
+  color: var(--color-black);
+}
+
+.process-step p {
+  margin-top: 0.75rem;
+  font-size: 0.98rem;
+}
+
+/****************Projects preview******************/
+.home-projects {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 86% 28%, rgba(183, 101, 42, 0.22), transparent 24rem),
-    linear-gradient(135deg, var(--color-black) 0%, var(--color-gunmetal) 100%);
-  color: var(--color-white);
-
-  &::before {
-    content: "";
-    position: absolute;
-    right: -8rem;
-    bottom: -12rem;
-    width: 28rem;
-    height: 28rem;
-    border-radius: 50%;
-    background: rgba(183, 101, 42, 0.14);
-  }
-
-  &__inner {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: clamp(1.5rem, 5vw, 3rem);
-    align-items: center;
-    min-height: 360px;
-    padding-block: clamp(2.5rem, 7vw, 5rem);
-
-    .eyebrow {
-      color: var(--color-copper);
-    }
-
-    h2 {
-      max-width: 760px;
-      color: var(--color-white);
-      font-size: clamp(2.2rem, 6vw, 4.6rem);
-      font-weight: 950;
-      letter-spacing: -0.07em;
-      line-height: 0.9;
-      text-wrap: balance;
-    }
-
-    p {
-      max-width: 670px;
-      margin-top: 1rem;
-      color: rgba(255, 255, 255, 0.76);
-      font-size: 1.08rem;
-      line-height: 1.7;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.85rem;
-    min-width: 230px;
-
-    .btn-primary {
-      background: var(--color-copper);
-      color: var(--color-white);
-
-      &:hover,
-      &:focus-visible {
-        background: var(--color-white);
-        color: var(--color-black);
-      }
-    }
-
-    .btn-outline {
-      border-color: rgba(255, 255, 255, 0.28);
-      color: var(--color-white);
-
-      &:hover,
-      &:focus-visible {
-        border-color: var(--color-copper);
-        background: rgba(183, 101, 42, 0.16);
-        color: var(--color-white);
-      }
-    }
-  }
+    radial-gradient(circle at 10% 12%, rgba(183, 101, 42, 0.12), transparent 22rem),
+    linear-gradient(180deg, var(--color-white) 0%, #f3eee5 100%);
 }
 
-/****************Shared Button Variant******************/
-.btn-outline-dark {
-  border: 1px solid rgba(8, 8, 8, 0.18);
-  background: transparent;
-  color: var(--color-black);
+.home-projects__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
 
-  &:hover,
-  &:focus-visible {
-    border-color: var(--color-black);
-    background: var(--color-black);
-    color: var(--color-white);
-  }
+.home-projects__content {
+  max-width: 620px;
+}
+
+.home-projects__content p {
+  margin-top: 1rem;
+}
+
+.home-projects__content .btn {
+  margin-top: 1.75rem;
+}
+
+.home-projects__gallery {
+  position: relative;
+  min-height: 620px;
+}
+
+.home-projects__image {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-premium);
+}
+
+.home-projects__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.08);
+}
+
+.home-projects__image--large {
+  inset: 0 0 8% 8%;
+}
+
+.home-projects__image--small {
+  left: 0;
+  bottom: 0;
+  width: min(44%, 300px);
+  height: 280px;
+  border: 8px solid #f3eee5;
 }
 
 /****************Responsive******************/
-@media (max-width: 1180px) {
-  .welding-services__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 1080px) {
+  .home-services__grid {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .welding-service-card,
-  .welding-service-card:nth-child(4),
-  .welding-service-card:nth-child(5) {
-    grid-column: span 1;
+  .home-process__steps {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .process-steps {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 980px) {
-  .hero-carousel--welding {
-    min-height: 820px;
-
-    .hero-slide {
-      min-height: 820px;
-
-      &__image {
-        min-height: 820px;
-      }
-
-      &__overlay {
-        background:
-          radial-gradient(circle at 72% 32%, rgba(183, 101, 42, 0.2), transparent 34rem),
-          linear-gradient(180deg, rgba(8, 8, 8, 0.8) 0%, rgba(8, 8, 8, 0.9) 100%);
-      }
-
-      h1,
-      h2 {
-        max-width: 680px;
-      }
-    }
-
-    .hero-carousel__controls {
-      left: 50%;
-      right: auto;
-      bottom: 1.4rem;
-      transform: translateX(-50%);
-    }
-  }
-
-  .welding-intro__grid,
-  .why-choose__grid,
-  .home-cta__inner {
-    grid-template-columns: 1fr;
-  }
-
-  .welding-intro__media {
-    min-height: 560px;
-  }
-
-  .why-choose__content {
-    max-width: none;
-  }
-
-  .home-cta__actions {
-    flex-direction: row;
-    flex-wrap: wrap;
-    min-width: 0;
-  }
-}
-
-@media (max-width: 720px) {
-  .language-switcher {
-    top: 4.85rem;
-    right: 1rem;
-    left: auto;
-    bottom: auto;
-    max-width: calc(100vw - 2rem);
-    justify-content: flex-end;
-    border-radius: 18px;
-  }
-
-  .language-switcher__label {
+  .home-process__steps::before {
     display: none;
   }
 
-  .language-switcher select,
-  .language-switcher .goog-te-combo {
-    max-width: 132px;
+  .proof-card:nth-child(2),
+  .proof-card:nth-child(3) {
+    transform: none;
   }
+}
 
+@media (max-width: 860px) {
   .hero-carousel--welding {
-    min-height: 780px;
+    min-height: auto;
+
+    &::before {
+      background-size: 38px 38px;
+      mask-image: linear-gradient(180deg, black, transparent 82%);
+    }
 
     .hero-slide {
-      min-height: 780px;
+      min-height: auto;
+      align-items: end;
+    }
 
-      &__content {
-        padding-top: 7.2rem;
-        padding-bottom: 7.5rem;
-      }
+    .hero-slide__image {
+      min-height: 760px;
+      object-position: center;
+    }
 
-      &__image {
-        min-height: 780px;
-      }
+    .hero-slide__overlay {
+      background:
+        radial-gradient(circle at 72% 16%, rgba(183, 101, 42, 0.24), transparent 20rem),
+        linear-gradient(180deg, rgba(8, 8, 8, 0.3) 0%, rgba(8, 8, 8, 0.94) 70%, rgba(8, 8, 8, 1) 100%);
+    }
 
-      &__actions {
-        flex-direction: column;
-        align-items: stretch;
+    .hero-slide__content {
+      padding-top: 9rem;
+      padding-bottom: 7rem;
+    }
 
-        .btn {
-          justify-content: center;
-          width: 100%;
-        }
-      }
+    .hero-slide h1,
+    .hero-slide h2 {
+      font-size: clamp(2.8rem, 14vw, 5rem);
+      letter-spacing: -0.065em;
+    }
 
-      &__trust {
-        span {
-          width: 100%;
-          justify-content: center;
-        }
-      }
+    .hero-slide__actions {
+      display: grid;
     }
 
     .hero-carousel__controls {
+      left: 1rem;
+      right: auto;
       bottom: 1rem;
     }
   }
 
-  .welding-intro__media {
+  .welding-intro__grid,
+  .home-proof__grid,
+  .home-projects__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .welding-intro__media,
+  .home-projects__gallery {
+    min-height: 520px;
+  }
+}
+
+@media (max-width: 680px) {
+  .home-services__grid,
+  .home-process__steps {
+    grid-template-columns: 1fr;
+  }
+
+  .welding-intro__media,
+  .home-projects__gallery {
     min-height: auto;
     display: grid;
     gap: 1rem;
   }
 
-  .welding-intro__image {
-    &--large,
-    &--small {
-      position: static;
-      width: 100%;
-      height: auto;
-      border: 0;
+  .welding-intro__image,
+  .home-projects__image {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+  }
 
-      img {
-        aspect-ratio: 4 / 3;
-      }
-    }
+  .welding-intro__image img,
+  .home-projects__image img {
+    aspect-ratio: 1.08;
+  }
+
+  .welding-intro__image--small,
+  .home-projects__image--small {
+    width: 78%;
+    height: auto;
+    justify-self: end;
+    border-width: 6px;
   }
 
   .welding-intro__badge {
+    position: relative;
     left: auto;
-    right: 1rem;
-    bottom: 1rem;
-    width: 118px;
-    height: 118px;
+    bottom: auto;
+    max-width: none;
+    margin-top: -0.35rem;
   }
 
-  .welding-services__grid,
-  .why-choose__cards,
-  .process-steps {
-    grid-template-columns: 1fr;
-  }
-
-  .welding-service-card {
-    min-height: 390px;
-  }
-
-  .process-step {
-    min-height: auto;
-  }
-
-  .home-cta__actions {
-    flex-direction: column;
-
-    .btn {
-      justify-content: center;
-      width: 100%;
-    }
+  .home-service-card__media {
+    aspect-ratio: 1.28;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
   .hero-carousel--welding {
-    .hero-slide {
-      h1,
-      h2 {
-        font-size: clamp(2.65rem, 16vw, 4.1rem);
-      }
+    .hero-slide__image {
+      min-height: 720px;
+    }
 
-      &__subtitle {
-        font-size: 0.98rem;
-      }
+    .hero-slide__content {
+      padding-top: 8.25rem;
+      padding-bottom: 6.75rem;
+    }
+
+    .hero-slide__eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+    }
+
+    .hero-slide__trust {
+      gap: 0.45rem;
+    }
+
+    .hero-slide__trust span {
+      min-height: 34px;
+      padding: 0.45rem 0.7rem;
+      font-size: 0.74rem;
     }
 
     .hero-carousel__controls {
-      padding: 0.45rem;
-    }
-
-    .hero-carousel__arrow {
-      width: 40px;
-      height: 40px;
+      transform: scale(0.92);
+      transform-origin: left bottom;
     }
   }
 
-  .welding-intro__badge {
-    width: 104px;
-    height: 104px;
+  .welding-intro__actions {
+    display: grid;
+  }
 
-    strong {
-      font-size: 1.65rem;
-    }
-
-    span {
-      font-size: 0.64rem;
-    }
+  .home-projects__content .btn,
+  .home-proof__content .btn {
+    width: 100%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-carousel--welding {
-    .hero-slide,
-    .hero-slide__image,
-    .hero-carousel__arrow {
-      transition: none;
-    }
+  .hero-carousel--welding .hero-slide,
+  .home-service-card__media img {
+    transition: none;
   }
 
-  .welding-service-card img,
-  .welding-intro__image img {
-    transition: none;
+  .home-service-card:hover .home-service-card__media img,
+  .home-service-card:focus-within .home-service-card__media img {
+    transform: none;
   }
 }
