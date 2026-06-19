@@ -116,3 +116,72 @@
     transform: none;
   }
 }
+/****************Premium card interactions******************/
+.service-card,
+.value-card,
+.project-card,
+.capability-card,
+.process-card,
+.contact-card,
+.info-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 280ms ease,
+    border-color 280ms ease,
+    box-shadow 280ms ease,
+    background 280ms ease;
+}
+
+.service-card::before,
+.value-card::before,
+.project-card::before,
+.capability-card::before,
+.process-card::before,
+.contact-card::before,
+.info-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%),
+      rgba(217, 120, 45, 0.16),
+      transparent 14rem);
+  opacity: 0;
+  transition: opacity 260ms ease;
+  pointer-events: none;
+}
+
+.service-card:hover,
+.value-card:hover,
+.project-card:hover,
+.capability-card:hover,
+.process-card:hover,
+.contact-card:hover,
+.info-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(217, 120, 45, 0.34);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+}
+
+.service-card:hover::before,
+.value-card:hover::before,
+.project-card:hover::before,
+.capability-card:hover::before,
+.process-card:hover::before,
+.contact-card:hover::before,
+.info-card:hover::before {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .service-card:hover,
+  .value-card:hover,
+  .project-card:hover,
+  .capability-card:hover,
+  .process-card:hover,
+  .contact-card:hover,
+  .info-card:hover {
+    transform: none;
+  }
+}

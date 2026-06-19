@@ -177,7 +177,7 @@
   position: fixed;
   right: 1.15rem;
   bottom: 5.25rem;
-  z-index: 11000;
+  z-index: 99999;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -198,6 +198,11 @@
   color: var(--color-white);
   text-decoration: none;
   box-shadow: 0 18px 42px rgba(8, 8, 8, 0.26);
+}
+
+.floating-actions__whatsapp,
+.scroll-top {
+  pointer-events: auto;
 }
 
 .floating-actions__whatsapp {
@@ -526,4 +531,48 @@
   .whatsapp-widget__button:hover {
     transform: none;
   }
+}
+
+/****************Floating actions click fix******************/
+.floating-actions {
+  position: fixed !important;
+  right: 1.15rem !important;
+  bottom: 5.25rem !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+  pointer-events: none !important;
+}
+
+.floating-actions > * {
+  pointer-events: auto !important;
+}
+
+.whatsapp-widget {
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+}
+
+.whatsapp-widget,
+.whatsapp-widget *,
+.whatsapp-widget__button,
+.whatsapp-widget__panel,
+.whatsapp-widget__option {
+  pointer-events: auto;
+}
+
+.whatsapp-widget__panel[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.whatsapp-widget.is-open .whatsapp-widget__panel {
+  pointer-events: auto;
+}
+
+.scroll-top {
+  position: relative !important;
+  z-index: 2147483646 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
 }

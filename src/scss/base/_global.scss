@@ -552,3 +552,76 @@ body.nav-open {
 .language-switcher * {
   translate: no;
 }
+
+/****************Reveal animations******************/
+[data-reveal],
+[data-reveal-group] > * {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 720ms ease,
+    transform 720ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal].is-visible,
+[data-reveal-group].is-visible > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+[data-reveal="fade-left"] {
+  transform: translate3d(-32px, 0, 0);
+}
+
+[data-reveal="fade-right"] {
+  transform: translate3d(32px, 0, 0);
+}
+
+[data-reveal="zoom"] {
+  transform: scale(0.96);
+}
+
+[data-reveal="lift"] {
+  transform: translate3d(0, 42px, 0) scale(0.98);
+}
+
+[data-reveal="fade-left"].is-visible,
+[data-reveal="fade-right"].is-visible,
+[data-reveal="zoom"].is-visible,
+[data-reveal="lift"].is-visible {
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+[data-reveal-group].is-visible > *:nth-child(1) {
+  transition-delay: 80ms;
+}
+
+[data-reveal-group].is-visible > *:nth-child(2) {
+  transition-delay: 160ms;
+}
+
+[data-reveal-group].is-visible > *:nth-child(3) {
+  transition-delay: 240ms;
+}
+
+[data-reveal-group].is-visible > *:nth-child(4) {
+  transition-delay: 320ms;
+}
+
+[data-reveal-group].is-visible > *:nth-child(5) {
+  transition-delay: 400ms;
+}
+
+[data-reveal-group].is-visible > *:nth-child(6) {
+  transition-delay: 480ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal-group] > * {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
