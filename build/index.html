@@ -97,7 +97,9 @@
   </div>
 </header>
 
+
   <main id="main">
+
     <section class="home-weld-hero" aria-labelledby="home-hero-title" data-weld-hero>
       <div class="home-weld-hero__bg" aria-hidden="true"></div>
 
@@ -126,32 +128,31 @@
               Ver servicios
             </a>
 
-            <a class="btn btn-outline btn-lg btn-mobile-full" href="tel:+18152083773">
-              Llamar 815-208-3773
-            </a>
+            <div class="home-weld-hero__call-group">
+              <a class="btn btn-outline btn-lg btn-mobile-full" href="tel:+18152083773">
+                Llamar 815-208-3773
+              </a>
+
+              <div class="home-weld-hero__accreditations" aria-label="Referencias de confianza">
+                <span class="home-weld-hero__accreditation home-weld-hero__accreditation--aws">
+                  <img src="images/acre3.jpg" width="112" height="48" loading="eager" decoding="async"
+                    alt="American Welding Society">
+                </span>
+
+                <span class="home-weld-hero__accreditation home-weld-hero__accreditation--bbb">
+                  <img src="images/acre1.jpg" width="112" height="48" loading="eager" decoding="async"
+                    alt="Better Business Bureau">
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div class="home-weld-hero__trust" aria-label="Servicios destacados">
-            <span>Soldadura móvil</span>
-            <span>Fabricación a medida</span>
-            <span>Instalación profesional</span>
-          </div>
+      
         </div>
 
         <div class="home-weld-hero__stage" aria-hidden="true" data-reveal="fade-left">
-          <div
-            class="home-weld-hero__scene"
-            data-weld-scene
-            data-spark-x="0.50"
-            data-spark-y="0.89"
-          >
-            <img
-              class="home-weld-hero__art"
-              src="images/hombre-soldando.svg"
-              alt=""
-              loading="eager"
-              decoding="async"
-            >
+          <div class="home-weld-hero__scene" data-weld-scene data-spark-x="0.50" data-spark-y="0.89">
+            <img class="home-weld-hero__art" src="images/hombre-soldando.svg" alt="" loading="eager" decoding="async">
 
             <canvas class="home-weld-hero__sparks home-weld-hero__sparks--back" data-weld-sparks-back></canvas>
             <canvas class="home-weld-hero__sparks" data-weld-sparks></canvas>
@@ -163,6 +164,133 @@
             <span class="home-weld-hero__vignette" aria-hidden="true"></span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section corporate-trust corporate-trust--light" aria-labelledby="corporate-trust-title">
+      <div class="container">
+        <div class="section-header center corporate-trust__header" data-reveal="lift">
+          <span class="eyebrow">Confianza en soldadura industrial</span>
+
+          <h2 id="corporate-trust-title">
+            Trabajo preciso, seguro y alineado con buenas prácticas profesionales.
+          </h2>
+
+          <p>
+            Art-Zac Design & Iron Work Welding desarrolla cada proyecto con compromiso hacia la calidad,
+            la seguridad, la comunicación clara y la ejecución profesional en trabajos residenciales,
+            comerciales e industriales.
+          </p>
+        </div>
+
+        <div class="corporate-trust__cards" data-reveal-group>
+          <article class="corporate-trust-card premium-card" data-tilt-card>
+            <div class="corporate-trust-card__topline">
+              <div class="corporate-trust-card__logo corporate-trust-card__logo--aws"
+                aria-label="American Welding Society">
+                <picture>
+                  <source srcset="images/acre3.avif" type="image/avif">
+                  <source srcset="images/acre3.webp" type="image/webp">
+                  <img src="images/acre3.jpg" width="180" height="96" loading="lazy" decoding="async"
+                    alt="Logotipo de American Welding Society">
+                </picture>
+              </div>
+
+              <span class="corporate-trust-card__label">Estándares de industria</span>
+            </div>
+
+            <div class="corporate-trust-card__content">
+              <h3>American Welding Society</h3>
+
+              <p>
+                Nuestro trabajo se desarrolla con un enfoque alineado a buenas prácticas de la industria:
+                precisión en cada unión, procesos seguros, correcta preparación de materiales y acabados
+                profesionales en cada proyecto.
+              </p>
+            </div>
+          </article>
+
+          <article class="corporate-trust-card premium-card" data-tilt-card>
+            <div class="corporate-trust-card__topline">
+              <div class="corporate-trust-card__logo corporate-trust-card__logo--bbb"
+                aria-label="Better Business Bureau">
+                <picture>
+                  <source srcset="images/acre1.avif" type="image/avif">
+                  <source srcset="images/acre1.webp" type="image/webp">
+                  <img src="images/acre1.jpg" width="180" height="96" loading="lazy" decoding="async"
+                    alt="Logotipo de Better Business Bureau">
+                </picture>
+              </div>
+
+              <span class="corporate-trust-card__label">Confianza comercial</span>
+            </div>
+
+            <div class="corporate-trust-card__content">
+              <h3>Better Business Bureau</h3>
+
+              <p>
+                Trabajamos con integridad, transparencia y comunicación directa para ofrecer un servicio
+                confiable, profesional y orientado a construir relaciones duraderas con cada cliente.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <ul class="corporate-trust__signals" aria-label="Indicadores de confianza" data-reveal="lift">
+          <li>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </span>
+            Estándares industriales
+          </li>
+
+          <li>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </span>
+            Enfoque en seguridad
+          </li>
+
+          <li>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </span>
+            Trabajo de precisión
+          </li>
+
+          <li>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </span>
+            Servicio confiable
+          </li>
+
+          <li>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </span>
+            Compromiso con el cliente
+          </li>
+
+          <li>
+            <span aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+            </span>
+            Calidad en cada detalle
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -200,27 +328,15 @@
           <picture class="welding-intro__image welding-intro__image--large">
             <source srcset="images/soldadura_5.avif" type="image/avif">
             <source srcset="images/soldadura_5.webp" type="image/webp">
-            <img
-              src="images/soldadura_5.jpg"
-              alt="Trabajo de soldadura profesional en metal"
-              width="760"
-              height="620"
-              loading="lazy"
-              decoding="async"
-            >
+            <img src="images/soldadura_5.jpg" alt="Trabajo de soldadura profesional en metal" width="760" height="620"
+              loading="lazy" decoding="async">
           </picture>
 
           <picture class="welding-intro__image welding-intro__image--small">
             <source srcset="images/soldadura_6.avif" type="image/avif">
             <source srcset="images/soldadura_6.webp" type="image/webp">
-            <img
-              src="images/soldadura_6.jpg"
-              alt="Fabricación metálica a medida"
-              width="420"
-              height="360"
-              loading="lazy"
-              decoding="async"
-            >
+            <img src="images/soldadura_6.jpg" alt="Fabricación metálica a medida" width="420" height="360"
+              loading="lazy" decoding="async">
           </picture>
 
           <div class="welding-intro__badge" aria-label="Enfoque de trabajo">
@@ -251,14 +367,8 @@
             <picture class="home-service-card__media">
               <source srcset="images/soldadura_6.avif" type="image/avif">
               <source srcset="images/soldadura_6.webp" type="image/webp">
-              <img
-                src="images/soldadura_6.jpg"
-                alt="Puerta y cerco metálico fabricado a medida"
-                width="520"
-                height="360"
-                loading="lazy"
-                decoding="async"
-              >
+              <img src="images/soldadura_6.jpg" alt="Puerta y cerco metálico fabricado a medida" width="520"
+                height="360" loading="lazy" decoding="async">
             </picture>
 
             <div class="home-service-card__content">
@@ -278,14 +388,8 @@
             <picture class="home-service-card__media">
               <source srcset="images/soldadura_5.avif" type="image/avif">
               <source srcset="images/soldadura_5.webp" type="image/webp">
-              <img
-                src="images/soldadura_5.jpg"
-                alt="Reparación de estructura metálica con soldadura profesional"
-                width="520"
-                height="360"
-                loading="lazy"
-                decoding="async"
-              >
+              <img src="images/soldadura_5.jpg" alt="Reparación de estructura metálica con soldadura profesional"
+                width="520" height="360" loading="lazy" decoding="async">
             </picture>
 
             <div class="home-service-card__content">
@@ -305,14 +409,8 @@
             <picture class="home-service-card__media">
               <source srcset="images/soldadura_1.avif" type="image/avif">
               <source srcset="images/soldadura_1.webp" type="image/webp">
-              <img
-                src="images/soldadura_1.jpg"
-                alt="Servicio móvil de soldadura en sitio"
-                width="520"
-                height="360"
-                loading="lazy"
-                decoding="async"
-              >
+              <img src="images/soldadura_1.jpg" alt="Servicio móvil de soldadura en sitio" width="520" height="360"
+                loading="lazy" decoding="async">
             </picture>
 
             <div class="home-service-card__content">
@@ -383,6 +481,8 @@
         </div>
       </div>
     </section>
+
+
 
     <section class="section home-process bg-light" aria-labelledby="home-process-title">
       <div class="container">
@@ -459,27 +559,15 @@
           <picture class="home-projects__image home-projects__image--large">
             <source srcset="images/soldadura_3.avif" type="image/avif">
             <source srcset="images/soldadura_3.webp" type="image/webp">
-            <img
-              src="images/soldadura_3.jpg"
-              alt="Trabajo metálico terminado por Art-Zac Desing & Iron Work Welding"
-              width="720"
-              height="640"
-              loading="lazy"
-              decoding="async"
-            >
+            <img src="images/soldadura_3.jpg" alt="Trabajo metálico terminado por Art-Zac Desing & Iron Work Welding"
+              width="720" height="640" loading="lazy" decoding="async">
           </picture>
 
           <picture class="home-projects__image home-projects__image--small">
             <source srcset="images/soldadura_2.avif" type="image/avif">
             <source srcset="images/soldadura_2.webp" type="image/webp">
-            <img
-              src="images/soldadura_2.jpg"
-              alt="Detalle de fabricación metálica"
-              width="420"
-              height="360"
-              loading="lazy"
-              decoding="async"
-            >
+            <img src="images/soldadura_2.jpg" alt="Detalle de fabricación metálica" width="420" height="360"
+              loading="lazy" decoding="async">
           </picture>
         </div>
       </div>

@@ -7,6 +7,13 @@
   background: #07090d;
 }
 
+.home-weld-hero,
+.home-weld-hero *,
+.home-weld-hero *::before,
+.home-weld-hero *::after {
+  box-sizing: border-box;
+}
+
 .home-weld-hero__bg {
   position: absolute;
   inset: 0;
@@ -26,6 +33,7 @@
     linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
   background-size: 50px 50px;
+  -webkit-mask-image: linear-gradient(180deg, black 0%, transparent 100%);
   mask-image: linear-gradient(180deg, black 0%, transparent 100%);
   pointer-events: none;
 }
@@ -45,15 +53,22 @@
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   align-items: center;
-  gap: clamp(1.75rem, 4vw, 4rem);
-  padding-top: clamp(7.3rem, 9vw, 8.5rem);
+  gap: clamp(2rem, 4vw, 4.5rem);
+  width: 100%;
+  max-width: 1280px;
+  min-width: 0;
+  margin-inline: auto;
+  padding-top: clamp(3.8rem, 5vw, 5.4rem);
+  padding-right: clamp(1.25rem, 4vw, 3rem);
   padding-bottom: clamp(3.25rem, 5vw, 4.5rem);
+  padding-left: clamp(1.25rem, 4vw, 3rem);
 }
 
 .home-weld-hero__content {
-  width: min(100%, 660px);
+  width: min(100%, 680px);
+  min-width: 0;
 }
 
 .home-weld-hero__eyebrow {
@@ -72,6 +87,7 @@
 .home-weld-hero__eyebrow::before {
   content: "";
   width: 42px;
+  min-width: 42px;
   height: 2px;
   border-radius: 999px;
   background: currentColor;
@@ -101,8 +117,93 @@
 .home-weld-hero__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0.85rem;
   margin-top: 1.9rem;
+}
+
+.home-weld-hero__call-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.home-weld-hero__accreditations {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.95rem;
+  min-width: 0;
+}
+
+.home-weld-hero__accreditation {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  transform: translateZ(0);
+}
+
+.home-weld-hero__accreditation::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.2rem;
+  width: 72%;
+  height: 0.7rem;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.24), transparent 72%);
+  filter: blur(8px);
+  transform: translateX(-50%);
+  opacity: 0.48;
+  pointer-events: none;
+}
+
+.home-weld-hero__accreditation img {
+  display: block;
+  width: auto;
+  max-width: min(14rem, 100%);
+  height: clamp(3rem, 5vw, 3.95rem);
+  object-fit: contain;
+  object-position: center;
+  filter:
+    drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 2px 8px rgba(255, 255, 255, 0.08))
+    saturate(1.05)
+    contrast(1.03);
+  transform: translateZ(0);
+  transition:
+    transform 220ms ease,
+    filter 220ms ease,
+    opacity 220ms ease;
+}
+
+.home-weld-hero__accreditation--aws img {
+  height: clamp(3.1rem, 5.1vw, 4.15rem);
+}
+
+.home-weld-hero__accreditation--bbb img {
+  height: clamp(3.2rem, 5.2vw, 4.25rem);
+}
+
+.home-weld-hero__accreditation:hover img {
+  transform: translate3d(0, -2px, 0) scale(1.035);
+  filter:
+    drop-shadow(0 14px 24px rgba(0, 0, 0, 0.32))
+    drop-shadow(0 3px 10px rgba(255, 255, 255, 0.1))
+    saturate(1.08)
+    contrast(1.04);
+}
+
+.home-weld-hero__accreditation:hover::after {
+  opacity: 0.62;
 }
 
 .home-weld-hero__trust {
@@ -129,13 +230,14 @@
 
 .home-weld-hero__stage {
   position: relative;
-  min-height: clamp(500px, 68vh, 720px);
   display: grid;
   align-items: center;
+  min-width: 0;
+  max-width: 100%;
+  min-height: clamp(500px, 68vh, 720px);
   perspective: 1400px;
   perspective-origin: 50% 50%;
 }
-
 
 .home-weld-hero__scene {
   --spark-x: 50%;
@@ -143,6 +245,8 @@
 
   position: relative;
   width: min(100%, 780px);
+  max-width: 100%;
+  min-width: 0;
   aspect-ratio: 1 / 1;
   margin-left: auto;
   border-radius: 2.2rem;
@@ -160,7 +264,6 @@
     box-shadow 220ms ease,
     filter 220ms ease;
 }
-
 
 .home-weld-hero__scene::before {
   content: "";
@@ -187,7 +290,6 @@
   pointer-events: none;
 }
 
-
 .home-weld-hero__art {
   position: absolute;
   inset: 3% 2% 2% 2%;
@@ -197,13 +299,16 @@
   object-fit: contain;
   object-position: center bottom;
   filter:
-    drop-shadow(0 22px 40px rgba(0, 0, 0, 0.34)) drop-shadow(0 6px 18px rgba(55, 150, 255, 0.10)) saturate(1.14) contrast(1.12) brightness(1.04);
+    drop-shadow(0 22px 40px rgba(0, 0, 0, 0.34))
+    drop-shadow(0 6px 18px rgba(55, 150, 255, 0.1))
+    saturate(1.14)
+    contrast(1.12)
+    brightness(1.04);
   transform: translate3d(0, 0, 24px) scale(1.03);
   transform-origin: 50% 72%;
   will-change: transform, filter;
   backface-visibility: hidden;
 }
-
 
 .home-weld-hero__sparks,
 .home-weld-hero__smoke {
@@ -216,13 +321,7 @@
 }
 
 .home-weld-hero__sparks {
-  position: absolute;
-  inset: 0;
   z-index: 9;
-  display: block;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
   mix-blend-mode: screen;
 }
 
@@ -233,13 +332,7 @@
 }
 
 .home-weld-hero__smoke {
-  position: absolute;
-  inset: 0;
   z-index: 8;
-  display: block;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
   opacity: 0.82;
   mix-blend-mode: normal;
   filter: blur(0.15px);
@@ -254,14 +347,16 @@
   height: 22%;
   border-radius: 999px;
   background:
-    linear-gradient(105deg,
+    linear-gradient(
+      105deg,
       transparent 0%,
       transparent 32%,
-      rgba(255, 255, 255, 0.0) 40%,
+      rgba(255, 255, 255, 0) 40%,
       rgba(255, 255, 255, 0.22) 48%,
       rgba(112, 190, 255, 0.16) 52%,
-      rgba(255, 255, 255, 0.0) 60%,
-      transparent 100%);
+      rgba(255, 255, 255, 0) 60%,
+      transparent 100%
+    );
   filter: blur(10px);
   mix-blend-mode: screen;
   opacity: 0.42;
@@ -300,9 +395,11 @@
   border-radius: 50%;
   transform: translate(-50%, -50%);
   background:
-    repeating-radial-gradient(circle,
+    repeating-radial-gradient(
+      circle,
       rgba(255, 255, 255, 0.055) 0 1px,
-      rgba(255, 255, 255, 0) 1px 8px);
+      rgba(255, 255, 255, 0) 1px 8px
+    );
   filter: blur(3px);
   mix-blend-mode: screen;
   opacity: 0.32;
@@ -331,26 +428,18 @@
   height: clamp(115px, 15vw, 220px);
   border-radius: 50%;
   background:
-    radial-gradient(circle,
+    radial-gradient(
+      circle,
       rgba(255, 255, 255, 0.82) 0%,
       rgba(255, 236, 190, 0.56) 12%,
-      rgba(72, 170, 255, 0.30) 34%,
+      rgba(72, 170, 255, 0.3) 34%,
       rgba(72, 170, 255, 0.09) 58%,
-      rgba(72, 170, 255, 0) 78%);
+      rgba(72, 170, 255, 0) 78%
+    );
   filter: blur(4px);
   mix-blend-mode: screen;
   transform: translate(-50%, -50%);
   animation: weldHeroGlow 480ms ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-
-.home-weld-hero__vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
-  background:
-    radial-gradient(circle at 50% 55%, transparent 48%, rgba(7, 9, 13, 0.18) 100%);
   pointer-events: none;
 }
 
@@ -366,138 +455,40 @@
   }
 }
 
-@media (max-width: 1120px) {
-  .home-weld-hero__grid {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 1.75rem;
-  }
-
-  .home-weld-hero h1 {
-    font-size: clamp(2.8rem, 5.8vw, 5.4rem);
-  }
-
-  .home-weld-hero__scene {
-    width: min(100%, 680px);
-  }
+.home-weld-hero__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  background:
+    radial-gradient(circle at 50% 55%, transparent 48%, rgba(7, 9, 13, 0.18) 100%);
+  pointer-events: none;
 }
 
-@media (max-width: 900px) {
-  .home-weld-hero__grid {
-    grid-template-columns: 1fr;
-    padding-top: 7.3rem;
-    padding-bottom: 2.75rem;
-    gap: 1.35rem;
-  }
-
-  .home-weld-hero__content {
-    order: 1;
-    width: 100%;
-    padding: 1.15rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1.5rem;
-    background:
-      radial-gradient(circle at 88% 12%, rgba(183, 101, 42, 0.14), transparent 14rem),
-      rgba(7, 9, 13, 0.64);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-
-  .home-weld-hero__stage {
-    order: 2;
-    min-height: auto;
-  }
-
-  .home-weld-hero__scene {
-    width: min(100%, 560px);
-    margin-inline: auto;
-    border-radius: 1.55rem;
-  }
-
-  .home-weld-hero h1 {
-    font-size: clamp(2.35rem, 10.5vw, 4.25rem);
-    letter-spacing: -0.055em;
-    line-height: 0.97;
-  }
-
-  .home-weld-hero__actions {
-    display: grid;
-  }
-
-  .home-weld-hero__smoke {
-    opacity: 1;
-  }
-
-  .home-weld-hero__sparks--back {
-    opacity: 0.42;
-  }
-
-  .home-weld-hero__metal-sweep {
-    bottom: 10%;
-    height: 18%;
-    opacity: 0.32;
-  }
-
-  .home-weld-hero__heat {
-    width: 135px;
-    height: 135px;
-    opacity: 0.24;
-  }
-
+/****************Hero layers click safety******************/
+.home-weld-hero__bg,
+.home-weld-hero__art,
+.home-weld-hero__sparks,
+.home-weld-hero__smoke,
+.home-weld-hero__heat,
+.home-weld-hero__metal-sweep,
+.home-weld-hero__glow,
+.home-weld-hero__vignette,
+.home-weld-hero__scene::before,
+.home-weld-hero__scene::after {
+  pointer-events: none !important;
 }
 
-@media (max-width: 520px) {
-  .home-weld-hero__grid {
-    padding-top: 7rem;
-    padding-bottom: 2.25rem;
-  }
-
-  .home-weld-hero__content {
-    padding: 1rem;
-  }
-
-  .home-weld-hero__eyebrow {
-    font-size: 0.68rem;
-    letter-spacing: 0.13em;
-  }
-
-  .home-weld-hero__subtitle {
-    font-size: 0.98rem;
-  }
-
-  .home-weld-hero__trust span {
-    min-height: 34px;
-    padding: 0.45rem 0.7rem;
-    font-size: 0.74rem;
-  }
-
- .home-weld-hero__scene {
-  width: min(100%, 410px);
+.home-weld-hero__stage,
+.home-weld-hero__scene {
+  pointer-events: auto;
 }
 
-  .home-weld-hero__glow {
-    width: 130px;
-    height: 130px;
-  }
-
-  .home-weld-hero__metal-sweep {
-  display: none;
+.home-weld-hero__content,
+.home-weld-hero__content *,
+.home-weld-hero__actions,
+.home-weld-hero__actions * {
+  pointer-events: auto !important;
 }
-
-.home-weld-hero__heat {
-  opacity: 0.2;
-}
-
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-weld-hero__glow {
-    animation: none;
-  }
-}
-
-
-
-
 
 /****************Intro******************/
 .welding-intro {
@@ -506,107 +497,111 @@
   background:
     radial-gradient(circle at 88% 8%, rgba(183, 101, 42, 0.1), transparent 24rem),
     linear-gradient(180deg, var(--color-light-gray) 0%, #e9e3d7 100%);
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    right: -12vw;
-    top: -18vw;
-    width: 42vw;
-    height: 42vw;
-    border-radius: 50%;
-    background: rgba(183, 101, 42, 0.12);
-    filter: blur(6px);
-    pointer-events: none;
-  }
+.welding-intro::before {
+  content: "";
+  position: absolute;
+  right: -8vw;
+  top: -14vw;
+  width: min(42vw, 620px);
+  height: min(42vw, 620px);
+  border-radius: 50%;
+  background: rgba(183, 101, 42, 0.12);
+  filter: blur(6px);
+  pointer-events: none;
+}
 
-  &__grid {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-    gap: clamp(2.5rem, 7vw, 5.5rem);
-    align-items: center;
-  }
+.welding-intro__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(2.5rem, 7vw, 5.5rem);
+  align-items: center;
+  min-width: 0;
+}
 
-  &__content {
-    max-width: 660px;
-  }
+.welding-intro__content {
+  max-width: 660px;
+  min-width: 0;
+}
 
-  &__content p {
-    margin-top: 1rem;
-  }
+.welding-intro__content p {
+  margin-top: 1rem;
+}
 
-  &__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-    margin-top: 1.8rem;
-  }
+.welding-intro__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.8rem;
+}
 
-  &__media {
-    position: relative;
-    min-height: 620px;
-  }
+.welding-intro__media {
+  position: relative;
+  min-width: 0;
+  min-height: 620px;
+  overflow: visible;
+}
 
-  &__image {
-    position: absolute;
-    display: block;
-    overflow: hidden;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-premium);
-  }
+.welding-intro__image {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-premium);
+}
 
-  &__image img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: saturate(0.92) contrast(1.08);
-  }
+.welding-intro__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.08);
+}
 
-  &__image--large {
-    inset: 0 8% 8% 0;
-  }
+.welding-intro__image--large {
+  inset: 0 8% 8% 0;
+}
 
-  &__image--small {
-    right: 0;
-    bottom: 0;
-    width: min(48%, 320px);
-    height: 300px;
-    border: 8px solid var(--color-light-gray);
-  }
+.welding-intro__image--small {
+  right: 0;
+  bottom: 0;
+  width: min(48%, 320px);
+  height: 300px;
+  border: 8px solid var(--color-light-gray);
+}
 
-  &__badge {
-    position: absolute;
-    left: -1rem;
-    bottom: 5.5rem;
-    display: grid;
-    gap: 0.3rem;
-    max-width: 230px;
-    padding: 1.1rem 1.25rem;
-    border: 1px solid rgba(183, 101, 42, 0.3);
-    border-radius: var(--radius-lg);
-    background:
-      radial-gradient(circle at 80% 20%, rgba(183, 101, 42, 0.22), transparent 8rem),
-      linear-gradient(135deg, var(--color-black) 0%, var(--color-gunmetal) 100%);
-    color: var(--color-white);
-    box-shadow: var(--shadow-premium);
-  }
+.welding-intro__badge {
+  position: absolute;
+  left: 0;
+  bottom: 5.5rem;
+  display: grid;
+  gap: 0.3rem;
+  max-width: 230px;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid rgba(183, 101, 42, 0.3);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 80% 20%, rgba(183, 101, 42, 0.22), transparent 8rem),
+    linear-gradient(135deg, var(--color-black) 0%, var(--color-gunmetal) 100%);
+  color: var(--color-white);
+  box-shadow: var(--shadow-premium);
+}
 
-  &__badge strong {
-    color: var(--color-ember);
-    font-size: 1.6rem;
-    font-weight: 950;
-    line-height: 1;
-  }
+.welding-intro__badge strong {
+  color: var(--color-ember);
+  font-size: 1.6rem;
+  font-weight: 950;
+  line-height: 1;
+}
 
-  &__badge span {
-    color: rgba(255, 255, 255, 0.74);
-    font-size: 0.86rem;
-    font-weight: 750;
-    line-height: 1.35;
-  }
+.welding-intro__badge span {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.86rem;
+  font-weight: 750;
+  line-height: 1.35;
 }
 
 /****************Home Services******************/
@@ -625,6 +620,7 @@
     linear-gradient(rgba(8, 8, 8, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(8, 8, 8, 0.045) 1px, transparent 1px);
   background-size: 44px 44px;
+  -webkit-mask-image: linear-gradient(180deg, black, transparent 82%);
   mask-image: linear-gradient(180deg, black, transparent 82%);
   pointer-events: none;
 }
@@ -638,12 +634,14 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(1rem, 2vw, 1.35rem);
+  min-width: 0;
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
 .home-service-card {
   display: grid;
   grid-template-rows: auto 1fr;
+  min-width: 0;
 }
 
 .home-service-card__media {
@@ -733,6 +731,7 @@
     linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
   background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(circle at 60% 50%, black, transparent 76%);
   mask-image: radial-gradient(circle at 60% 50%, black, transparent 76%);
   pointer-events: none;
 }
@@ -741,13 +740,15 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1.15fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
+  min-width: 0;
 }
 
 .home-proof__content {
   max-width: 620px;
+  min-width: 0;
 }
 
 .home-proof__content h2 {
@@ -766,18 +767,17 @@
 .home-proof__cards {
   display: grid;
   gap: 1rem;
+  min-width: 0;
 }
 
 .proof-card {
+  min-width: 0;
   padding: clamp(1.35rem, 3vw, 2rem);
 }
 
-.proof-card:nth-child(2) {
-  transform: translateX(2rem);
-}
-
+.proof-card:nth-child(2),
 .proof-card:nth-child(3) {
-  transform: translateX(4rem);
+  transform: none;
 }
 
 .proof-card h3 {
@@ -801,6 +801,7 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
+  min-width: 0;
   margin-top: clamp(2.5rem, 5vw, 4rem);
 }
 
@@ -819,6 +820,7 @@
 .process-step {
   position: relative;
   z-index: 1;
+  min-width: 0;
   padding: clamp(1.25rem, 2.4vw, 1.7rem);
   border: 1px solid rgba(8, 8, 8, 0.08);
   border-radius: var(--radius-lg);
@@ -864,13 +866,15 @@
 
 .home-projects__grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
   gap: clamp(2rem, 6vw, 5rem);
   align-items: center;
+  min-width: 0;
 }
 
 .home-projects__content {
   max-width: 620px;
+  min-width: 0;
 }
 
 .home-projects__content p {
@@ -883,6 +887,7 @@
 
 .home-projects__gallery {
   position: relative;
+  min-width: 0;
   min-height: 620px;
 }
 
@@ -914,7 +919,400 @@
   border: 8px solid #f3eee5;
 }
 
+/****************Mobile card touch effects******************/
+.home-service-card,
+.proof-card,
+.process-step {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 260ms ease,
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+}
+
+.home-service-card::before,
+.proof-card::before,
+.process-step::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at var(--card-x, 50%) var(--card-y, 50%),
+      rgba(183, 101, 42, 0.15),
+      transparent 13rem
+    );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 260ms ease;
+}
+
+.home-service-card:hover::before,
+.proof-card:hover::before,
+.process-step:hover::before,
+.home-service-card.is-touching::before,
+.proof-card.is-touching::before,
+.process-step.is-touching::before {
+  opacity: 1;
+}
+
+/****************Corporate Trust Light Premium Section******************/
+.corporate-trust {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.corporate-trust--light {
+  color: var(--color-ink);
+  background:
+    radial-gradient(circle at 12% 14%, rgba(217, 120, 45, 0.11), transparent 23rem),
+    radial-gradient(circle at 88% 8%, rgba(16, 38, 58, 0.08), transparent 25rem),
+    linear-gradient(180deg, #ffffff 0%, #f7f8fa 54%, #eef2f5 100%);
+}
+
+.corporate-trust--light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    linear-gradient(rgba(16, 38, 58, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 38, 58, 0.045) 1px, transparent 1px);
+  background-size: 52px 52px;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.72), transparent 88%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.72), transparent 88%);
+  pointer-events: none;
+}
+
+.corporate-trust--light::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -30% 18%;
+  z-index: -1;
+  height: 42%;
+  background:
+    radial-gradient(ellipse at center, rgba(217, 120, 45, 0.12), transparent 68%);
+  filter: blur(34px);
+  pointer-events: none;
+}
+
+.corporate-trust__header {
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+.corporate-trust__header .eyebrow {
+  color: var(--color-ember);
+}
+
+.corporate-trust__header h2 {
+  color: var(--color-ink);
+}
+
+.corporate-trust__header p {
+  color: rgba(16, 24, 32, 0.72);
+}
+
+.corporate-trust__cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 2.4vw, 1.5rem);
+  min-width: 0;
+  margin-top: clamp(2rem, 4vw, 3.2rem);
+}
+
+.corporate-trust-card {
+  position: relative;
+  min-width: 0;
+  min-height: 100%;
+  overflow: hidden;
+  padding: clamp(1.2rem, 3vw, 2rem);
+  border: 1px solid rgba(16, 38, 58, 0.1);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(246, 248, 250, 0.92)),
+    radial-gradient(circle at 18% 20%, rgba(217, 120, 45, 0.08), transparent 17rem);
+  box-shadow:
+    0 24px 70px rgba(16, 24, 32, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.95) inset;
+  transform: translateZ(0);
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease,
+    background 220ms ease;
+}
+
+.corporate-trust-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(217, 120, 45, 0.12) 46%, transparent 62%);
+  opacity: 0;
+  transform: translate3d(-28%, 0, 0);
+  transition:
+    opacity 220ms ease,
+    transform 520ms ease;
+  pointer-events: none;
+}
+
+.corporate-trust-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 1.25rem 1.25rem auto;
+  z-index: 0;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(217, 120, 45, 0.15), transparent 68%);
+  filter: blur(18px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.corporate-trust-card:hover {
+  border-color: rgba(217, 120, 45, 0.34);
+  box-shadow:
+    0 30px 86px rgba(16, 24, 32, 0.14),
+    0 0 0 1px rgba(217, 120, 45, 0.07),
+    0 1px 0 rgba(255, 255, 255, 0.98) inset;
+  transform: translate3d(0, -4px, 0);
+}
+
+.corporate-trust-card:hover::before {
+  opacity: 1;
+  transform: translate3d(34%, 0, 0);
+}
+
+.corporate-trust-card__topline,
+.corporate-trust-card__content {
+  position: relative;
+  z-index: 1;
+}
+
+.corporate-trust-card__topline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: clamp(1.35rem, 2.5vw, 2rem);
+}
+
+.corporate-trust-card__logo {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: clamp(12rem, 24vw, 16rem);
+  max-width: 100%;
+  min-width: 0;
+  height: clamp(4.75rem, 8vw, 6rem);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.corporate-trust-card__logo picture {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.corporate-trust-card__logo img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+  filter:
+    drop-shadow(0 10px 18px rgba(16, 24, 32, 0.12))
+    drop-shadow(0 2px 6px rgba(16, 24, 32, 0.08));
+  transform: translateZ(0);
+  transition:
+    transform 220ms ease,
+    filter 220ms ease,
+    opacity 220ms ease;
+}
+
+.corporate-trust-card__logo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.35rem;
+  width: 72%;
+  height: 0.6rem;
+  background: radial-gradient(circle, rgba(16, 24, 32, 0.14), transparent 72%);
+  filter: blur(10px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.corporate-trust-card:hover .corporate-trust-card__logo img {
+  transform: translate3d(0, -2px, 0) scale(1.02);
+  filter:
+    drop-shadow(0 16px 24px rgba(16, 24, 32, 0.16))
+    drop-shadow(0 4px 10px rgba(16, 24, 32, 0.1));
+}
+
+.corporate-trust-card__label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.1rem;
+  margin-top: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid rgba(217, 120, 45, 0.26);
+  border-radius: 999px;
+  background: rgba(217, 120, 45, 0.09);
+  color: #9a4f19;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.corporate-trust-card h3 {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: clamp(1.35rem, 2.4vw, 2rem);
+  font-weight: 950;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.corporate-trust-card p {
+  margin: 1rem 0 0;
+  color: rgba(16, 24, 32, 0.72);
+  font-size: clamp(0.96rem, 1.3vw, 1.05rem);
+  line-height: 1.72;
+}
+
+.corporate-trust__signals {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  min-width: 0;
+  margin: clamp(1.5rem, 3vw, 2rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.corporate-trust__signals li {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+  min-height: 3.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(16, 38, 58, 0.09);
+  border-radius: 999px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(246, 248, 250, 0.94));
+  color: rgba(16, 24, 32, 0.82);
+  font-size: 0.88rem;
+  font-weight: 850;
+  line-height: 1.25;
+  box-shadow:
+    0 14px 38px rgba(16, 24, 32, 0.075),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transform: translateZ(0);
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.corporate-trust__signals li:hover {
+  border-color: rgba(217, 120, 45, 0.28);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(255, 245, 235, 0.96));
+  color: var(--color-ink);
+  transform: translate3d(0, -2px, 0);
+}
+
+.corporate-trust__signals span {
+  display: inline-grid;
+  place-items: center;
+  width: 1.75rem;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: rgba(217, 120, 45, 0.12);
+  color: var(--color-ember);
+  box-shadow:
+    inset 0 0 0 1px rgba(217, 120, 45, 0.22),
+    0 0 22px rgba(217, 120, 45, 0.12);
+}
+
+.corporate-trust__signals svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /****************Responsive******************/
+@media (min-width: 520px) {
+  .corporate-trust__signals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .corporate-trust__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .corporate-trust__signals {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1081px) {
+  .proof-card:nth-child(2) {
+    transform: translateX(1rem);
+  }
+
+  .proof-card:nth-child(3) {
+    transform: translateX(2rem);
+  }
+}
+
+@media (min-width: 1180px) {
+  .corporate-trust__signals {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1120px) {
+  .home-weld-hero__grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 1.75rem;
+  }
+
+  .home-weld-hero h1 {
+    font-size: clamp(2.8rem, 5.8vw, 5.4rem);
+  }
+
+  .home-weld-hero__scene {
+    width: min(100%, 680px);
+  }
+}
+
 @media (max-width: 1080px) {
   .home-services__grid {
     grid-template-columns: 1fr 1fr;
@@ -934,8 +1332,227 @@
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
+  .home-weld-hero {
+    min-height: auto;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(217, 120, 45, 0.18), transparent 18rem),
+      radial-gradient(circle at 50% 62%, rgba(47, 132, 255, 0.14), transparent 19rem),
+      linear-gradient(180deg, #07090d 0%, #09111b 52%, #07090d 100%);
+  }
 
+  .home-weld-hero__bg {
+    opacity: 0.82;
+  }
+
+  .home-weld-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    max-width: none;
+    padding-top: clamp(4.8rem, 14vw, 6rem);
+    padding-right: clamp(0.85rem, 4vw, 1.25rem);
+    padding-bottom: 1.6rem;
+    padding-left: clamp(0.85rem, 4vw, 1.25rem);
+  }
+
+  .home-weld-hero__content {
+    order: 1;
+    width: 100%;
+    max-width: none;
+    margin-inline: auto;
+    padding: clamp(1rem, 4.5vw, 1.35rem);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: clamp(1.25rem, 5vw, 1.75rem);
+    background:
+      radial-gradient(circle at 50% -8%, rgba(217, 120, 45, 0.22), transparent 13rem),
+      radial-gradient(circle at 50% 108%, rgba(47, 132, 255, 0.14), transparent 14rem),
+      linear-gradient(180deg, rgba(18, 25, 34, 0.9), rgba(7, 9, 13, 0.92));
+    box-shadow:
+      0 24px 70px rgba(0, 0, 0, 0.42),
+      0 0 0 1px rgba(217, 120, 45, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .home-weld-hero__eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 22rem);
+    margin: 0 auto 0.85rem;
+    gap: 0.5rem;
+    font-size: clamp(0.55rem, 2vw, 0.66rem);
+    letter-spacing: 0.13em;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .home-weld-hero__eyebrow::before {
+    width: 22px;
+    min-width: 22px;
+  }
+
+  .home-weld-hero h1 {
+    width: 100%;
+    max-width: 23rem;
+    margin: 0 auto;
+    font-size: clamp(2.55rem, 13vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: -0.075em;
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .home-weld-hero__subtitle {
+    width: 100%;
+    max-width: 24rem;
+    margin: 1rem auto 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: clamp(0.84rem, 3vw, 0.96rem);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .home-weld-hero__actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.68rem;
+    width: 100%;
+    margin: 1.35rem auto 0;
+  }
+
+  .home-weld-hero__actions .btn {
+    width: 100%;
+    max-width: 100%;
+    min-height: 3.15rem;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: clamp(0.78rem, 2.8vw, 0.9rem);
+    font-weight: 950;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .home-weld-hero__call-group {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .home-weld-hero__accreditations {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 100%;
+    gap: clamp(0.65rem, 3vw, 1rem);
+    margin-top: 0.05rem;
+    overflow: visible;
+  }
+
+  .home-weld-hero__accreditation {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .home-weld-hero__accreditation img {
+    width: auto;
+    max-width: min(42vw, 9.5rem);
+    height: clamp(2.55rem, 9vw, 3.35rem);
+    object-fit: contain;
+  }
+
+  .home-weld-hero__accreditation--aws img {
+    height: clamp(2.55rem, 9vw, 3.35rem);
+  }
+
+  .home-weld-hero__accreditation--bbb img {
+    height: clamp(2.65rem, 9.4vw, 3.45rem);
+  }
+
+  .home-weld-hero__trust {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.52rem;
+    width: 100%;
+    margin: 1rem auto 0;
+  }
+
+  .home-weld-hero__trust span {
+    justify-content: center;
+    width: 100%;
+    min-height: 2.45rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 999px;
+    font-size: clamp(0.68rem, 2.6vw, 0.78rem);
+    text-align: center;
+    white-space: normal;
+    background: rgba(255, 255, 255, 0.065);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .home-weld-hero__stage {
+    order: 2;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: auto;
+    margin-top: 0;
+    perspective: 900px;
+  }
+
+  .home-weld-hero__scene {
+    width: min(100%, 390px);
+    margin-inline: auto;
+    border-radius: clamp(1.25rem, 5vw, 1.6rem);
+    transform: translateZ(0);
+    box-shadow:
+      0 24px 64px rgba(0, 0, 0, 0.36),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .home-weld-hero__art {
+    inset: 1% 0 1% 0;
+    width: 100%;
+    height: 100%;
+    transform: translate3d(0, 0, 18px) scale(1.06);
+  }
+
+  .home-weld-hero__sparks {
+    opacity: 1;
+  }
+
+  .home-weld-hero__sparks--back {
+    opacity: 0.42;
+  }
+
+  .home-weld-hero__smoke {
+    opacity: 0.86;
+  }
+
+  .home-weld-hero__heat {
+    width: 135px;
+    height: 135px;
+    opacity: 0.22;
+  }
+
+  .home-weld-hero__glow {
+    width: 130px;
+    height: 130px;
+  }
+
+  .home-weld-hero__metal-sweep {
+    display: none;
+  }
+}
+
+@media (max-width: 860px) {
   .welding-intro__grid,
   .home-proof__grid,
   .home-projects__grid {
@@ -948,8 +1565,29 @@
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
+  .home-service-card.is-touching,
+  .proof-card.is-touching,
+  .process-step.is-touching {
+    transform: scale(0.985) !important;
+  }
 
+  .home-service-card__media img,
+  .home-projects__image img,
+  .welding-intro__image img {
+    transition:
+      transform 700ms ease,
+      filter 700ms ease;
+  }
+
+  .home-service-card.is-visible .home-service-card__media img,
+  .home-projects__gallery.is-visible img,
+  .welding-intro__media.is-visible img {
+    transform: scale(1.025);
+  }
+}
+
+@media (max-width: 680px) {
   .home-services__grid,
   .home-process__steps {
     grid-template-columns: 1fr;
@@ -977,7 +1615,7 @@
 
   .welding-intro__image--small,
   .home-projects__image--small {
-    width: 78%;
+    width: min(78%, 320px);
     height: auto;
     justify-self: end;
     border-width: 6px;
@@ -997,6 +1635,54 @@
 }
 
 @media (max-width: 520px) {
+  .home-weld-hero__grid {
+    padding-top: 4.95rem;
+    padding-right: 0.65rem;
+    padding-bottom: 1.25rem;
+    padding-left: 0.65rem;
+  }
+
+  .home-weld-hero__content {
+    padding: 0.95rem;
+    border-radius: 1.35rem;
+  }
+
+  .home-weld-hero h1 {
+    max-width: 21rem;
+    font-size: clamp(2.35rem, 13vw, 3.35rem);
+  }
+
+  .home-weld-hero__subtitle {
+    max-width: 20.5rem;
+    font-size: 0.82rem;
+  }
+
+  .home-weld-hero__actions .btn {
+    min-height: 3rem;
+    font-size: 0.78rem;
+  }
+
+  .home-weld-hero__accreditation img {
+    max-width: 41vw;
+    height: 2.45rem;
+  }
+
+  .home-weld-hero__accreditation--aws img {
+    height: 2.45rem;
+  }
+
+  .home-weld-hero__accreditation--bbb img {
+    height: 2.55rem;
+  }
+
+  .home-weld-hero__trust span {
+    min-height: 2.35rem;
+    font-size: 0.66rem;
+  }
+
+  .home-weld-hero__scene {
+    width: min(100%, 340px);
+  }
 
   .welding-intro__actions {
     display: grid;
@@ -1006,204 +1692,112 @@
   .home-proof__content .btn {
     width: 100%;
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-
-  .home-service-card:hover .home-service-card__media img,
-  .home-service-card:focus-within .home-service-card__media img {
-    transform: none;
-  }
-}
-
-/****************Hero layers click safety******************/
-.home-weld-hero__bg,
-.home-weld-hero__art,
-.home-weld-hero__sparks,
-.home-weld-hero__smoke,
-.home-weld-hero__heat,
-.home-weld-hero__metal-sweep,
-.home-weld-hero__glow,
-.home-weld-hero__vignette,
-.home-weld-hero__scene::before,
-.home-weld-hero__scene::after {
-  pointer-events: none !important;
-}
-
-.home-weld-hero__stage,
-.home-weld-hero__scene {
-  pointer-events: auto;
-}
-
-.home-weld-hero__content,
-.home-weld-hero__content *,
-.home-weld-hero__actions,
-.home-weld-hero__actions * {
-  pointer-events: auto !important;
-}
-
-
-/****************Home mobile premium fixes******************/
-/****************Home mobile premium fixes******************/
-@media (max-width: 768px) {
-  .home-weld-hero {
-    min-height: auto;
-    overflow: hidden;
-  }
-
-  .home-weld-hero__grid {
-    display: flex;
+  .corporate-trust-card__topline {
     flex-direction: column;
-    gap: 1.15rem;
-    padding-top: 6.25rem;
-    padding-bottom: 2.35rem;
-  }
-
-  .home-weld-hero__content {
-    order: 1;
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 1.35rem;
-    background:
-      radial-gradient(circle at 88% 12%, rgba(183, 101, 42, 0.12), transparent 12rem),
-      rgba(7, 9, 13, 0.52);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-  .home-weld-hero__stage {
-    order: 2;
-    width: 100%;
-    min-height: auto;
-    margin-top: 0;
-    perspective: 900px;
-  }
-
-  .home-weld-hero__scene {
-    width: min(100%, 440px);
-    margin-inline: auto;
-    aspect-ratio: 1 / 1;
-    border-radius: 1.35rem;
-    transform: translateZ(0);
-  }
-
-  .home-weld-hero__art {
-    inset: 1% 0 1% 0;
-    width: 100%;
-    height: 100%;
-    transform: translate3d(0, 0, 18px) scale(1.08);
-  }
-
-  .home-weld-hero h1 {
-    font-size: clamp(2.35rem, 12vw, 3.75rem);
-    line-height: 0.96;
-    letter-spacing: -0.058em;
-  }
-
-  .home-weld-hero__subtitle {
-    font-size: 0.98rem;
-    line-height: 1.62;
-  }
-
-  .home-weld-hero__actions {
-    display: grid;
-    gap: 0.7rem;
-  }
-
-  .home-weld-hero__actions .btn {
-    width: 100%;
+    align-items: center;
     justify-content: center;
-  }
-
-  .home-weld-hero__trust {
-    gap: 0.45rem;
-  }
-
-  .home-weld-hero__trust span {
-    flex: 1 1 auto;
-    justify-content: center;
+    gap: 0.85rem;
     text-align: center;
   }
 
-  .home-weld-hero__sparks {
-    opacity: 1;
+  .corporate-trust-card__logo {
+    width: min(100%, 14rem);
+    min-width: 0;
+    height: auto;
+    margin-inline: auto;
+    overflow: visible;
   }
 
-  .home-weld-hero__smoke {
-    opacity: 0.82;
+  .corporate-trust-card__logo picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 
-  .home-weld-hero__heat {
-    width: 135px;
-    height: 135px;
-    opacity: 0.22;
+  .corporate-trust-card__logo img,
+  .corporate-trust-card__logo--aws img,
+  .corporate-trust-card__logo--bbb img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 5.6rem;
+    object-position: center;
   }
 
-  .home-weld-hero__glow {
-    width: 130px;
-    height: 130px;
+  .corporate-trust-card__logo::after {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
-  .home-weld-hero__metal-sweep {
-    display: none;
+  .corporate-trust-card__label {
+    margin-top: 0;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .corporate-trust-card__content,
+  .corporate-trust-card h3,
+  .corporate-trust-card p {
+    text-align: center;
+  }
+
+  .corporate-trust__signals li {
+    border-radius: 1.25rem;
   }
 }
 
-/****************Mobile card touch effects******************/
-.home-service-card,
-.proof-card,
-.process-step {
-  position: relative;
-  overflow: hidden;
-  transition:
-    transform 260ms ease,
-    box-shadow 260ms ease,
-    border-color 260ms ease;
-}
-
-.home-service-card::before,
-.proof-card::before,
-.process-step::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at var(--card-x, 50%) var(--card-y, 50%),
-      rgba(183, 101, 42, 0.15),
-      transparent 13rem);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 260ms ease;
-}
-
-.home-service-card:hover::before,
-.proof-card:hover::before,
-.process-step:hover::before,
-.home-service-card.is-touching::before,
-.proof-card.is-touching::before,
-.process-step.is-touching::before {
-  opacity: 1;
-}
-
-@media (max-width: 768px) {
-  .home-service-card.is-touching,
-  .proof-card.is-touching,
-  .process-step.is-touching {
-    transform: scale(0.985) !important;
+@media (max-width: 360px) {
+  .home-weld-hero__grid {
+    padding-right: 0.55rem;
+    padding-left: 0.55rem;
   }
 
-  .home-service-card__media img,
-  .home-projects__image img,
-  .welding-intro__image img {
-    transition:
-      transform 700ms ease,
-      filter 700ms ease;
+  .home-weld-hero__content {
+    padding: 0.85rem;
   }
 
-  .home-service-card.is-visible .home-service-card__media img,
-  .home-projects__gallery.is-visible img,
-  .welding-intro__media.is-visible img {
-    transform: scale(1.025);
+  .home-weld-hero h1 {
+    font-size: clamp(2.12rem, 12.6vw, 2.85rem);
+  }
+
+  .home-weld-hero__subtitle {
+    font-size: 0.78rem;
+  }
+
+  .home-weld-hero__accreditation img {
+    max-width: 40vw;
+    height: 2.25rem;
+  }
+
+  .home-weld-hero__accreditation--aws img {
+    height: 2.25rem;
+  }
+
+  .home-weld-hero__accreditation--bbb img {
+    height: 2.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-weld-hero__glow,
+  .home-weld-hero__heat,
+  .home-weld-hero__metal-sweep,
+  .home-service-card,
+  .proof-card,
+  .process-step,
+  .corporate-trust-card,
+  .corporate-trust-card::before,
+  .corporate-trust__signals li {
+    animation: none;
+    transition: none;
+  }
+
+  .home-service-card:hover .home-service-card__media img,
+  .home-service-card:focus-within .home-service-card__media img,
+  .corporate-trust-card:hover,
+  .corporate-trust__signals li:hover {
+    transform: none;
   }
 }
