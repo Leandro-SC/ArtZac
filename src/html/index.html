@@ -42,11 +42,35 @@
 
   <link rel="preload" as="image" href="images/hombre-soldando.svg">
 
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/app.css?v=20260622-001">
 </head>
 
 <body>
   @@include('./partials/header.html')
+
+    <div class="language-switcher" aria-label="Selector de idioma" translate="no">
+    <div class="language-switcher__google" id="google_translate_element" aria-hidden="true"></div>
+
+    <span class="language-switcher__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" focusable="false">
+        <path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 9h-3.02a15.8 15.8 0 0 0-1.26-5.03A8.04 8.04 0 0 1 18.9 11ZM12 4.04c.72 1.04 1.5 3.28 1.78 6.96h-3.56C10.5 7.32 11.28 5.08 12 4.04ZM4.25 13h3.87c.1 1.85.42 3.58.91 5A8.04 8.04 0 0 1 4.25 13Zm3.87-2H4.25a8.04 8.04 0 0 1 4.78-5c-.49 1.42-.81 3.15-.91 5ZM12 19.96c-.72-1.04-1.5-3.28-1.78-6.96h3.56c-.28 3.68-1.06 5.92-1.78 6.96Zm2.62-1.93A15.8 15.8 0 0 0 15.88 13h3.02a8.04 8.04 0 0 1-4.28 5.03Z" />
+      </svg>
+    </span>
+
+    <div class="language-switcher__content">
+      <span class="language-switcher__label">Idioma</span>
+
+      <div class="language-switcher__actions" role="group" aria-label="Cambiar idioma">
+        <button class="language-switcher__button is-active" type="button" data-language-option="es" aria-pressed="true"  translate="no">
+          ES
+        </button>
+
+        <button class="language-switcher__button" type="button" data-language-option="en" aria-pressed="false"  translate="no">
+          EN
+        </button>
+      </div>
+    </div>
+  </div>
 
   <main id="main">
 
@@ -89,10 +113,22 @@
                     alt="American Welding Society">
                 </span>
 
-                <span class="home-weld-hero__accreditation home-weld-hero__accreditation--bbb">
-                  <img src="images/acre1.jpg" width="112" height="48" loading="eager" decoding="async"
-                    alt="Better Business Bureau">
-                </span>
+                <a
+  class="home-weld-hero__accreditation home-weld-hero__accreditation--bbb home-weld-hero__bbb-seal"
+  href="https://www.bbb.org/us/il/west-chicago/profile/welding/art-zac-iron-work-0654-1000138678/#sealclick"
+  target="_blank"
+  rel="nofollow noopener noreferrer"
+  aria-label="Ver perfil de Art-Zac Iron Work en Better Business Bureau"
+>
+  <img
+    src="https://seal-chicago.bbb.org/seals/black-seal-293-61-bbb-1000138678.png"
+    width="293"
+    height="61"
+    loading="eager"
+    decoding="async"
+    alt="Art-Zac Iron Work BBB Business Review"
+  >
+</a>
               </div>
             </div>
           </div>
@@ -530,7 +566,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="js/app.min.js" defer></script>
+  <script src="js/app.min.js?v=20260622-001" defer></script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 </body>
 
