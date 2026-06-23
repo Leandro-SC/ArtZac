@@ -92,14 +92,20 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap"
+  rel="stylesheet">
 
   <!-- Preload hero image -->
-  <link rel="preload" as="image" href="images/hombre-soldando.svg?v=20260622-004">
+  <link
+  rel="preload"
+  as="image"
+  href="images/hombre-soldando.svg?v=20260622-005"
+  type="image/svg+xml"
+  fetchpriority="high"
+>
 
   <!-- Main CSS -->
-  <link rel="stylesheet" href="css/app.css?v=20260622-004">
+  <link rel="stylesheet" href="css/app.css?v=20260622-005">
 </head>
 
 <body>
@@ -109,10 +115,10 @@
   <div class="container site-header__inner">
     <a class="site-logo" href="index.html" aria-label="Ir al inicio de Art-Zac Design & Iron Work Welding">
       <picture class="site-logo__picture">
-        <source srcset="images/logo.avif?v=20260622-004" type="image/avif">
-        <source srcset="images/logo.webp?v=20260622-004" type="image/webp">
+        <source srcset="images/logo.avif?v=20260622-005" type="image/avif">
+        <source srcset="images/logo.webp?v=20260622-005" type="image/webp">
         <img
-          src="images/logo.png?v=20260622-004"
+          src="images/logo.png?v=20260622-005"
           alt="Art-Zac Design & Iron Work Welding"
           width="168"
           height="52"
@@ -184,7 +190,7 @@
       <div class="home-weld-hero__bg" aria-hidden="true"></div>
 
       <div class="container home-weld-hero__grid">
-        <div class="home-weld-hero__content" data-reveal="fade-right">
+        <div class="home-weld-hero__content">
           <span class="home-weld-hero__eyebrow">
             Soldadura profesional y fabricación metálica
           </span>
@@ -215,8 +221,15 @@
 
               <div class="home-weld-hero__accreditations" aria-label="Referencias de confianza">
                 <span class="home-weld-hero__accreditation home-weld-hero__accreditation--aws">
-                  <img src="images/acre3.jpg" width="112" height="48" loading="eager" decoding="async"
-                    alt="American Welding Society">
+                <img
+  src="images/acre3.jpg?v=20260622-005"
+  width="112"
+  height="48"
+  loading="lazy"
+  decoding="async"
+  fetchpriority="low"
+  alt="American Welding Society"
+>
                 </span>
 
                 <a
@@ -226,14 +239,15 @@
   rel="nofollow noopener noreferrer"
   aria-label="Ver perfil de Art-Zac Iron Work en Better Business Bureau"
 >
-  <img
-    src="https://seal-chicago.bbb.org/seals/black-seal-293-61-bbb-1000138678.png"
-    width="293"
-    height="61"
-    loading="eager"
-    decoding="async"
-    alt="Art-Zac Iron Work BBB Business Review"
-  >
+<img
+  src="https://seal-chicago.bbb.org/seals/black-seal-293-61-bbb-1000138678.png"
+  width="293"
+  height="61"
+  loading="lazy"
+  decoding="async"
+  fetchpriority="low"
+  alt="Art-Zac Iron Work BBB Business Review"
+>
 </a>
               </div>
             </div>
@@ -242,9 +256,18 @@
       
         </div>
 
-        <div class="home-weld-hero__stage" aria-hidden="true" data-reveal="fade-left">
+       <div class="home-weld-hero__stage" aria-hidden="true">
           <div class="home-weld-hero__scene" data-weld-scene data-spark-x="0.50" data-spark-y="0.89">
-            <img class="home-weld-hero__art" src="images/hombre-soldando.svg" alt="" loading="eager" decoding="async">
+           <img
+  class="home-weld-hero__art"
+  src="images/hombre-soldando.svg?v=20260622-005"
+  alt=""
+  width="900"
+  height="900"
+  loading="eager"
+  decoding="async"
+  fetchpriority="high"
+>
 
             <canvas class="home-weld-hero__sparks home-weld-hero__sparks--back" data-weld-sparks-back></canvas>
             <canvas class="home-weld-hero__sparks" data-weld-sparks></canvas>
@@ -283,8 +306,15 @@
                 <picture>
                   <source srcset="images/acre3.avif" type="image/avif">
                   <source srcset="images/acre3.webp" type="image/webp">
-                  <img src="images/acre3.jpg" width="180" height="96" loading="lazy" decoding="async"
-                    alt="Logotipo de American Welding Society">
+                 <img
+  src="images/acre3.jpg?v=20260622-005"
+  width="112"
+  height="48"
+  loading="lazy"
+  decoding="async"
+  fetchpriority="low"
+  alt="American Welding Society"
+>
                 </picture>
               </div>
 
@@ -705,10 +735,10 @@
     <div class="site-footer__brand">
       <a class="site-footer__logo" href="index.html" aria-label="Ir al inicio de Art-Zac Design & Iron Work Welding">
         <picture>
-          <source srcset="images/logo.avif?v=20260622-004" type="image/avif">
-          <source srcset="images/logo.webp?v=20260622-004" type="image/webp">
+          <source srcset="images/logo.avif?v=20260622-005" type="image/avif">
+          <source srcset="images/logo.webp?v=20260622-005" type="image/webp">
           <img
-            src="images/logo.png?v=20260622-004"
+            src="images/logo.png?v=20260622-005"
             alt="Art-Zac Design & Iron Work Welding"
             width="180"
             height="60"
@@ -823,7 +853,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
-  <script src="js/app.min.js?v=20260622-004" defer></script>
+  <script src="js/app.min.js?v=20260622-005" defer></script>
   <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
 </body>
 
