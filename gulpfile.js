@@ -181,10 +181,46 @@ function videos(done) {
     .on("error", done);
 }
 
-function staticFiles() {
-  return gulp
-    .src(["robots.txt", "sitemap.xml", ".htaccess"], { allowEmpty: true })
-    .pipe(gulp.dest(paths.build));
+function staticFiles(done) {
+  const files = [
+    ".htaccess",
+    "robots.txt",
+    "sitemap.xml",
+    "site.webmanifest",
+
+    "favicon.ico",
+    "favicon.svg",
+    "favicon-16x16.png",
+    "favicon-32x32.png",
+    "favicon-96x96.png",
+
+    "apple-touch-icon.png",
+    "android-chrome-192x192.png",
+    "android-chrome-512x512.png"
+  ];
+
+  if (!fs.existsSync(paths.build)) {
+    fs.mkdirSync(paths.build, { recursive: true });
+  }
+
+  files.forEach((fileName) => {
+    const sourcePath = path.join(__dirname, fileName);
+    const outputPath = path.join(__dirname, paths.build, fileName);
+
+    if (fs.existsSync(sourcePath)) {
+      fs.copyFileSync(sourcePath, outputPath);
+      console.log(`✔ Copiado: ${fileName}`);
+    } else {
+      console.log(`⚠ No encontrado en raiz/: ${fileName}`);
+    }
+  });
+
+  done();
+}
+
+function reload(done) {
+  browserSync.reload();
+  done();
 }
 
 function serve() {
@@ -199,6 +235,23 @@ function serve() {
   gulp.watch([paths.html, paths.partials], html);
   gulp.watch(paths.scss, styles);
   gulp.watch(paths.js, scripts);
+  gulp.watch(paths.images, images);
+  gulp.watch(paths.videos, videos);
+
+  gulp.watch([
+    ".htaccess",
+    "robots.txt",
+    "sitemap.xml",
+    "site.webmanifest",
+    "favicon.ico",
+    "favicon.svg",
+    "favicon-16x16.png",
+    "favicon-32x32.png",
+    "favicon-96x96.png",
+    "apple-touch-icon.png",
+    "android-chrome-192x192.png",
+    "android-chrome-512x512.png"
+  ], gulp.series(staticFiles, reload));
 }
 
 const devBuild = gulp.series(html, styles, scripts, staticFiles);
@@ -210,6 +263,7 @@ exports.styles = styles;
 exports.scripts = scripts;
 exports.images = images;
 exports.videos = videos;
+exports.staticFiles = staticFiles;
 exports.build = build;
 exports.dev = dev;
 exports.default = dev;
