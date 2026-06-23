@@ -186,17 +186,35 @@ function staticFiles(done) {
     ".htaccess",
     "robots.txt",
     "sitemap.xml",
+
     "site.webmanifest",
+    "manifest.json",
+    "browserconfig.xml",
 
     "favicon.ico",
-    "favicon.svg",
     "favicon-16x16.png",
     "favicon-32x32.png",
     "favicon-96x96.png",
+    "favicon-256x256.png",
 
     "apple-touch-icon.png",
+    "apple-icon-57x57.png",
+    "apple-icon-60x60.png",
+    "apple-icon-72x72.png",
+    "apple-icon-76x76.png",
+    "apple-icon-114x114.png",
+    "apple-icon-120x120.png",
+    "apple-icon-144x144.png",
+    "apple-icon-152x152.png",
+    "apple-icon-180x180.png",
+
     "android-chrome-192x192.png",
-    "android-chrome-512x512.png"
+    "android-chrome-512x512.png",
+
+    "ms-icon-70x70.png",
+    "ms-icon-144x144.png",
+    "ms-icon-150x150.png",
+    "ms-icon-310x310.png"
   ];
 
   if (!fs.existsSync(paths.build)) {
@@ -239,19 +257,39 @@ function serve() {
   gulp.watch(paths.videos, videos);
 
   gulp.watch([
-    ".htaccess",
-    "robots.txt",
-    "sitemap.xml",
-    "site.webmanifest",
-    "favicon.ico",
-    "favicon.svg",
-    "favicon-16x16.png",
-    "favicon-32x32.png",
-    "favicon-96x96.png",
-    "apple-touch-icon.png",
-    "android-chrome-192x192.png",
-    "android-chrome-512x512.png"
-  ], gulp.series(staticFiles, reload));
+  ".htaccess",
+  "robots.txt",
+  "sitemap.xml",
+
+  "site.webmanifest",
+  "manifest.json",
+  "browserconfig.xml",
+
+  "favicon.ico",
+  "favicon-16x16.png",
+  "favicon-32x32.png",
+  "favicon-96x96.png",
+  "favicon-256x256.png",
+
+  "apple-touch-icon.png",
+  "apple-icon-57x57.png",
+  "apple-icon-60x60.png",
+  "apple-icon-72x72.png",
+  "apple-icon-76x76.png",
+  "apple-icon-114x114.png",
+  "apple-icon-120x120.png",
+  "apple-icon-144x144.png",
+  "apple-icon-152x152.png",
+  "apple-icon-180x180.png",
+
+  "android-chrome-192x192.png",
+  "android-chrome-512x512.png",
+
+  "ms-icon-70x70.png",
+  "ms-icon-144x144.png",
+  "ms-icon-150x150.png",
+  "ms-icon-310x310.png"
+], gulp.series(staticFiles, reload));
 }
 
 const devBuild = gulp.series(html, styles, scripts, staticFiles);

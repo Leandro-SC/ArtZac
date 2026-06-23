@@ -5,8 +5,8 @@
 # - El cliente siempre ve la ultima version del HTML.
 # - CSS, JS, imagenes y fuentes se cachean fuerte para velocidad.
 # - Los cambios visuales se fuerzan con version en la URL:
-#   css/app.css?v=20260622-003
-#   js/app.min.js?v=20260622-003
+#   css/app.css?v=20260622-004
+#   js/app.min.js?v=20260622-004
 # =====================================================
 
 Options -Indexes
@@ -49,8 +49,8 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
   # CSS y JS: cache largo para velocidad.
   # IMPORTANTE: deben usarse con version en el HTML:
-  # css/app.css?v=20260622-003
-  # js/app.min.js?v=20260622-003
+  # css/app.css?v=20260622-004
+  # js/app.min.js?v=20260622-004
   <FilesMatch "\.(css|js)$">
     Header always set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
@@ -58,7 +58,7 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   # Imagenes: cache largo.
   # Si reemplazas una imagen manteniendo el mismo nombre,
   # agregale version en el HTML:
-  # images/logo.png?v=20260622-003
+  # images/logo.png?v=20260622-004
   <FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|svg|ico)$">
     Header always set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
